@@ -35,6 +35,8 @@
     "heroku-postbuild": "clap build"
   },
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-stage-0": "^6.24.1",
     "bluebird": "^3.4.6",
     "crypto": "^1.0.1",
     "electrode-archetype-react-app": "^4.0.0",
