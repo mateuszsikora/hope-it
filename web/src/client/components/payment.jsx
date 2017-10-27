@@ -2,9 +2,9 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 const Payment = ({userid, amount, date}) => (
-  <div>
+  <li>
     {userid}: {amount}: {date}
-  </div>
+  </li>
 )
 
 Payment.propTypes = {

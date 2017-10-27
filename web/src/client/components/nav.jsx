@@ -7,6 +7,7 @@ export default function MainNav() {
       <li><Link to="/">Main</Link></li>
       <li><Link to="/dupa">Dupa</Link></li>
       <li><Link to="/hello">Hello</Link></li>
+      <li><Link to="/payments">Payments</Link></li>
     </ul>
   )
 }

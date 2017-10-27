@@ -9,6 +9,7 @@ import { Router, browserHistory } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers';
+
 //
 
 //
@@ -16,6 +17,7 @@ import rootReducer from './reducers';
 // The webapp's full HTML will check and call it once the js-content
 // DOM is created.
 //
+
 
 window.webappStart = () => {
   const initialState = window.__PRELOADED_STATE__;
@@ -26,4 +28,8 @@ window.webappStart = () => {
     </Provider>,
     document.querySelector('.js-content')
   );
+  const l = document.createElement("link");
+  l.rel = "stylesheet"
+  l.href= "//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css";
+  document.head.append(l)
 };

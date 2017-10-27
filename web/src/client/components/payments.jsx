@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {Segment} from 'semantic-ui-react'
 import Payment from './payment';
 
 class Payments extends PureComponent {
@@ -10,11 +11,19 @@ class Payments extends PureComponent {
   }
 
   renderPaymentsList(){
-    return this.props.payments.map(payment => (<Payment payment={payment} />))
+    return (
+      <Segment>
+     {this.props.payments.map((payment, idx) => (<Payment {...payment} key={idx} />))}
+   </Segment>
+   )
   }
 
   render(){
-    return this.renderPaymentsList()
+    return (
+      <ul>
+        {this.renderPaymentsList()}
+      </ul>
+    )
   }
 }
 
