@@ -23,7 +23,7 @@ import electrodePng from '../images/electrode.png';
 import DemoStates from './demo-states';
 import DemoPureStates from './demo-pure-states';
 import { DemoButtons } from './demo-buttons';
-
+import nav from './nav';
 import { Button } from 'semantic-ui-react'
 
 const ButtonExampleButton = () => (
