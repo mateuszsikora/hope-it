@@ -22,7 +22,6 @@ export const routes = (
     <Route path="/payments" component={createWithNav(() => (
         <Payments />
       ))}/>
-    </Container>
     <Route path="/login" component={Login}/>
-  </div>
+  </Container>
 );
