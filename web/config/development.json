@@ -1,2 +1,8 @@
 {
+  "mongodb": {
+    "host": "localhost",
+    "port": "27017"
+  },
+  "secret": "hope_it_really_works",
+  "env": "dev"
 }
