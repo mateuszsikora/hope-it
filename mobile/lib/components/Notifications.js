@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+// @flow
 
 import React, { Component } from 'react';
 import {
@@ -18,7 +14,7 @@ import FCM from "react-native-fcm";
 import PushController from "./PushController";
 import firebaseClient from  "./FirebaseClient";
 
-export default class App extends Component {
+export default class Notifications extends Component {
   constructor(props) {
     super(props);
 
