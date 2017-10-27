@@ -153,5 +153,6 @@ dist
 Procfile
 config/assets.json
 npm-shrinkwrap.json
+package-lock.json
 
 .isomorphic-loader-config.json
