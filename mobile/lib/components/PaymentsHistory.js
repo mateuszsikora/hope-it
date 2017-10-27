@@ -37,15 +37,6 @@ export default class PaymentsHistory extends Component {
 
     return (
         <Container style={commonStyles.container}>
-          <Header>
-            <AndroidBackButton/>
-            <Button transparent onPress={this.handeBackButton}>
-              <Icon name='menu'/>
-            </Button>
-            <Body>
-            <Title>Historia Płatności</Title>
-            </Body>
-          </Header>
           <Content>
             {payments.map((payment, key) => (
                 <PaymentHistoryEntry key={key} {...payment}/>

@@ -9,15 +9,15 @@ export default function NavFooter({ onChange, location, history }) {
         <FooterTab>
           <Button
               active={location.pathname === routes.wall}
-              onPress={() => history.push(routes.wall)}
+              onPress={() => location.pathname !== routes.wall && history.push(routes.wall)}
           >
             <Text>Ściana</Text>
           </Button>
           <Button
               active={location.pathname === routes.payments_history}
-              onPress={() => history.push(routes.payments_history)}
+              onPress={() => location.pathname !== routes.payments_history && history.push(routes.payments_history)}
           >
-            <Text>asdas</Text>
+            <Text>Historia Płatności</Text>
           </Button>
         </FooterTab>
       </Footer>

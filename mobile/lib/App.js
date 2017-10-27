@@ -1,5 +1,5 @@
 import React from 'react';
-import { NativeRouter, Route, Redirect, Switch, withRouter } from 'react-router-native'
+import { NativeRouter, Route, Redirect, Switch, withRouter, AndroidBackButton } from 'react-router-native'
 import Wall from './components/Wall'
 import PaymentsHistory from './components/PaymentsHistory';
 import routes from './routes';
@@ -15,6 +15,7 @@ export default function App() {
   return (
       <NativeRouter>
         <Container style={commonStyles.container}>
+          <AndroidBackButton/>
           <Switch>
             <Route path={routes.wall} component={Wall}/>
             <Route path={routes.payments_history} component={PaymentsHistory}/>
