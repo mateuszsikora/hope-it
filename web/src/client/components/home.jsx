@@ -15,16 +15,13 @@
  */
 
 import React from 'react';
-import '../styles/normalize.css';
-// import '../styles/raleway.css';
-import skeleton from '../styles/skeleton.css';
 import custom from '../styles/custom.css';
 import electrodePng from '../images/electrode.png';
 import DemoStates from './demo-states';
 import DemoPureStates from './demo-pure-states';
 import { DemoButtons } from './demo-buttons';
 import nav from './nav';
-import { Button } from 'semantic-ui-react'
+import { Button, Header, Segment } from 'semantic-ui-react'
 import Payments from './payments';
 
 const ButtonExampleButton = () => (
@@ -39,22 +36,22 @@ export default () =>
     {/**/}
 
     <section className={custom.header}>
-      <h2 className={skeleton.title}>
+      <Header>
         Hello from {' '}
         <a href="https://github.com/electrode-io">{'Electrode'} <img src={electrodePng} /></a>
-      </h2>
+      </Header>
       <ButtonExampleButton />
     </section>
 
-    <div className={custom['docs-section']}>
+    <Segment>
       <DemoStates />
-    </div>
+    </Segment>
 
-    <div className={custom['docs-section']}>
+    <Segment>
       <DemoPureStates />
-    </div>
+    </Segment>
 
-    <div className={custom['docs-section']}>
+    <Segment>
       <DemoButtons />
-    </div>
+    </Segment>
   </div>);
