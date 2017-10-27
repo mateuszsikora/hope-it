@@ -133,6 +133,7 @@ android {
 }
 
 dependencies {
+    compile 'com.google.android.gms:play-services:10.0.1'
     compile project(':react-native-fcm')
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile fileTree(dir: "libs", include: ["*.jar"])

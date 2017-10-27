@@ -10,9 +10,8 @@ module.exports = () => {
       name: 'Admin',
       email: 'admin@admin.com',
       password: 'admin'
-    }, (err) => {
-
-      console.log('finished populating users',err);
+    }, () => {
+      console.log('finished populating users');
     });
   });
 }

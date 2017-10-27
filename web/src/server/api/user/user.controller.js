@@ -1,6 +1,8 @@
 import User from './user.schema';
 import Boom from 'boom';
 
+const {config} = require('electrode-confippet');
+
 module.exports = [{
   method: 'GET',
   path: '/api/users',
@@ -10,16 +12,17 @@ module.exports = [{
     }).catch((err) => {
       throw err;
     });
+  },
+  config: {
+    auth: 'jwt'
   }
 }, {
   method: 'POST',
   path: '/api/users',
   handler: (request, reply) => {
     const newUser = new User(request.payload);
-      newUser.provider = 'local';
-      newUser.role = 'user';
       newUser.save().then((user) => {
-        const token = jwt.sign({id: user._id}, 'secret', {expiresIn: 60 * 5});
+        const token = jwt.sign({id: user._id}, config.secret, {expiresIn: 60 * 5});
       reply({token}).code(201);
     }).catch((err) => {
         throw err;
@@ -35,6 +38,9 @@ module.exports = [{
     }).catch((err) => {
         throw err;
     });
+  },
+  config: {
+    auth: 'jwt'
   }
 }, {
   method: 'POST',
@@ -52,7 +58,7 @@ module.exports = [{
         return reply(Boom.unauthorized('Email or Password invalid'));
       }
 
-      const token = jwt.sign({id: user._id}, this.configuration.secrets.session, {expiresIn: 60 * 60 * 5});
+      const token = jwt.sign({id: user._id}, config.secret, {expiresIn: 60 * 60 * 5});
 
       reply({token});
     })
