@@ -65,7 +65,7 @@ export default class Notifications extends Component {
     let { token, tokenCopyFeedback } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View>
         <PushController
           onChangeToken={token => this.setState({token: token || ""})}
         />

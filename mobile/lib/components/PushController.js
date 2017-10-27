@@ -61,6 +61,10 @@ export default class PushController extends Component {
         }
       }
 
+      if (!this.notificationListener) {
+        return
+      }
+
       this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
         console.log("TOKEN (refreshUnsubscribe)", token);
         this.props.onChangeToken(token);
@@ -80,7 +84,9 @@ export default class PushController extends Component {
 
   componentWillUnmount() {
     this.notificationListener.remove();
-    this.refreshTokenListener.remove();
+    if (this.refreshTokenListener) {
+      this.refreshTokenListener.remove();
+    }
   }
 
 

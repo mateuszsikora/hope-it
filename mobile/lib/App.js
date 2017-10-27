@@ -5,24 +5,60 @@ import {
   StyleSheet,
   Text,
   View,
-  AppRegistry,
 } from 'react-native'
+import { NativeRouter, Route, Link } from 'react-router-native'
 
 import Notifications from './components/Notifications'
+import Wall from './components/Wall'
 
 export default function App () {
   return (
-    <View style={styles.container}>
-      <Notifications />
-    </View>
+    <NativeRouter>
+      <View style={styles.container}>
+        <View style={styles.nav}>
+          <Link
+            to="/"
+            underlayColor='#f0f4f7'
+            style={styles.navItem}>
+              <Text>Wall</Text>
+          </Link>
+          <Link
+            to="/notifications"
+            underlayColor='#f0f4f7'
+            style={styles.navItem}>
+              <Text>Notifications</Text>
+          </Link>
+        </View>
+
+        <Route exact path="/" component={Wall}/>
+        <Route path="/notifications" component={Notifications}/>
+      </View>
+    </NativeRouter>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 25,
+    padding: 10,
+  },
+  header: {
+    fontSize: 20,
+  },
+  nav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  navItem: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    padding: 10,
+  },
+  subNavItem: {
+    padding: 5,
+  },
+  topic: {
+    textAlign: 'center',
+    fontSize: 15,
   }
 })
