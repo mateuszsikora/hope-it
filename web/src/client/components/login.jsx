@@ -30,6 +30,13 @@ const titleStyles = {
   textShadow: '0 0 50px #000'
 };
 
+const handleSubmit = (event) => {
+  event.preventDefault();
+  const email = event.target.email.value;
+  const password = event.target.password.value;
+  console.log(email, password);
+};
+
 export default () => (
   <div style={backgroundStyles} className="ui middle aligned center aligned grid">
     <div style={ loginPanelStyles } className="column">
@@ -41,7 +48,7 @@ export default () => (
           </div>
         </h2>
       </div>
-      <form className="ui large form">
+      <form className="ui large form" onSubmit={ handleSubmit }>
         <div style={ loginPanelBackground } className="ui stacked segment">
           <div className="field">
             <div className="ui left icon input">
@@ -55,7 +62,7 @@ export default () => (
               <input type="password" name="password" placeholder="Password"/>
             </div>
           </div>
-          <div className="ui fluid large teal submit button">Login</div>
+          <button className="ui fluid large teal submit button">Login</button>
         </div>
         <div className="ui error message" />
       </form>
