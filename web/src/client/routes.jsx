@@ -5,7 +5,7 @@ import AddNewStory from './components/new-story';
 import AddNewDonee from './components/new-donee';
 import Payments from './components/payments';
 import { createWithNav } from './components/nav';
-
+import Login from './components/login';
 export const routes = (
   <div>
     <Route path="/" component={createWithNav(Home)}/>
@@ -17,8 +17,10 @@ export const routes = (
     <Route path="/dupa" component={createWithNav(() => (
       <span>dupa</span>
     ))}/>
-  <Route path="/payments" component={createWithNav(() => (
+
+    <Route path="/payments" component={createWithNav(() => (
       <Payments payments={[{}]} />
     ))}/>
+    <Route path="/login" component={Login}/>
   </div>
 );
