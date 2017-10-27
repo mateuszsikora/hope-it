@@ -8,22 +8,17 @@ import nav from './nav';
 import { Button } from 'semantic-ui-react'
 
 const addNewStory = () => {
-    console.log('sending new story');
+    console.log('sending new donee');
     var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "/api/stories");
+    xmlhttp.open("POST", "/api/donees");
     xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify({name:"", time:"2pm"}));
+    xmlhttp.send(JSON.stringify({name:"dupa"}));
 }
 
 export default () =>
   (<div>
       <h1>Dodaj nowy wpis</h1>
-      <textarea placeholder="Dodaj nową wiadomość..."></textarea>
-      <select>
-        <option value="" disabled selected>Wybierz akcję</option>
-        <option value="hora curka">Hora curka</option>
-        <option value="stary stefan">stary stefan</option>
-      </select>
+      <input placeholder="Dodaj nowego obdarowywanego..." />
       <button onClick={addNewStory}>Dodaj</button>
   </div>);
 
