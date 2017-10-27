@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "461607129372",
+    "firebase_url": "https://hope-it.firebaseio.com",
+    "project_id": "hope-it",
+    "storage_bucket": "hope-it.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461607129372:android:750cb3f36c539b8c",
+        "android_client_info": {
+          "package_name": "com.hopeit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461607129372-vch22g6af6p8dgol8s4m58f4crjs2atr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb4OgRxbNCGzyI4l8VR_iBA2jLm5jxDUQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
