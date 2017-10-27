@@ -1,8 +1,8 @@
 import User from '../api/user/user.schema';
 
-module.exports = () => {
-  User.find({}).remove(() => {
-    User.create({
+module.exports = async () => {
+  await User.find({}).remove();
+  await User.create({
       name: 'Test User',
       email: 'test@test.com',
       password: 'test'
@@ -10,8 +10,6 @@ module.exports = () => {
       name: 'Admin',
       email: 'admin@admin.com',
       password: 'admin'
-    }, () => {
-      console.log('finished populating users');
     });
-  });
-}
+    console.log('finished populating users');
+  };
