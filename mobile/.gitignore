@@ -2,3 +2,7 @@ node_modules/
 .expo/
 npm-debug.*
 .idea
+android/app/build
+android/build
+android/.gradle
+package-lock.json
