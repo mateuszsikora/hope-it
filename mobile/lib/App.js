@@ -10,6 +10,7 @@ import { NativeRouter, Route, Link } from 'react-router-native'
 
 import Notifications from './components/Notifications'
 import Wall from './components/Wall'
+import MobxDemo from './components/MobxDemo'
 
 export default function App () {
   return (
@@ -28,10 +29,17 @@ export default function App () {
             style={styles.navItem}>
               <Text>Notifications</Text>
           </Link>
+          <Link
+            to="/mobx"
+            underlayColor='#f0f4f7'
+            style={styles.navItem}>
+              <Text>MobxDemo</Text>
+          </Link>
         </View>
 
         <Route exact path="/" component={Wall}/>
         <Route path="/notifications" component={Notifications}/>
+        <Route path="/mobx" component={MobxDemo}/>
       </View>
     </NativeRouter>
   )
