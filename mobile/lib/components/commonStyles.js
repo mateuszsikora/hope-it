@@ -4,6 +4,7 @@ import {
 
 const commonStyles = StyleSheet.create({
   container: {
+    flex: 1,
     alignSelf: 'stretch',
   },
   header: {
