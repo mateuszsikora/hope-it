@@ -4,7 +4,7 @@ import {
   View,
 } from 'react-native'
 
-import { Link, AndroidBackButton } from 'react-router-native'
+import { Link, AndroidBackButton, Redirect } from 'react-router-native'
 import { observable, action } from 'mobx'
 import { observer } from 'mobx-react'
 import PaymentHistoryEntry from './PaymentHistoryEntry';
@@ -18,11 +18,13 @@ import {
   List,
   ListItem,
   Thumbnail,
-  Text,
   Body,
   Icon,
-  Left
+  Left,
+  Footer,
+  FooterTab
 } from 'native-base';
+import NavFooter from './NavFooter';
 import commonStyles from './commonStyles';
 
 @observer
@@ -37,7 +39,7 @@ export default class PaymentsHistory extends Component {
         <Container style={commonStyles.container}>
           <Header>
             <AndroidBackButton/>
-            <Button transparent>
+            <Button transparent onPress={this.handeBackButton}>
               <Icon name='menu'/>
             </Button>
             <Body>
@@ -52,6 +54,7 @@ export default class PaymentsHistory extends Component {
         </Container>
     )
   }
+
 }
 const styles = StyleSheet.create({
   container: {
@@ -67,5 +70,5 @@ class PaymentsHistoryStore {
         amount: 11100,
         date: Date.now(),
         action: null
-      }))
+      }));
 }

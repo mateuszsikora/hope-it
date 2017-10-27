@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
-import {Text, View} from 'react-native'
-import { NativeRouter, Route, Link } from 'react-router-native'
-
-
-import Notifications from './components/Notifications'
+import React from 'react';
+import { NativeRouter, Route, Redirect, Switch, withRouter } from 'react-router-native'
 import Wall from './components/Wall'
-import Main from './components/Main'
-import MobxDemo from './components/MobxDemo'
 import PaymentsHistory from './components/PaymentsHistory';
+import routes from './routes';
+import commonStyles from './components/commonStyles';
+import NavFooter from './components/NavFooter';
+import {
+  Container
+} from 'native-base';
+
+const NavFooterWithRouter = withRouter(NavFooter)
 
 export default function App() {
   return (
       <NativeRouter>
-        <View style={{flex:1,alignItems:'flex-start', alignSelf: 'stretch'}}>
-          <Route exact path="/" component={Main}/>
-          <Route exact path="/wall" component={Wall}/>
-          <Route path="/notifications" component={Notifications}/>
-          <Route path="/mobx" component={MobxDemo}/>
-          <Route path="/payments_history" component={PaymentsHistory}/>
-        </View>
+        <Container style={commonStyles.container}>
+          <Switch>
+            <Route path={routes.wall} component={Wall}/>
+            <Route path={routes.payments_history} component={PaymentsHistory}/>
+            <Redirect to={routes.wall}/>
+          </Switch>
+          <NavFooterWithRouter onChange={() => null}/>
+        </Container>
       </NativeRouter>
   );
 }
