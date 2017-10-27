@@ -27,7 +27,7 @@ plugin.register = function (server, options, next) {
     jwt,
     mongo
   ]).then(() => {
-    server.auth.strategy('jwt', 'jwt', true, auth);
+    server.auth.strategy('jwt', 'jwt', false, auth);
     if (config.env === 'dev') {
       seed();
     }
