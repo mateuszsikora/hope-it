@@ -1,72 +1,24 @@
-// @flow
-
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import {Text, View} from 'react-native'
 import { NativeRouter, Route, Link } from 'react-router-native'
+
 
 import Notifications from './components/Notifications'
 import Wall from './components/Wall'
+import Main from './components/Main'
 import MobxDemo from './components/MobxDemo'
+import PaymentsHistory from './components/PaymentsHistory';
 
-export default function App () {
+export default function App() {
   return (
-    <NativeRouter>
-      <View style={styles.container}>
-        <View style={styles.nav}>
-          <Link
-            to="/"
-            underlayColor='#f0f4f7'
-            style={styles.navItem}>
-              <Text>Wall</Text>
-          </Link>
-          <Link
-            to="/notifications"
-            underlayColor='#f0f4f7'
-            style={styles.navItem}>
-              <Text>Notifications</Text>
-          </Link>
-          <Link
-            to="/mobx"
-            underlayColor='#f0f4f7'
-            style={styles.navItem}>
-              <Text>MobxDemo</Text>
-          </Link>
+      <NativeRouter>
+        <View style={{flex:1,alignItems:'flex-start', alignSelf: 'stretch'}}>
+          <Route exact path="/" component={Main}/>
+          <Route exact path="/wall" component={Wall}/>
+          <Route path="/notifications" component={Notifications}/>
+          <Route path="/mobx" component={MobxDemo}/>
+          <Route path="/payments_history" component={PaymentsHistory}/>
         </View>
-
-        <Route exact path="/" component={Wall}/>
-        <Route path="/notifications" component={Notifications}/>
-        <Route path="/mobx" component={MobxDemo}/>
-      </View>
-    </NativeRouter>
-  )
+      </NativeRouter>
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 25,
-    padding: 10,
-  },
-  header: {
-    fontSize: 20,
-  },
-  nav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  navItem: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 10,
-  },
-  subNavItem: {
-    padding: 5,
-  },
-  topic: {
-    textAlign: 'center',
-    fontSize: 15,
-  }
-})
