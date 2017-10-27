@@ -6,10 +6,13 @@ import {
   Text,
   View,
   Button,
+  ToastAndroid,
 } from 'react-native'
 
 import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
+
+import AndroidPay from './AndroidPay'
 
 @observer
 export default class MobxDemo extends Component {
@@ -18,6 +21,10 @@ export default class MobxDemo extends Component {
 
   handlePress = () => {
     this.store.increment()
+  }
+
+  handlePaySuccess = () => {
+    ToastAndroid.show('Payment successful.')
   }
 
   render () {
@@ -30,6 +37,11 @@ export default class MobxDemo extends Component {
           onPress={this.handlePress}
           title='Click me'
           color='green'
+        />
+        <AndroidPay
+          amount={500}
+          title='Akcja Cos'
+          onSuccess={this.handlePaySuccess}
         />
       </View>
     )
