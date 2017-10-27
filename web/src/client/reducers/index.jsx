@@ -24,7 +24,16 @@ const number = (store, action) => {
   return store || {value: 0};
 };
 
+
+const payments = (store, action) => {
+  switch(action.type){
+    case 'RECEIVE_PAYMENTS': return {...store, payments: action.payload}
+    default: return {payments: []}
+  }
+}
+
 export default combineReducers({
   checkBox,
-  number
+  number,
+  payments
 });

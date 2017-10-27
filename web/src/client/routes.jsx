@@ -5,9 +5,11 @@ import AddNewStory from './components/new-story';
 import AddNewDonee from './components/new-donee';
 import Payments from './components/payments';
 import { createWithNav } from './components/nav';
+import {Container} from 'semantic-ui-react'
 import Login from './components/login';
+
 export const routes = (
-  <div>
+  <Container fluid={false} text>
     <Route path="/" component={createWithNav(Home)}/>
     <Route path="/add-new-story" component={createWithNav(AddNewStory)}/>
     <Route path="/add-new-donee" component={createWithNav(AddNewDonee)}/>
@@ -17,10 +19,9 @@ export const routes = (
     <Route path="/dupa" component={createWithNav(() => (
       <span>dupa</span>
     ))}/>
-
     <Route path="/payments" component={createWithNav(() => (
-      <Payments payments={[{}]} />
-    ))}/>
+        <Payments />
+      ))}/>
     <Route path="/login" component={Login}/>
-  </div>
+  </Container>
 );
