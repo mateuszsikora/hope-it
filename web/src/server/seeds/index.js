@@ -1,5 +1,7 @@
 import generateUsers from './users';
+import generateDonors from './donors';
+import generatePayments from './payments';
 
 module.exports = () => {
-  generateUsers();
+  generateUsers().then(()=>generateDonors()).then(()=>generatePayments());
 };
