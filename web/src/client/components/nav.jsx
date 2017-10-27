@@ -6,6 +6,8 @@ export default function MainNav() {
     <ul role="nav">
       <li><Link to="/">Main</Link></li>
       <li><Link to="/dupa">Dupa</Link></li>
+      <li><Link to="/add-new-story">Add new story</Link></li>
+      <li><Link to="/add-new-donee">Add new donee</Link></li>
       <li><Link to="/hello">Hello</Link></li>
       <li><Link to="/payments">Payments</Link></li>
     </ul>

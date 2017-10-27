@@ -5,6 +5,8 @@ import {
 } from 'react-native';
 import { Link } from 'react-router-native'
 import { Container, Header, Content, List, ListItem, Thumbnail, Text, Body, Icon, Left } from 'native-base';
+import NavFooter from './NavFooter';
+import routes from './../routes';
 import commonStyles from './commonStyles';
 
 const styles = StyleSheet.create({
@@ -46,7 +48,7 @@ export default function Main() {
           <List>
             <ListItem>
               <Link
-                  to="/wall"
+                  to={routes.wall}
                   underlayColor='#f0f4f7'
                   style={styles.navItem}>
                 <View style={styles.linkListContainer}>
@@ -57,7 +59,7 @@ export default function Main() {
             </ListItem>
             <ListItem>
               <Link
-                  to="/notifications"
+                  to={routes.wall}
                   underlayColor='#f0f4f7'
                   style={styles.navItem}>
                 <View style={styles.linkListContainer}>
@@ -92,43 +94,4 @@ export default function Main() {
         </Content>
       </Container>
   );
-  // return (
-  //     <View style={styles.container}>
-  //       <Text>test</Text>
-  //       <Grid>
-  //         <Row>
-  //           <Link
-  //               to="/"
-  //               underlayColor='#f0f4f7'
-  //               style={styles.navItem}>
-  //             <Text>Wall</Text>
-  //           </Link>
-  //         </Row>
-  //         <Row>
-  //           <Link
-  //               to="/notifications"
-  //               underlayColor='#f0f4f7'
-  //               style={styles.navItem}>
-  //             <Text>Notifications</Text>
-  //           </Link>
-  //         </Row>
-  //         <Row>
-  //           <Link
-  //               to="/payments_history"
-  //               underlayColor='#f0f4f7'
-  //               style={styles.navItem}>
-  //             <Text>Historia Płatności</Text>
-  //           </Link>
-  //         </Row>
-  //         <Row>
-  //           <Link
-  //               to="/mobx"
-  //               underlayColor='#f0f4f7'
-  //               style={styles.navItem}>
-  //             <Text>MobxDemo</Text>
-  //           </Link>
-  //         </Row>
-  //       </Grid>
-  //     </View>
-  // );
 }
