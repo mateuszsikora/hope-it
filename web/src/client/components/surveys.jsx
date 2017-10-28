@@ -106,7 +106,7 @@ class Surveys extends PureComponent {
   }
 
   getQuestions(pool){
-    return this.props.surveys.filter(s=>s.pool = pool).map(s=>s.question)
+    return this.props.surveys.filter(s=>s.pool == pool).map(s=>s.question)
   }
 
   getInfoForRow(pool, question) {
