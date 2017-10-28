@@ -8,22 +8,22 @@ import { Link } from 'react-router-native';
 import { serverUrl } from '../util'
 
 class WallEntry extends Component {
-    render({ image, content, title } = props) {
+    render() {
         return (
           <Card>
               <CardItem>
                 <Left>
                   <Body>
-                    <Text>{msg.title}</Text>
+                    <Text>{this.props.msg.title}</Text>
                     <Text note>ma horom curke</Text>
                   </Body>
                 </Left>
               </CardItem>
               <CardItem cardBody>
-                <Image source={{uri: msg.image}} style={{height: 200, width: null, flex: 1}}/>
+                <Image source={{uri: this.props.msg.image}} style={{height: 200, width: null, flex: 1}}/>
               </CardItem>
               <CardItem cardBody>
-                <Text>{msg.content}</Text>
+                <Text>{this.props.msg.content}</Text>
               </CardItem>
               <CardItem>
                 <Left>
@@ -70,7 +70,7 @@ class WallContent extends Component {
         return (
             <Content>
                 <View>
-                    {this.state.messages.map(m => <WallEntry />)}
+                    {this.state.messages.map(m => <WallEntry msg={m} />)}
                 </View>
             </Content>
         );
