@@ -11,23 +11,31 @@ import {
 } from 'native-base';
 
 import moment from 'moment';
+import PushControllerWithStore from './components/PushControllerWithStore';
+
 moment.locale('pl');
 
 const NavFooterWithRouter = withRouter(NavFooter);
 
-export default function App() {
-  return (
-      <NativeRouter>
-        <Container style={commonStyles.container}>
-          <AndroidBackButton/>
-          <Switch>
-            <Route path={routes.wall} component={Wall}/>
-            <Route path={routes.payments_history} component={PaymentsHistory}/>
-            <Route path={routes.mobx} component={MobxDemo}/>
-            <Redirect to={routes.wall}/>
-          </Switch>
-          <NavFooterWithRouter onChange={() => null}/>
-        </Container>
-      </NativeRouter>
-  );
+
+
+export default class App extends React.Component {
+
+  render() {
+    return (
+        <NativeRouter>
+          <Container style={commonStyles.container}>
+            <PushControllerWithStore/>
+            <AndroidBackButton/>
+            <Switch>
+              <Route path={routes.wall} component={Wall}/>
+              <Route path={routes.payments_history} component={PaymentsHistory}/>
+              <Route path={routes.mobx} component={MobxDemo}/>
+              <Redirect to={routes.wall}/>
+            </Switch>
+            <NavFooterWithRouter onChange={() => null}/>
+          </Container>
+        </NativeRouter>
+    );
+  }
 }
