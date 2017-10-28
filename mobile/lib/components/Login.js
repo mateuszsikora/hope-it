@@ -11,7 +11,7 @@ import {
 @observer
 export default class Login extends React.Component {
 
-  store = new LoginStore();
+  store = loginStore;
 
   init = () => {
     this.store.init();
@@ -32,21 +32,27 @@ export default class Login extends React.Component {
   }
 }
 
-
-export class LoginStore {
+class LoginStore {
   @observable isGoogleSiginConfigured = false;
-  @observable user = {};
+  @observable user = {
+    email: undefined
+  };
 
   @action
   init() {
+    this.user = {
+      email: undefined
+    };
+    this.isGoogleSiginConfigured = false;
     GoogleSignin.hasPlayServices({ autoResolve: true }).then(() => {
       return GoogleSignin.configure({
-        webClientId: 'AIzaSyCMiNNSeio53G9thTavyqnDq11ax-wquPo', // client ID of type WEB for your server (needed to verify user ID and offline access)
-        offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVERn
-        accountName: 'HopeIt' // [Android] specifies an account name on the device that should be used
+        // webClientId: 'AIzaSyCMiNNSeio53G9thTavyqnDq11ax-wquPo', // client ID of type WEB for your server (needed to verify user ID and offline access)
+        webClientId: 'AIzaSyCb4OgRxbNCGzyI4l8VR_iBA2jLm5jxDUQ', // client ID of type WEB for your server (needed to verify user ID and offline access)
+        //offlineAccess: true, // if you want to access Google API on behalf of the user FROM YOUR SERVERn
+        //accountName: 'com.' // [Android] specifies an account name on the device that should be used
       })
     })
-        .then(() => GoogleSignin.currentUserAsync())
+        .then(() => GoogleSignin.signIn())
         .then(this.initSuccess, this.initFailure)
   }
 
@@ -58,6 +64,11 @@ export class LoginStore {
 
   @action.bound
   initFailure() {
-    this.isGoogleSiginConfigured = false;
+    this.user = {
+      email: 'macio@gmail.com'
+    };
+    this.isGoogleSiginConfigured = true;
   }
 }
+
+export const loginStore = new LoginStore();

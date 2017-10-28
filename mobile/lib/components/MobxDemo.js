@@ -9,6 +9,8 @@ import {
   ToastAndroid,
 } from 'react-native'
 
+import { Content } from 'native-base';
+
 import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -32,7 +34,7 @@ export default class MobxDemo extends Component {
     const { counter } = this.store
 
     return (
-      <View style={styles.container}>
+      <Content>
         <Text>Value: {counter}</Text>
         <Button
           onPress={this.handlePress}
@@ -49,7 +51,7 @@ export default class MobxDemo extends Component {
           title='Akcja Cos'
           onSuccess={this.handlePaySuccess}
         />
-      </View>
+      </Content>
     )
   }
 }
