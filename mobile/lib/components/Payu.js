@@ -6,7 +6,7 @@ import {
   Modal,
   WebView,
 } from 'react-native'
-import {Button, Icon, Text} from 'native-base' 
+import {Button, Icon, Text, Content} from 'native-base'
 import { serverUrl } from '../util'
 import axios from 'axios'
 
@@ -47,7 +47,7 @@ export default class Payu extends Component {
     const { modalVisible, uri } = this.state
 
     return (
-      <View style={{marginTop: 6}}>
+      <Content>
           <Modal
             animationType="slide"
             visible={modalVisible}
@@ -70,7 +70,7 @@ export default class Payu extends Component {
             <Text>PayU</Text>
             <Icon name='ios-card' />
           </Button>
-      </View>
+      </Content>
     )
   }
 }
