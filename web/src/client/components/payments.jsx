@@ -25,7 +25,7 @@ class Payments extends PureComponent {
   }
 
   getDonors(){
-    return this.props.payments.map(p=>p.donor.deviceId).filter((a, idx, arr)=>arr.indexOf(a) === idx ).length
+    return this.props.payments.map(p=>p.donor? p.donor.deviceId: 'Anonim').filter((a, idx, arr)=>arr.indexOf(a) === idx ).length
   }
 
   getDotations(){
@@ -53,7 +53,7 @@ class Payments extends PureComponent {
         <Header>{header}</Header>
         <Statistic.Group>
           <Statistic>
-            <Statistic.Value>{(amount / 100).toFixed(2)}zł</Statistic.Value>
+            <Statistic.Value>{(amount / 100).toFixed(0)}PLN</Statistic.Value>
             <Statistic.Label>Suma zbiórki</Statistic.Label>
           </Statistic>
           <Statistic>
@@ -79,8 +79,9 @@ class Payments extends PureComponent {
 
   renderBestDonators(){
     const payAgg = this.props.payments.reduce((agg, payment)=>{
-      agg[payment.donor.deviceId]=agg[payment.donor.deviceId] || {donor: payment.donor, amount:0}
-      agg[payment.donor.deviceId].amount +=  payment.amount
+      const device = payment.donor? payment.donor.deviceId: 'Anonim'
+      agg[device]=agg[device] || {donor: payment.donor, amount:0}
+      agg[device].amount +=  payment.amount
       return agg
     }, {})
 
@@ -95,9 +96,10 @@ class Payments extends PureComponent {
 
   renderFreqDonator(){
     const payAgg = this.props.payments.reduce((agg, payment) => {
-      agg[payment.donor.deviceId]=agg[payment.donor.deviceId] || {donor: payment.donor, amount:0, num: 1}
-      agg[payment.donor.deviceId].amount +=  payment.amount
-      agg[payment.donor.deviceId].num +=  1
+      const device = payment.donor? payment.donor.deviceId: 'Anonim'
+      agg[device]=agg[device] || {donor: payment.donor, amount:0, num: 1}
+      agg[device].amount +=  payment.amount
+      agg[device].num +=  1
       return agg
     }, {})
 
