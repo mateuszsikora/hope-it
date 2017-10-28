@@ -116,6 +116,7 @@ class WallContent extends Component {
     render() {
         return (
             <Content>
+              <Header />
                 <View>
                     {this.state.messages.map((m, i) => {
                         switch(m.type) {
