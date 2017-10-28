@@ -67,7 +67,7 @@ export default class DeckSwiperExample extends Component {
                               onSwipeLeft={this.swipeLeft}
                               dataSource={this.state.surveys}
                               renderItem={item =>
-                                                <Card style={{ elevation: 3, backgroundColor: 'red' }}>
+                                                <Card style={{ elevation: 3 }}>
                                                   <CardItem>
                                                     <Left>
                                                       <Body>
@@ -83,14 +83,16 @@ export default class DeckSwiperExample extends Component {
                                                   </CardItem>
                                                   <CardItem>
                                                     <Left>
-                                                      <Button 
+                                                      <Button
+                                                        onPress={this.swipeLeft}
                                                         transparent>
                                                         <Icon active name="thumbs-up" />
                                                         <Text>Tak</Text>
                                                       </Button>
                                                     </Left>
                                                     <Right>
-                                                      <Button 
+                                                      <Button
+                                                          onPress={this.swipeRight}
                                                         transparent>
                                                         <Icon active name="thumbs-down" />
                                                         <Text>Nie</Text>
