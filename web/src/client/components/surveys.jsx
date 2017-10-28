@@ -45,8 +45,12 @@ class Surveys extends PureComponent {
   render(){
     return (
       <div>
-        {this.state.questions.map((q, i)=>(<p key={i}>{q.question}</p>))}
+        {
+          this.state.questions
+          .map((q, i)=>(<p key={i}>{q.question}</p>))
+        }
         {this.renderAddQuestion()}
+        
         <Button onClick={this.handleSave} positive>Zapisz</Button>
     </div>
     )

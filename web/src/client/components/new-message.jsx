@@ -57,7 +57,7 @@ class AddNewMessage extends React.Component {
 
       reader.onload = (readerEvt) => {
         const binaryString = readerEvt.target.result;
-        this.setState(previousState => ({...previousState, image: btoa(binaryString)}));
+        this.setState(previousState => ({...previousState, image: `data:${file.type};base64, ${btoa(binaryString)}`}));
       };
 
       reader.readAsBinaryString(file);

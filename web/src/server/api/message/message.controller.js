@@ -1,4 +1,6 @@
 import Message from './message.schema';
+import Payment from '../payment/payment.schema';
+
 
 module.exports = [{
   method: 'POST',
@@ -13,13 +15,26 @@ module.exports = [{
 }, {
   method: 'GET',
     path: '/api/messages',
-    handler: (request, reply) => {
-      Message.find({})
-          .populate('donors')
-          .then((result) => {
-              reply(result);
-      }).catch((err) => {
-        throw err;
-      });
-    }
+    handler: async (request, reply) => {
+      try{
+        const payments = await Payment.find()
+        console.log(payments.map(p=>p.message))
+        const messages = await Message.find({}).populate('donors')
+        const updated = await Promise.all(
+            messages.map( async message=>{
+                  if(message.type == 'funding'){
+                    console.log(message._id)
+                    message.supporters = payments.filter(p=>(p.message+"") == (message._id+"")).length
+                  }
+                  return message;
+            })
+          )
+
+          reply(updated);
+        } catch(err){
+          console.log(err)
+          throw err;
+        };
+      }
+
 }];
