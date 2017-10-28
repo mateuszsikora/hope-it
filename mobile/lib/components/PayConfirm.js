@@ -84,7 +84,7 @@ class PayConfirm extends Component {
             <Picker.Item label='100 zł' value='100' />
           </Picker>
         </View>
-        <View style={{marginTop: 30}}/>
+        <View style={{marginTop: 10}}/>
         <AndroidPay
           amount={a}
           title={title}
