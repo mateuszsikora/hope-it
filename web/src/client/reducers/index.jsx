@@ -42,7 +42,10 @@ const login = (store, action) => {
 
 const donors = (store, action) => {
   switch(action.type) {
-    case 'DONORS_RESULT': return {...store, donors: action.payload};
+    case 'RECEIVE_DONORS': {
+      const donors = action.payload || [];
+      return {...store, donors: donors.map(donor => ({key: donor._id, value: donor._id, text: donor.email}))};
+    }
     default: return {donors: []}
   }
 }

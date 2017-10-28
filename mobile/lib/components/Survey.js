@@ -7,23 +7,23 @@ import routes from './../routes';
 import { Link } from 'react-router-native';
 import { serverUrl } from '../util'
 
-class WallEntry extends Component {
-    render() {
+class SurveyEntry extends Component {
+    render({ image, content, title } = props) {
         return (
           <Card>
               <CardItem>
                 <Left>
                   <Body>
-                    <Text>{this.props.msg.title}</Text>
+                    <Text>{msg.title}</Text>
                     <Text note>ma horom curke</Text>
                   </Body>
                 </Left>
               </CardItem>
               <CardItem cardBody>
-                <Image source={{uri: this.props.msg.image}} style={{height: 200, width: null, flex: 1}}/>
+                <Image source={{uri: msg.image}} style={{height: 200, width: null, flex: 1}}/>
               </CardItem>
               <CardItem cardBody>
-                <Text>{this.props.msg.content}</Text>
+                <Text>{msg.content}</Text>
               </CardItem>
               <CardItem>
                 <Left>
@@ -47,7 +47,7 @@ class WallEntry extends Component {
     }
 }
 
-class WallContent extends Component {
+class SurveyContent extends Component {
     state = { messages: [] }
 
     getMessages = () =>
@@ -70,15 +70,15 @@ class WallContent extends Component {
         return (
             <Content>
                 <View>
-                    {this.state.messages.map(m => <WallEntry msg={m} />)}
+                    {this.state.messages.map(m => <SurveyEntry />)}
                 </View>
             </Content>
         );
     }
 }
 
-export default function Wall () {
+export default function Survey () {
   return (
-      <WallContent />
+      <SurveyContent />
   )
 }
