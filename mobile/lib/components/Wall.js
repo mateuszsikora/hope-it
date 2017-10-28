@@ -39,7 +39,7 @@ class WallFundingEntry extends Component {
                 </Left>
                 <Right>
                   <Button transparent>
-                    <Text>Wsparło: 100010</Text>
+                    <Text>Wsparło: {this.props.msg.supporters}</Text>
                   </Button>
                 </Right>
               </CardItem>
