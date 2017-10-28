@@ -14,6 +14,7 @@ export default function MainNav() {
       <Menu.Item><Link to="/add-new-message">Add new message</Link></Menu.Item>
       <Menu.Item><Link to="/hello">Hello</Link></Menu.Item>
       <Menu.Item><Link to="/payments">Dotacje</Link></Menu.Item>
+      <Menu.Item><Link to="/payu">Payu</Link></Menu.Item>
     </Sidebar>
   )
 }

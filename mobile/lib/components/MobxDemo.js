@@ -13,6 +13,7 @@ import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
 
 import AndroidPay from './AndroidPay'
+import Payu from './Payu'
 
 @observer
 export default class MobxDemo extends Component {
@@ -39,6 +40,11 @@ export default class MobxDemo extends Component {
           color='green'
         />
         <AndroidPay
+          amount={500}
+          title='Akcja Cos'
+          onSuccess={this.handlePaySuccess}
+        />
+        <Payu
           amount={500}
           title='Akcja Cos'
           onSuccess={this.handlePaySuccess}
