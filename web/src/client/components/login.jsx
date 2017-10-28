@@ -33,6 +33,14 @@ const titleStyles = {
   textShadow: '0 0 50px #000'
 };
 
+const loginButtonStyles = {
+  backgroundColor: '#0d438e'
+};
+
+const titleStyle = {
+  color: '#aaa'
+};
+
 class Login extends PureComponent {
 
   handleSubmit = (event) => {
@@ -55,8 +63,8 @@ class Login extends PureComponent {
           <div style={titleStyles}>
             <div><img src={logo} className="image"/></div>
             <h2 className="ui teal image header">
-              <div className="content">
-                Log-in to your account
+              <div style={titleStyle} className="content">
+                Panel logowania
               </div>
             </h2>
           </div>
@@ -74,7 +82,7 @@ class Login extends PureComponent {
                   <input type="password" name="password" placeholder="Password"/>
                 </div>
               </div>
-              <button className="ui fluid large teal submit button">Login</button>
+              <button style={loginButtonStyles} className="ui fluid large teal submit button">Login</button>
             </div>
             <div className="ui error message"/>
           </form>
