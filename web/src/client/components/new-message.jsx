@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from 'semantic-ui-react'
 import DayPicker from 'react-day-picker';
-import {Dropdown, Form, Input, TextArea} from 'semantic-ui-react';
+import {Segment, Dropdown, Divider, Form, Input, TextArea} from 'semantic-ui-react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
@@ -13,6 +13,21 @@ const messageTypes = [
   {key: 'message', value: 'message', text: 'Podziękowania'},
   {key: 'promo', value: 'promo', text: 'Okazja'}
 ];
+
+const saveButtonStyle = {
+  margin: '10px',
+  float: 'right',
+  display: 'block',
+  height: '100px',
+  width: '100px',
+  borderRadius: '50%',
+  backgroundColor: '#0d438e',
+  fontSize: '18px',
+  color: '#aaa',
+  position: 'fixed',
+  bottom: 0,
+  right: 0
+};
 
 class AddNewMessage extends React.Component {
   state = {};
@@ -26,7 +41,7 @@ class AddNewMessage extends React.Component {
   }
 
   genericOnChange = field => (event, data) => {
-    this.setState((prevState) => ({...prevState,  [field]: data.value}));
+    this.setState((prevState) => ({...prevState, [field]: data.value}));
   };
 
   onChangeType = this.genericOnChange('type');
@@ -69,15 +84,17 @@ class AddNewMessage extends React.Component {
       <div>
         <div>
           <h2>Początek zbiórki</h2>
-          <DayPicker month={ new Date(2018, 8)} onChange={this.onChangeStartDate} />
+          <DayPicker month={new Date(2018, 8)} onChange={this.onChangeStartDate}/>
+          <Divider/>
         </div>
         <div>
           <h2>Koniec zbiórki</h2>
-          <DayPicker month={ new Date(2018, 8)} onChange={this.onChangeEndDate} />
+          <DayPicker month={new Date(2018, 8)} onChange={this.onChangeEndDate}/>
+          <Divider/>
         </div>
         <div>
           <h2>Do zebrania</h2>
-          <Input placeholder='Wysokość zbiórki' onChange={this.onChangeGoal} />
+          <Input placeholder='Wysokość zbiórki' onChange={this.onChangeGoal}/>
         </div>
       </div>
     );
@@ -89,26 +106,31 @@ class AddNewMessage extends React.Component {
         <div>
           <h2>Miejsce</h2>
           <Input placeholder='Miejsce' onChange={this.onChangeVenue}/>
+          <Divider/>
         </div>
         <div>
           <h2>Szegokość geograficzna</h2>
-          <Input placeholder='Szerokość geograficzna' onChange={this.onChangeLat} />
+          <Input placeholder='Szerokość geograficzna' onChange={this.onChangeLat}/>
+          <Divider/>
         </div>
         <div>
           <h2>Długość geograficzna</h2>
-          <Input placeholder='Długość geograficzna' onChange={this.onChangeLng} />
+          <Input placeholder='Długość geograficzna' onChange={this.onChangeLng}/>
+          <Divider/>
         </div>
         <div>
           <h2>Zniżka</h2>
-          <Input placeholder='Zniżka' onChange={this.onChangeDiscount} />
+          <Input placeholder='Zniżka' onChange={this.onChangeDiscount}/>
+          <Divider/>
         </div>
         <div>
           <h2>Dotacja</h2>
-          <Input placeholder='Dotacja' onChange={this.onChangeDonated} />
+          <Input placeholder='Dotacja' onChange={this.onChangeDonated}/>
+          <Divider/>
         </div>
         <div>
           <h2>Kod</h2>
-          <Input placeholder='Kod' onChange={this.onChangeCode} />
+          <Input placeholder='Kod' onChange={this.onChangeCode}/>
         </div>
       </div>
     );
@@ -116,7 +138,7 @@ class AddNewMessage extends React.Component {
 
   render() {
     return (
-      <div>
+      <Segment>
         <h1>Dodaj nowy wpis</h1>
         <Form>
           <div>
@@ -128,7 +150,7 @@ class AddNewMessage extends React.Component {
           <div>
             <h2>Darczyńcy</h2>
             <Dropdown placeholder='Wybierz darczyńców, do których wiadomość ma trafić...' fluid multiple search
-                      selection options={this.props.donors} onChange={this.onChangeDonors} />
+                      selection options={this.props.donors} onChange={this.onChangeDonors}/>
           </div>
 
           <div>
@@ -138,28 +160,31 @@ class AddNewMessage extends React.Component {
 
           <div>
             <h2>Treść wiadomości</h2>
-            <TextArea autoHeight placeholder='Podaj treść wiadomości dla darczyńców' onChange={this.onChangeContent} rows={2}/>
+            <TextArea autoHeight placeholder='Podaj treść wiadomości dla darczyńców' onChange={this.onChangeContent}
+                      rows={2}/>
           </div>
 
           <div>
             <h2>Obraz</h2>
-            <input type="file" onChange={this.onFileChange} />
+            <input type="file" onChange={this.onFileChange}/>
           </div>
 
           {this.state.type === 'funding' && this.randerFunding()}
           {this.state.type === 'promo' && this.renderPromo()}
 
         </Form>
-        <Button onClick={this.handleSend}>
-          Zapisz
-        </Button>
-      </div>
+        <div>
+          <Button style={saveButtonStyle} onClick={this.handleSend}>
+            Zapisz
+          </Button>
+        </div>
+      </Segment>
     );
   }
 }
 
-const mapStateToProps = (state)=> ({
+const mapStateToProps = (state) => ({
   donors: state.donors.donors
 });
-const mapDispatchToProps = (dispatch)=> ({actions: bindActionCreators( actions,dispatch)});
-export default connect(mapStateToProps,mapDispatchToProps)( AddNewMessage);
+const mapDispatchToProps = (dispatch) => ({actions: bindActionCreators(actions, dispatch)});
+export default connect(mapStateToProps, mapDispatchToProps)(AddNewMessage);

@@ -6,11 +6,10 @@ import {
   View,
   Button,
   ToastAndroid,
-  Picker,
   WebView,
   Image,
 } from 'react-native'
-import { Content, Body, Card, CardItem, Text } from 'native-base'
+import { Content, Body, Card, CardItem, Text, Picker } from 'native-base'
 import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
 
@@ -56,30 +55,35 @@ class PayConfirm extends Component {
     if (completed) {
       return (
         <Content>
-          <Image style={{width: 300, marginTop: 150, marginLeft: 30, marginBottom: 30}} source={require('./img/happy.gif')} />
-          <Text style={{textAlign: 'center'}}>Dziękujemy za Twoją płatność!</Text>
+          <Text style={styles.payed}>{ payment } zł!</Text>
+          <Image style={{width: 300, marginTop: 15, marginLeft: 30, marginBottom: 30}} source={require('./img/happy.gif')} />
+          <Text style={styles.button}>Dziękujemy za Twoją płatność!</Text>
         </Content>
       )
     }
 
     return (
-      <Content style={{marginLeft: 15, marginRight: 15}}>
-        <Text style={{marginTop: 50}}>Wspierasz akcję: {title}</Text>
+      <Card style={{marginTop: 30, marginBottom: 30, marginLeft: 15, marginRight: 15, padding: 30}}>
+        <Text style={styles.header}>
+          Wspierasz akcję: {title}
+        </Text>
         <View style={{marginTop: 15}}/>
-        <Picker
-          selectedValue={payment}
-          onValueChange={payment => this.setState({payment})}>
-          <Picker.Item label='1 zł' value='1' />
-          <Picker.Item label='2 zł' value='2' />
-          <Picker.Item label='5 zł' value='5' />
-          <Picker.Item label='10 zł' value='10' />
-          <Picker.Item label='20 zł' value='20' />
-          <Picker.Item label='30 zł' value='30' />
-          <Picker.Item label='40 zł' value='40' />
-          <Picker.Item label='50 zł' value='50' />
-          <Picker.Item label='75 zł' value='75' />
-          <Picker.Item label='100 zł' value='100' />
-        </Picker>
+        <View style={{paddingLeft: 50, paddingRight: 50}}>
+          <Picker
+            selectedValue={payment}
+            onValueChange={payment => this.setState({payment})}>
+            <Picker.Item label='1 zł' value='1' />
+            <Picker.Item label='2 zł' value='2' />
+            <Picker.Item label='5 zł' value='5' />
+            <Picker.Item label='10 zł' value='10' />
+            <Picker.Item label='20 zł' value='20' />
+            <Picker.Item label='30 zł' value='30' />
+            <Picker.Item label='40 zł' value='40' />
+            <Picker.Item label='50 zł' value='50' />
+            <Picker.Item label='75 zł' value='75' />
+            <Picker.Item label='100 zł' value='100' />
+          </Picker>
+        </View>
         <View style={{marginTop: 30}}/>
         <AndroidPay
           amount={a}
@@ -93,22 +97,15 @@ class PayConfirm extends Component {
           message={message}
           onSuccess={this.handlePaySuccess}
         />
-        <Card>
-          <CardItem header>
-            <Text>Ethereum</Text>
-          </CardItem>
-          <CardItem>
-            <Body>
-              <Text>Możesz też przesłać Ether na adres:</Text>
-              <Text style={{fontFamily: 'monospace'}}>0x571Ae5AF70D4720D2Ae62c0B9A4c4E950772Bf13</Text>
-            </Body>
-          </CardItem>
-        </Card>
+        <View style={styles.margin}>
+          <Text style={{ textAlign: 'center'}}>Możesz też przesłać Ether na adres:</Text>
+          <Text style={{ textAlign: 'center', fontFamily: 'monospace'}}>0x571Ae5AF70D4720D2Ae62c0B9A4c4E950772Bf13</Text>
+        </View>
         {/* <Button */}
         {/*   onPress={() => this.setState({ completed: true })} */}
         {/*   title='Test' */}
         {/* /> */}
-      </Content>
+      </Card>
     )
   }
 }
@@ -134,3 +131,25 @@ class Store {
   }
 }
 export const store = new Store();
+
+const styles = {
+  button: {
+    textAlign: 'center',
+    fontSize: 18
+  },
+  payed: {
+    textAlign: 'center',
+    color: '#3f9c3f',
+    fontSize: 48,
+    marginTop: 25
+  },
+  header: {
+    marginTop: 50,
+    fontSize: 24,
+    textAlign: 'center'
+  },
+  margin: {
+    marginTop: 15,
+    marginBottom: 15,
+  }
+}

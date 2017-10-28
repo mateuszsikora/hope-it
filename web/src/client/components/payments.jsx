@@ -125,8 +125,7 @@ class Payments extends Component {
   render(){
     return (
       <Grid doubling centered>
-        <Grid.Column width={10}>
-
+        <Grid.Column width={14}>
           {this.renderStats("Statystyki globalne", this.getTotalAmount(), this.getDotations(), this.getDotations())}
           {this.renderStats("Statystyki z ostatniego miesiąca",this.getTotalLastAmount(), this.getLastDotations(), this.getLastDotations())}
           {this.renderTabs()}

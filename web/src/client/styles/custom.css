@@ -63,3 +63,8 @@ img {
   margin: 50px 0;
   text-align: center;
 }
+
+.sidebar {
+  background: #0d438e !important;
+  font-size: 20px !important;
+}
