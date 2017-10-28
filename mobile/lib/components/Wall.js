@@ -55,7 +55,8 @@ class WallContent extends Component {
           method: 'GET',
         }).then(response=>response.json())
 
-    constructor() {
+    constructor(props) {
+        super(props)
         this.setState({messages: this.getMessages()})
     }
 
