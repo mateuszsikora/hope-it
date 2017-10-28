@@ -41,11 +41,11 @@ module.exports = [{
   method: 'POST',
   path: '/api/payments/payu',
   handler(req, reply) {
-    const description = 'Dotacja'
-    const extOrderId = `${Math.random()}`
+    const description = 'Dotacja';
+    const extOrderId = `${Math.random()}`;
 
-    const { host } = req.info
-    const { amount, email } = req.payload
+    const { host } = req.info;
+    const { amount, email } = req.payload;
 
     payu.createOrderRequest({
       notifyUrl: `http://${host}/api/notify`,

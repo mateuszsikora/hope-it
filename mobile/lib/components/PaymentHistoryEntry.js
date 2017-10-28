@@ -1,4 +1,5 @@
 import React from 'react';
+import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { Card, CardItem, Body, Thumbnail, Text, Left, Button, Icon } from 'native-base';
 import moment from 'moment';
@@ -10,16 +11,13 @@ export const actionTypes = {
   health: 'health',
   education: 'education',
   sport: 'sport',
-}
+};
 
 export default function PaymentHistoryEntry({ amount, date, event }) {
   return (
       <Card style={{ flex: 0 }}>
         <CardItem>
           <Left>
-            {event.type === actionTypes.health && <Icon name={'md-medkit'}/> }
-            {event.type === actionTypes.education && <Icon name={'md-school'}/> }
-            {event.type === actionTypes.sport && <Icon name={'md-football'}/> }
             <Body>
             <Text>{event.title}</Text>
             <Text note>{moment(date).format('HH:MM, D MMMM YYYY')}</Text>
@@ -27,7 +25,13 @@ export default function PaymentHistoryEntry({ amount, date, event }) {
           </Left>
         </CardItem>
         <CardItem>
-          <Body>
+          <Body style={{flex: 1, }}>
+          <View style={{ height: 180, alignSelf: 'stretch', backgroundColor: 'yellow'}}>
+            {Boolean(event.image) && <Image
+                source={{ uri: 'data:image/jpg;base64,' + event.image }}
+                style={{ flex: 1, width: undefined, height: undefined, backgroundColor: 'red', resizeMode: 'cover'}}
+            />}
+          </View>
           <Text>
             {event.description}
           </Text>
@@ -35,7 +39,8 @@ export default function PaymentHistoryEntry({ amount, date, event }) {
         </CardItem>
         <CardItem>
           <Left>
-            <Button transparent textStyle={{ color: '#87838B' }}>
+            <Button transparent >
+              <Text style={{ paddingLeft: 0, paddingRight: 5, color: '#87838B'}}>Wpłaciłeś: </Text>
               <Text style={{ paddingLeft: 0 }}>{parseInt(amount / 100)} zł</Text>
             </Button>
           </Left>
@@ -50,6 +55,7 @@ PaymentHistoryEntry.propTypes = {
   event: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
+    image: PropTypes.string,
     type: PropTypes.string
   })
 };
