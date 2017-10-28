@@ -15,8 +15,7 @@ module.exports = [{
     path: '/api/messages',
     handler: (request, reply) => {
       Message.find({})
-          .populate('doner')
-          .populate('donee')
+          .populate('donors')
           .then((result) => {
               reply(result);
       }).catch((err) => {

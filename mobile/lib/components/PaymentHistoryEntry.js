@@ -12,24 +12,22 @@ export const actionTypes = {
   sport: 'sport',
 }
 
-export default function PaymentHistoryEntry({ amount, date, event }) {
+export default function PaymentHistoryEntry({ amount, date, message }) {
   return (
       <Card style={{ flex: 0 }}>
         <CardItem>
           <Left>
-            {event.type === actionTypes.health && <Icon name={'md-medkit'}/> }
-            {event.type === actionTypes.education && <Icon name={'md-school'}/> }
-            {event.type === actionTypes.sport && <Icon name={'md-football'}/> }
+            {<Icon name={'md-medkit'}/> }
             <Body>
-            <Text>{event.title}</Text>
-            <Text note>{moment(date).format('HH:MM, D MMMM YYYY')}</Text>
+            <Text>{message.title}</Text>
+            <Text note>{moment(date).format('llll')}</Text>
             </Body>
           </Left>
         </CardItem>
         <CardItem>
           <Body>
           <Text>
-            {event.description}
+            {message.description}
           </Text>
           </Body>
         </CardItem>
@@ -47,9 +45,8 @@ export default function PaymentHistoryEntry({ amount, date, event }) {
 PaymentHistoryEntry.propTypes = {
   amount: PropTypes.number,
   date: PropTypes.string,
-  event: PropTypes.shape({
+  message: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-    type: PropTypes.string
   })
 };

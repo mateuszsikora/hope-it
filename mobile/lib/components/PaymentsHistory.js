@@ -44,7 +44,7 @@ export default class PaymentsHistory extends Component {
           {!isLoading && payments.map((payment, key) => (
               <PaymentHistoryEntry
                   key={key} {...payment}
-                  event={{ ...payment.event, type: getRandomType() }}
+                  message={{ ...payment.message, type: getRandomType() }}
               />
           ))}
         </Content>
@@ -79,5 +79,3 @@ function getRandomType() {
   const index = parseInt(Math.random() * possibleTypes.length);
   return possibleTypes[index]
 }
-
-
