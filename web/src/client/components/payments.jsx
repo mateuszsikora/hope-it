@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Segment} from 'semantic-ui-react'
 import Payment from './payment';
@@ -9,7 +9,7 @@ import * as actions from '../actions'
 import {List, Header, Statistic, Tab} from 'semantic-ui-react'
 import moment from 'moment';
 
-class Payments extends PureComponent {
+class Payments extends Component {
   static propTypes = {
     payments: PropTypes.arrayOf(
       PropTypes.shape({}).isRequired
@@ -18,6 +18,7 @@ class Payments extends PureComponent {
 
   componentDidMount(){
     this.props.actions.payments();
+    setInterval(()=>this.props.actions.payments(), 4000);
   }
 
   getTotalAmount(){
