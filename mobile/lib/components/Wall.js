@@ -41,7 +41,7 @@ class WallFundingEntry extends Component {
               <Thumbnail source={{ uri: this.props.msg.image }}/>
               <Body>
               <Text>{this.props.msg.title}</Text>
-              <Text note>{moment(this.props.msg.startDate).format('DD-MM-YYYY')}</Text>
+              <Text note>{moment(this.props.msg.startDate).format('lll')}</Text>
               <Text note>Do zdobycia: {this.props.msg.goal}</Text>
               <Text note>Zdobyte: {this.props.msg.raised}</Text>
               </Body>
@@ -77,15 +77,15 @@ class WallMessageEntry extends Component {
   render() {
     return (
         <Card>
-          <CardItem>
-            <Left>
-              <Body>
-              <Text>{this.props.msg.title}</Text>
-              <Text note>{moment(this.props.msg.date).format('DD-MM-YYYY')}</Text>
+          <CardItem style={{paddingBottom: 0}}>
+              <Body style={{flex:1}}>
+                <Text note style={{textAlign: 'right', alignSelf: 'stretch'}}>{moment(this.props.msg.date).format('lll')}</Text>
               </Body>
-            </Left>
           </CardItem>
-          <CardItem cardBody>
+          <CardItem style={{paddingTop: 0, width: 300}}>
+            <Text style={{fontSize: 20}}>{this.props.msg.title}</Text>
+          </CardItem>
+          <CardItem style={{paddingTop: 1}}>
             <Text>
               {this.props.msg.content}
             </Text>
@@ -107,7 +107,7 @@ class WallPromoEntry extends Component {
             </Left>
             <Right>
               <Body>
-              <Text note>{moment(this.props.msg.date).format('DD-MM-YYYY')}</Text>
+              <Text note>{moment(this.props.msg.date).format('lll')}</Text>
               </Body>
             </Right>
           </CardItem>
