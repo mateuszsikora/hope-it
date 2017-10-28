@@ -59,10 +59,7 @@ PaymentHistoryEntry.propTypes = {
   message: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
-<<<<<<< HEAD
-=======
     image: PropTypes.string,
     type: PropTypes.string
->>>>>>> 9621fe0dbf7c3d9a7897e63121dd1f9550b18fc5
   })
 };
