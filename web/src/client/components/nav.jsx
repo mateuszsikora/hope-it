@@ -10,6 +10,8 @@ export default function MainNav() {
       <Menu.Item><Link to="/">Strona domowa</Link></Menu.Item>
       <Menu.Item><Link to="/add-new-message">Nowa wiadomość</Link></Menu.Item>
       <Menu.Item><Link to="/payments">Dotacje</Link></Menu.Item>
+      <Menu.Item><Link to="/surveys">Ankiety</Link></Menu.Item>
+      
       <Menu.Item><Link to="/payu">Payu</Link></Menu.Item>
     </Sidebar>
   );
