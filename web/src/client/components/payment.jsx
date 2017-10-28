@@ -59,7 +59,6 @@ Payment.propTypes = {
 export default Payment
 
 export function formatNumber(num) {
-  console.log(num)
   num = num.toFixed(0)
   return num.split('').reverse().reduce((acc, elem) => {
     const first = acc[0]

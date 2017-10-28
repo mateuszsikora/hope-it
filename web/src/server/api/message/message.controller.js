@@ -2,6 +2,9 @@ import Message from './message.schema';
 import Payment from '../payment/payment.schema';
 import Donor from '../donor/donor.schema';
 import fcm from '../../fcm';
+import mongoose from 'mongoose';
+
+const ObjectId = mongoose.Types.ObjectId;
 
 const titles = {
   funding: 'Pilnie potrzebna Twoja pomoc!',
@@ -13,8 +16,8 @@ module.exports = [{
   method: 'POST',
   path: '/api/messages',
   handler: (request, reply) => {
-    const savePromise = new Message(request.payload).save()
-    const findPromise = Donor.find({_id: {$in: [request.payload.donors]}});
+    const savePromise = new Message(request.payload).save();
+    const findPromise = Donor.find({_id: {$in: request.payload.donors}});
     Promise.all([savePromise, findPromise]).then(([result, donors]) => {
       donors.forEach(donor => {
         fcm(titles[request.payload.type], request.payload.title, donor.deviceId);

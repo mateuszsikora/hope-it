@@ -23,6 +23,7 @@ module.exports = async () => {
       survey: surveys[3]._id,
       answear: true
     },{
+      
       survey: surveys[4]._id,
       answear: false
     }]);

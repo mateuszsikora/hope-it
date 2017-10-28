@@ -9,7 +9,7 @@ export const paymentsReceived = (dt) => ({
 
 
 export const payments = () => (dispatch) => {
-  return axios.get('/api/payments').then((dt)=>{console.log(dt); dispatch(paymentsReceived(dt))}, console.error)
+  return axios.get('/api/payments').then((dt)=>{dispatch(paymentsReceived(dt))}, console.error)
 };
 
 
@@ -20,8 +20,20 @@ export const surveysReceived = (dt) => ({
 
 
 export const surveys = () => (dispatch) => {
-  return axios.get('/api/surveys').then((dt)=>{console.log(dt); dispatch(surveysReceived(dt))}, console.error)
+  return axios.get('/api/surveys').then((dt)=>{dispatch(surveysReceived(dt))}, console.error)
 };
+
+
+export const answersReceived = (dt) => ({
+  type: 'RECEIVE_ANSWERS',
+  payload: dt.data
+});
+
+
+export const answers = () => (dispatch) => {
+  return axios.get('/api/answears').then((dt)=>{dispatch(answersReceived(dt))}, console.error)
+};
+
 
 export const loginResult = (result) => ({
   type: 'LOGIN_RESULT',
