@@ -45,8 +45,13 @@ window.webappStart = () => {
     document.querySelector('.js-content')
   );
 
-  const l = document.createElement("link");
-  l.rel = "stylesheet"
-  l.href= "//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css";
-  document.head.append(l)
+  [
+    '//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css',
+    'https://unpkg.com/react-day-picker@6.2.1/lib/style.css',
+  ].forEach(css => {
+    const l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = css;
+    document.head.append(l);
+  });
 };

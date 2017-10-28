@@ -36,7 +36,14 @@ const payments = (store, action) => {
 const login = (store, action) => {
   switch(action.type) {
     case 'LOGIN_RESULT': return {...store, loggedIn: action.payload};
-    default: return {payments: []}
+    default: return {loggedIn: false}
+  }
+}
+
+const donors = (store, action) => {
+  switch(action.type) {
+    case 'DONORS_RESULT': return {...store, donors: action.payload};
+    default: return {donors: []}
   }
 }
 
@@ -45,5 +52,6 @@ export default combineReducers({
   number,
   payments,
   login,
+  donors,
   routing: routerReducer
 });
