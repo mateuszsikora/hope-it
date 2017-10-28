@@ -13,9 +13,10 @@ class WallEntry extends Component {
           <Card>
               <CardItem>
                 <Left>
+                  <Thumbnail source={{uri: this.props.msg.image}} />
                   <Body>
                     <Text>{this.props.msg.title}</Text>
-                    <Text note>ma horom curke</Text>
+                    <Text note>{this.props.msg.date}</Text>
                   </Body>
                 </Left>
               </CardItem>
@@ -29,18 +30,9 @@ class WallEntry extends Component {
                 <Left>
                   <Button transparent>
                     <Icon active name="thumbs-up" />
-                    <Text>12 Likes</Text>
+                    <Text>Pomogę</Text>
                   </Button>
                 </Left>
-                <Body>
-                  <Button transparent>
-                    <Icon active name="chatbubbles" />
-                    <Text>4 Comments</Text>
-                  </Button>
-                </Body>
-                <Right>
-                  <Text>11h ago</Text>
-                </Right>
               </CardItem>
             </Card>
         )
