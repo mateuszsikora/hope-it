@@ -61,10 +61,11 @@ export default class AndroidPay extends Component {
 
   render () {
     return (
-      <View>
+      <View style={{marginTop: 6}}>
           <Button
             iconRight
             onPress={this.handlePay}
+            block
           >
             <Text>Android Pay</Text>
             <Icon name='logo-android' />

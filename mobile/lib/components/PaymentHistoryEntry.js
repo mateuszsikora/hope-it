@@ -18,7 +18,6 @@ export default function PaymentHistoryEntry({ amount, date, message }) {
       <Card style={{ flex: 0 }}>
         <CardItem>
           <Left>
-            {<Icon name={'md-medkit'}/> }
             <Body>
             <Text>{message.title}</Text>
             <Text note>{moment(date).format('llll')}</Text>
@@ -32,12 +31,12 @@ export default function PaymentHistoryEntry({ amount, date, message }) {
               <View style={{ height: 180, alignSelf: 'stretch' }}>
                 <Image
                   source={{ uri: 'data:image/jpg;base64,' + message.image }}
-                  style={{ flex: 1, width: undefined, height: undefined, resizeMode: 'cover' }}
+                  style={{ flex: 1, width: undefined, height: undefined, resizeMode: 'cover', marginBottom: 5 }}
                 />
               </View>
           )}
           <Text>
-            {message.description}
+            {message.content}
           </Text>
           </Body>
         </CardItem>
@@ -56,7 +55,7 @@ export default function PaymentHistoryEntry({ amount, date, message }) {
 PaymentHistoryEntry.propTypes = {
   amount: PropTypes.number,
   date: PropTypes.string,
-  message: PropTypes.shape({
+  content: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
     image: PropTypes.string,
