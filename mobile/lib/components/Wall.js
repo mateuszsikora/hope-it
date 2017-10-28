@@ -54,8 +54,10 @@ class WallFundingEntry extends Component {
             <Left>
               <Thumbnail source={{ uri: this.props.msg.image }}/>
               <Body>
-              <Text>{this.props.msg.title}</Text>
-              <Text note>{moment(this.props.msg.startDate).calendar()}</Text>
+              <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text>{this.props.msg.title}</Text>
+                <Text note>{moment(this.props.msg.startDate).calendar()}</Text>
+              </View>
               <Text note>Do zdobycia: {formatNumber(this.props.msg.goal)} zł</Text>
               <Text note>Zdobyte: {this.props.msg.raised? formatNumber(this.props.msg.raised) : '0'} zł</Text>
               </Body>
