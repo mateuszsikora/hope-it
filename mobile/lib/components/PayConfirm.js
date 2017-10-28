@@ -47,7 +47,8 @@ class PayConfirm extends Component {
   render () {
     const { payment, completed } = this.state
     const { title, email, message } = this.props
-    const amount = parseInt(payment, 10) * 100
+    const a = parseInt(payment, 10)
+    const amount = a * 100
 
     if (completed) {
       return (
@@ -77,12 +78,12 @@ class PayConfirm extends Component {
         </Picker>
         <View style={{marginTop: 30}}/>
         <AndroidPay
-          amount={amount}
+          amount={a}
           title={title}
           onSuccess={this.handlePaySuccess}
         />
         <Payu
-          amount={amount}
+          amount={a}
           title={title}
           email={email}
           message={message}
@@ -103,7 +104,7 @@ class Store {
   @observable title = '<akcja>'
   @observable email = 't@g.com'
   @observable deviceId = '1'
-  @observable message = '1'
+  @observable message = null
 
   @action
   setPayment({title, email, deviceId, message}) {

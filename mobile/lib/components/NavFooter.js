@@ -43,7 +43,7 @@ function handlePay(location, history) {
       title: 'Jakaś akcja',
       email: 'todr@gmail.com',
       deviceId: '1', 
-      message: '<message>'
+      message: null
     })
     return location.pathname !== routes.pay && history.push(routes.pay)
   }

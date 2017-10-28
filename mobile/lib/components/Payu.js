@@ -13,33 +13,24 @@ import axios from 'axios'
 export default class Payu extends Component {
   state = {
     modalVisible: false,
-    opacity: 0,
-    url: ''
+    uri: '',
   }
 
   handlePay = async () => {
-    const { amount } = this.state
-    const { title, email, deviceId, message } = this.props
+    const { title, email, deviceId, message, amount } = this.props
     const res = await axios.post(`${serverUrl}/api/payments/payu`, {
       title, email, amount, deviceId, message
     })
 
     this.setState({
-      url: res.data.redirectUri,
+      uri: res.data.redirectUri,
       modalVisible: true
     })
-
-    setTimeout(() => {
-      this.setState({
-        opacity: 1.0
-      })
-    }, 2000)
   }
 
   handleClose = () => {
     this.setState({
       modalVisible: false,
-      opacity: 0
     })
   }
 
@@ -53,7 +44,7 @@ export default class Payu extends Component {
   }
 
   render () {
-    const { modalVisible, opacity } = this.state
+    const { modalVisible, uri } = this.state
 
     return (
       <View style={{marginTop: 6}}>
@@ -64,8 +55,8 @@ export default class Payu extends Component {
           >
             <WebView
               ref={webview => this.webview = webview}
-              source={{uri: `${serverUrl}/payu`}}
-              style={{position: 'absolute', left: 12, right: 12, bottom: 50, top: 50, opacity }}
+              source={{ uri }}
+              style={{position: 'absolute', left: 12, right: 12, bottom: 50, top: 50 }}
               startingInLoadingState
               onNavigationStateChange={this.onStateChange}
             />
@@ -89,6 +80,7 @@ Payu.defaultProps = {
   email: 't@g.com',
   deviceId: '1',
   message: null,
+  amount: 0,
   onSuccess: () => {}
 }
 

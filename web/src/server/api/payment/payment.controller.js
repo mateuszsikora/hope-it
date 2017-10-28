@@ -64,6 +64,7 @@ module.exports = [{
     const { amount, email, message, deviceId } = req.payload
     const ev = message
     const donor = null
+    // TODO [ToDr] Zaczytać z bazy message
     const description = 'Dotacja'
 
     const { host, protocol = 'https' } = req.info
