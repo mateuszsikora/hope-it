@@ -12,6 +12,8 @@ import {
 } from 'native-base';
 
 import moment from 'moment';
+import PushControllerWithStore from './components/PushControllerWithStore';
+
 moment.locale('pl');
 
 const NavFooterWithRouter = withRouter(NavFooter);
@@ -20,6 +22,7 @@ export default function App() {
   return (
       <NativeRouter>
         <Container style={commonStyles.container}>
+          <PushControllerWithStore/>
           <AndroidBackButton/>
           <Switch>
             <Route path={routes.wall} component={Wall}/>

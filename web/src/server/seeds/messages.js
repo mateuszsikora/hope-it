@@ -37,7 +37,7 @@ module.exports = async () => {
         donors: donors,
         type: 'funding', //'funding'|'promo'|'message'
         endDate: moment().add(5, 'days').toDate(), //funding
-        goal: 1000000,
+        goal: 100000,
         raised: 1000,
         title: 'Pomocy dla mateusza...',
         content: 'Chłopak strasznie chce spać, marchewka jest lepsza',
@@ -47,9 +47,19 @@ module.exports = async () => {
         donors: [donors[1]],
         type: 'funding', //'funding'|'promo'|'message'
         endDate: moment().add(5, 'days').toDate(), //funding
-        goal: 1000000,
+        goal: 30000,
         raised: 1000,
-        title: 'Chciał bym kupić marchewki',
+        title: 'Chciał bym kupić marchewki2',
+        content: 'Brakuje chajsu na marchewki które musimy kupić',
+        shortContent: 'co z tymi marchewkami',
+        image: exampleImage1
+      }, {
+        donors: [donors[1]],
+        type: 'funding', //'funding'|'promo'|'message'
+        endDate: moment().add(5, 'days').toDate(), //funding
+        goal: 30000,
+        raised: 1000,
+        title: 'Chciał bym kupić marchewki3',
         content: 'Brakuje chajsu na marchewki które musimy kupić',
         shortContent: 'co z tymi marchewkami',
         image: exampleImage1
