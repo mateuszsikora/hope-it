@@ -1,9 +1,9 @@
 import { serverUrl } from '../util'
 
-const fixedEmail = 'macio@macio.sex';
+import { loginStore } from '../components/Login'
 
 export function getCurrentUsersPayment() {
-  return fetch(serverUrl + `/api/payments/${fixedEmail}`, {
+  return fetch(serverUrl + `/api/payments/${loginStore.user.email}`, {
       method: 'GET',
     }).then(response=>response.json())
 }

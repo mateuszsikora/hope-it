@@ -48,7 +48,7 @@ class PayConfirm extends Component {
 
   render () {
     const { payment, completed } = this.state
-    const { title, email, message } = this.props
+    const { title, email, message, deviceId } = this.props
     const a = parseInt(payment, 10)
     const amount = a * 100
 
@@ -95,6 +95,7 @@ class PayConfirm extends Component {
           title={title}
           email={email}
           message={message}
+          deviceId={deviceId}
           onSuccess={this.handlePaySuccess}
         />
         <View style={styles.margin}>

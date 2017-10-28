@@ -20,7 +20,7 @@ module.exports = [{
   method: 'GET',
   path: '/api/payments',
   handler: (request, reply) => {
-    Payment.find({}).populate('donor').populate('message').then((result) => {
+    Payment.find({}).sort({'date': 1}).populate('donor').populate('message').then((result) => {
       reply(result);
     }).catch((err) => {
       throw err;

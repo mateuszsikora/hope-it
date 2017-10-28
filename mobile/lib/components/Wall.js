@@ -195,10 +195,20 @@ class WallContent extends Component {
     this.setState({
       isLoading: true
     });
-    this.getMessages()
+    this.int = setInterval(() => {
+      this.getMessages()
         .then((msg) => {
-          this.setState({ messages: msg, isLoading: false })
-        })
+            if (this.unmounted) {
+              return
+            }
+            this.setState({ messages: msg, isLoading: false })
+          })
+    }, 3000)
+  }
+
+  componentWillUnmount() {
+    this.unmounted = true
+    clearInterval(this.int)
   }
 
   render() {

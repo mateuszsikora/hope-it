@@ -56,6 +56,11 @@ export default class DeckSwiperExample extends Component {
                         <Container>
                           <Header />
                           <View>
+                            { !this.state.surveys.length && (
+                              <Text style={{fontSize: 28,textAlign: 'center',marginTop:75,marginRight:20,marginLeft: 20}}>
+                                Żadne ankiety nie są jeszcze dostępne.
+                              </Text>
+                            )}
                             <DeckSwiper
                               ref={(deck) => this.deck = deck}
                               onSwipeRight={this.swipeRight}
