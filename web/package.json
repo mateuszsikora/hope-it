@@ -22,8 +22,8 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">= 4 <= 8",
-    "npm": ">= 3 <= 5"
+    "node": "8.7.0",
+    "npm": "5.4.2"
   },
   "scripts": {
     "build": "clap build",
@@ -35,8 +35,8 @@
     "heroku-postbuild": "clap build"
   },
   "dependencies": {
-    "axion": "^0.1.0",
     "axios": "^0.17.0",
+    "axios-debug-log": "^0.3.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-stage-0": "^6.24.1",
     "bluebird": "^3.4.6",
@@ -51,9 +51,11 @@
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.10.1",
     "moment": "^2.19.1",
+    "lodash.get": "^4.4.2",
     "mongoose": "^4.12.4",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
+    "react-router-redux": "^4.0.8",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "semantic-ui": "^2.2.13",

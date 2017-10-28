@@ -13,5 +13,4 @@ module.exports = async () => {
       deviceId: 'asdf4'
     });
     console.log('finished populating donors');
-
-}
+};

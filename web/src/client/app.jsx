@@ -13,6 +13,8 @@ import { Provider } from 'react-redux';
 import rootReducer from './reducers';
 import moment from 'moment';
 import 'moment/locale/pl';
+import {axiosMiddleware} from './services/axios';
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
 
 moment.locale('pl');
 
@@ -23,21 +25,22 @@ moment.locale('pl');
 // The webapp's full HTML will check and call it once the js-content
 // DOM is created.
 //
-
+const middleware = routerMiddleware(browserHistory)
 
 window.webappStart = () => {
   const initialState = window.__PRELOADED_STATE__;
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const middlewares = [thunk, logger];
+  const middlewares = [thunk, axiosMiddleware, middleware, logger];
   const store = createStore(
     rootReducer,
     initialState,
     compose(applyMiddleware(...middlewares))
   );
+  const history = syncHistoryWithStore(browserHistory, store);
 
   render(
     <Provider store={store}>
-      <Router history={browserHistory}>{routes}</Router>
+      <Router history={history}>{routes}</Router>
     </Provider>,
     document.querySelector('.js-content')
   );

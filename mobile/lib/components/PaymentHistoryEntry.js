@@ -12,16 +12,16 @@ export const actionTypes = {
   sport: 'sport',
 }
 
-export default function PaymentHistoryEntry({ amount, date, action }) {
+export default function PaymentHistoryEntry({ amount, date, event }) {
   return (
       <Card style={{ flex: 0 }}>
         <CardItem>
           <Left>
-            {action.type === actionTypes.health && <Icon name={'md-medkit'}/> }
-            {action.type === actionTypes.education && <Icon name={'md-school'}/> }
-            {action.type === actionTypes.sport && <Icon name={'md-football'}/> }
+            {event.type === actionTypes.health && <Icon name={'md-medkit'}/> }
+            {event.type === actionTypes.education && <Icon name={'md-school'}/> }
+            {event.type === actionTypes.sport && <Icon name={'md-football'}/> }
             <Body>
-            <Text>{action.title}</Text>
+            <Text>{event.title}</Text>
             <Text note>{moment(date).format('HH:MM, D MMMM YYYY')}</Text>
             </Body>
           </Left>
@@ -29,7 +29,7 @@ export default function PaymentHistoryEntry({ amount, date, action }) {
         <CardItem>
           <Body>
           <Text>
-            {action.description}
+            {event.description}
           </Text>
           </Body>
         </CardItem>
@@ -46,8 +46,8 @@ export default function PaymentHistoryEntry({ amount, date, action }) {
 
 PaymentHistoryEntry.propTypes = {
   amount: PropTypes.number,
-  date: PropTypes.instanceOf(Date).props,
-  action: PropTypes.shape({
+  date: PropTypes.string,
+  event: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
     type: PropTypes.string
