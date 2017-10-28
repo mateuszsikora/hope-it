@@ -30,7 +30,7 @@ export default class Login extends React.Component {
           <View style={{ flex: 1, alignItems: 'center', justifyContent:'center', height: 650,}}>
             <Image style={{ height: 200, width: 200, marginBottom: 50}} source={require('./img/hopeIT_hackaton_fb_avatar_256x256_01.png')} />
             <GoogleSigninButton
-                style={{ alignSelf: 'stretch', height: 84, marginLeft: 40, mjustifyContent:'space-between',arginRight: 40}}
+                style={{ alignSelf: 'stretch', height: 84, marginLeft: 40, marginRight: 40}}
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Light}
                 onPress={this.init}/>
