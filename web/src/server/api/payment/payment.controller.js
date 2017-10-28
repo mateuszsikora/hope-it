@@ -65,7 +65,7 @@ module.exports = [{
     const donor = null
     const description = 'Dotacja'
 
-    const { host } = req.info
+    const { host, protocol } = req.info
 
     let payment = null
     try {
@@ -77,8 +77,8 @@ module.exports = [{
       }).save()
 
       const r = await payu.createOrderRequest({
-        notifyUrl: `http://${host}/api/payments/notify`,
-        continueUrl: `http://${host}/thankyou`,
+        notifyUrl: `${protocol}://${host}/api/payments/notify`,
+        continueUrl: `${protocol}://${host}/thankyou`,
         customerIp: '127.0.0.1',
         description,
         currencyCode: 'PLN',
