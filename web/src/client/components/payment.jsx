@@ -12,7 +12,7 @@ const Payment = ({donor, amount, date, num, message}) => {
       <Image avatar src='https://react.semantic-ui.com/assets/images/avatar/small/daniel.jpg' />
       <List.Content>
         <List.Header>{header}</List.Header>
-        <List.Description>{date? moment(date).format('llll'):''} | {message? message.title}</List.Description>
+        <List.Description>{date? moment(date).format('llll'):''} | {message? message.title : ''}</List.Description>
       </List.Content>
 
       <List.Content floated='right'>
