@@ -8,7 +8,6 @@ const PaymentSchema = new mongoose.Schema({
     default: Date.now
   },
   amount: Number,
-  event: String,
   status: {
     type: String,
     default: 'done'

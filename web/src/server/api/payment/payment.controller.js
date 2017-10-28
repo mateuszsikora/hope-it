@@ -3,7 +3,7 @@ import Donor from './../donor/donor.schema';
 
 import Payu from '../../payu'
 
-const payu = Payu.test
+const payu = Payu.test;
 
 module.exports = [{
   method: 'POST',
