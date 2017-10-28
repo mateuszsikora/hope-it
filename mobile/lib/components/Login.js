@@ -26,6 +26,7 @@ export default class Login extends React.Component {
               color={GoogleSigninButton.Color.Light}
               onPress={this.init}/>
           <Button onPress={this.init}/>
+          {this.store.isGoogleSiginConfigured === true && <Text>Success</Text>}
         </Content>
     );
   }
