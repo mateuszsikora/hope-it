@@ -5,7 +5,7 @@ import seed from '../seeds';
 import auth from '../auth';
 import fcm from '../fcm';
 const {config} = require('electrode-confippet');
-fcm('','', 'f2aEp28jWCk:APA91bGzdZyDran1XjsN2UDwdWbCFoPECySz74uN4tsNrJOoLS7vgmnxn7Zt4XiKSSQ-yD0ucs6DfzGh-VQFsCgsUWsvprc-I1Fe4KSSs6xA8P8Tg_lm8HsPNezlRrSQNzKrQZyxo6Eo')
+fcm('test1','test2', 'f2aEp28jWCk:APA91bGzdZyDran1XjsN2UDwdWbCFoPECySz74uN4tsNrJOoLS7vgmnxn7Zt4XiKSSQ-yD0ucs6DfzGh-VQFsCgsUWsvprc-I1Fe4KSSs6xA8P8Tg_lm8HsPNezlRrSQNzKrQZyxo6Eo')
 /*eslint-env es6*/
 const plugin = {};
 const url = `mongodb://${config.mongodb.host}:${config.mongodb.port}/hopeit`;

@@ -18,7 +18,8 @@ const MessageSchema = new mongoose.Schema({
   location: { lat: Number, lng: Number},
   discount: Number,
   donated: Number,
-  image: String
+  image: String,
+  supporters: Number
 });
 
 module.exports = mongoose.model('Message', MessageSchema);

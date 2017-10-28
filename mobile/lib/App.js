@@ -24,7 +24,7 @@ const NavFooterWithRouter = withRouter(NavFooter);
 
 @observer
 export default class App extends React.Component {
-  store = loginStore;
+  loginStore = loginStore;
 
   render() {
     return (
@@ -32,8 +32,8 @@ export default class App extends React.Component {
           <Container style={commonStyles.container}>
             <PushControllerWithStore/>
             <AndroidBackButton/>
-            {!this.store.user.email && <Route path={routes.login} component={Login}/>}
-            { this.store.user.email && (
+            {!this.loginStore.user.email && <Route path={routes.login} component={Login}/>}
+            { this.loginStore.user.email && (
                   <Switch>
                     <Route path={routes.wall} component={Wall}/>
                     <Route path={routes.survey} component={Survey}/>
@@ -44,7 +44,7 @@ export default class App extends React.Component {
                   </Switch>
               )
             }
-            {this.store.user.email && < NavFooterWithRouter onChange={() => null}/> }
+            {this.loginStore.user.email && < NavFooterWithRouter onChange={() => null}/> }
           </Container>
         </NativeRouter>
     );
