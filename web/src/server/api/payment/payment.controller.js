@@ -28,14 +28,15 @@ module.exports = [{
   method: 'POST',
   path: '/api/payments/payu',
   handler(req, reply) {
-    const description = ''
+    const description = 'Dotacja'
     const extOrderId = `${Math.random()}`
 
-    console.log(req.body)
+    const { host } = req.info
+    const { amount, email } = req.payload
 
     payu.createOrderRequest({
-      notifyUrl: `${req.info.host}/api/notify`,
-      continueUrl: `${req.info.host}/thankyou`,
+      notifyUrl: `http://${host}/api/notify`,
+      continueUrl: `http://${host}/thankyou`,
       customerIp: '127.0.0.1',
       description,
       currencyCode: 'PLN',
@@ -43,19 +44,25 @@ module.exports = [{
       extOrderId,
     }, [{
       name: description,
-      unitPrice: req.body.amount * 100,
-      quantity: 1
+      unitPrice: `${amount * 100}`,
+      quantity: '1'
     }], {
-      email: req.body.email,
+      email: email,
       firstName: 'Jerry',
       lastName: 'Hojny'
-    }).on('error', () => {
-
-    }).end(r => {
-      if (r.ok || r.status === 302) {
-        reply(r.body)
+    }).then(r => {
+      if (r.status === 200 || r.status === 302) {
+        console.log(r)
+        reply(r.data)
       } else {
-        reply(r.body).status(400)
+        reply(r.data).code(400)
+      }
+    }).catch(err => {
+      const r = err.response
+      if (r.status === 200 || r.status === 302) {
+        reply(r.data)
+      } else {
+        reply(r.data).code(400)
       }
     })
   }

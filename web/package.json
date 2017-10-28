@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
+    "axios-debug-log": "^0.3.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-stage-0": "^6.24.1",
     "bluebird": "^3.4.6",

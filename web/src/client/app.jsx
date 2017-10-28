@@ -2,6 +2,7 @@
 // This is the client side entry point for the React app.
 //
 
+import 'axios-debug-log';
 import React from 'react';
 import { render } from 'react-dom';
 import { routes } from './routes';

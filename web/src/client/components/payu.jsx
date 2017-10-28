@@ -1,6 +1,7 @@
+import axios from 'axios'
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { Form, Button, Segment, Label } from 'semantic-ui-react'
+import { Form, Button, Segment, Label, Message } from 'semantic-ui-react'
 
 const options = [
   { key: '5', value: '5', text: '5 zł'},
@@ -60,17 +61,13 @@ export default class Payu extends PureComponent {
     })
   }
 
-  payu = async () => {
+  pay = async () => {
     try {
       this.setState({ sending: true })
-      let res = await fetch('/api/payu', {
-        method: 'post',
-        body: JSON.stringify(this.state)
-      })
-      res = await res.json()
-      // all good?
-      // TODO [ToDr] Redirect?
-      console.log(res)
+      const { email, amount } = this.state
+      let res = await axios.post('/api/payments/payu', { email, amount })
+
+      window.location = res.data.redirectUri
     } catch (error) {
       console.error(error)
       this.setState({ sending: false, error })
@@ -82,7 +79,10 @@ export default class Payu extends PureComponent {
 
     return (
       <Segment>
-        <Form sending={sending}>
+        <Form
+          loading={sending}
+          error={!!error}
+        >
           <Form.Field
             error={!!emailValid}
           >
@@ -114,7 +114,7 @@ export default class Payu extends PureComponent {
           <Form.Button
             primary
             onClick={this.pay}
-            disabled={!!errorValid}
+            disabled={!!emailValid}
           >
             Wpłać
           </Form.Button>
