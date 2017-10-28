@@ -54,4 +54,4 @@ setInterval(() => {
   }).catch(err => {
     console.error(err)
   })
-}, 5000)
+}, 6500 + Math.random() * 1000)
