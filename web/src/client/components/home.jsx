@@ -12,7 +12,7 @@ import moment from 'moment';
 const Event = ({title, shortContent, content, image, goal, raised, handleOpen, isOpen, idx })=>{
   return (
     <Card>
-    {image? <Image src={'data:image/png;base64,'+image} /> : null}
+    {image? <Image src={image} /> : null}
     <Card.Content>
       <Card.Header>
         {title}
