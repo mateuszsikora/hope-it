@@ -1,89 +1,145 @@
 import React from 'react';
+import {Button} from 'semantic-ui-react'
+import DayPicker from 'react-day-picker';
+import {Dropdown, Form, Input, TextArea} from 'semantic-ui-react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
+import {donors} from '../actions/index';
+import {axios} from '../services/axios';
 
-import electrodePng from '../images/electrode.png';
-import DemoStates from './demo-states';
-import DemoPureStates from './demo-pure-states';
-import { DemoButtons } from './demo-buttons';
-import nav from './nav';
-import { Button } from 'semantic-ui-react'
+const stateOptions = [{key: 'AL', value: 'AL', text: 'Alabama'}];
+const messageTypes = [
+  {key: 'funding', value: 'funding', text: 'Zbiórka'},
+  {key: 'message', value: 'message', text: 'Podziękowania'},
+  {key: 'promo', value: 'promo', text: 'Okazja'}
+];
 
 class AddNewMessage extends React.Component {
-    state = {}
-    constructor(props) {
-        super(props)
-        this.state = {doners: [], donees: [], message: '', selectedDonee: '', selectedDoner: ''}
-    }
+  state = {};
 
-    componentDidMount() {
-        const that = this;
-        const xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", "/api/donees");
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send();
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                const res = JSON.parse(this.responseText)
-                that.setState({ donees: res })
-            }
-        }
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "/api/doners");
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send();
-        xhr.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                const res = JSON.parse(this.responseText)
-                that.setState({ doners: res })
-            }
-        }
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    isMessageNameValid = (name) => !!name
+  componentDidMount() {
+    donors();
+  }
 
-    addNew = () => {
-        const obj = this.state
-        console.log(this.state)
+  genericOnChange = field => (event, data) => {
+    this.setState((prevState) => ({...prevState,  [field]: data.value}));
+  };
 
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST", "/api/messages");
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send(JSON.stringify({
-            message: obj.message,
-            donee: obj.selectedDonee,
-            doner: obj.selectedDoner
-        }));
-    }
+  onChangeType = this.genericOnChange('type');
+  onChangeContent = this.genericOnChange('content');
+  onChangeTitle = this.genericOnChange('title');
+  onChangeDonors = this.genericOnChange('donors');
+  onChangeVenue = this.genericOnChange('venue');
+  onChangeLat = this.genericOnChange('lat');
+  onChangeLng = this.genericOnChange('lng');
+  onChangeStartDate = this.genericOnChange('startDate');
+  onChangeEndDate = this.genericOnChange('endDate');
+  onChangeGoal = this.genericOnChange('goal');
+  onChangeDiscount = this.genericOnChange('discount');
+  onChangeDonated = this.genericOnChange('donated');
+  onChangeCode = this.genericOnChange('code');
 
-    changeMessage = (obj) =>
-        this.setState({ message: obj.target.value })
+  handleSend = () => {
+    axios.post('/api/messages', this.state);
+    this.setState(() => ({}));
+  };
 
-    onDoneeChange = (e) =>
-        this.setState({ selectedDonee: e.target.value })
+  randerFunding() {
+    return (
+      <div>
+        <div>
+          <h2>Początek zbiórki</h2>
+          <DayPicker month={ new Date(2018, 8)} onChange={this.onChangeStartDate} />
+        </div>
+        <div>
+          <h2>Koniec zbiórki</h2>
+          <DayPicker month={ new Date(2018, 8)} onChange={this.onChangeEndDate} />
+        </div>
+        <div>
+          <h2>Do zebrania</h2>
+          <Input placeholder='Wysokość zbiórki' onChange={this.onChangeGoal} />
+        </div>
+      </div>
+    );
+  }
 
-    onDonerChange = (e) =>
-        this.setState({ selectedDoner: e.target.value })
+  renderPromo() {
+    return (
+      <div>
+        <div>
+          <h2>Miejsce</h2>
+          <Input placeholder='Miejsce' onChange={this.onChangeVenue}/>
+        </div>
+        <div>
+          <h2>Szegokość geograficzna</h2>
+          <Input placeholder='Szerokość geograficzna' onChange={this.onChangeLat} />
+        </div>
+        <div>
+          <h2>Długość geograficzna</h2>
+          <Input placeholder='Długość geograficzna' onChange={this.onChangeLng} />
+        </div>
+        <div>
+          <h2>Zniżka</h2>
+          <Input placeholder='Zniżka' onChange={this.onChangeDiscount} />
+        </div>
+        <div>
+          <h2>Dotacja</h2>
+          <Input placeholder='Dotacja' onChange={this.onChangeDonated} />
+        </div>
+        <div>
+          <h2>Kod</h2>
+          <Input placeholder='Kod' onChange={this.onChangeCode} />
+        </div>
+      </div>
+    );
+  }
 
-    render() {
-        return (
-            <div>
-                <h1>Dodaj nowy wpis</h1>
-                <textarea onChange={this.changeMessage} placeholder="Dodaj nową wiadomość..."></textarea>
-                <select onChange={this.onDonerChange} value={this.state.selectedDoner}>
-                    <option selected disabled>Select doner</option>
-                    {this.state.doners.map(d => 
-                        (<option value={d._id}>{d.name}</option>))}
-                </select>
-                <select onChange={this.onDoneeChange} value={this.state.selectedDonee}>
-                    <option selected disabled>Select donee</option>
-                    {this.state.donees.map(d => 
-                        (<option value={d._id}>{d.name}</option>))}
-                </select>
-                <button onClick={this.addNew}>Dodaj</button>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <h1>Dodaj nowy wpis</h1>
+        <Form>
+          <div>
+            <h2>Typ wiadomości</h2>
+            <Dropdown name='type' placeholder='Wybierz darczyńców, do których wiadomość ma trafić...' fluid search
+                      selection options={messageTypes} onChange={this.onChangeType}/>
+          </div>
+
+          <div>
+            <h2>Darczyńcy</h2>
+            <Dropdown placeholder='Wybierz darczyńców, do których wiadomość ma trafić...' fluid multiple search
+                      selection options={stateOptions} onChange={this.onChangeDonors} />
+          </div>
+
+          <div>
+            <h2>Tytuł wiadomości</h2>
+            <Input placeholder='Podaj tytuł wiadomości...' onChange={this.onChangeTitle}/>
+          </div>
+
+          <div>
+            <h2>Treść wiadomości</h2>
+            <TextArea autoHeight placeholder='Podaj treść wiadomości dla darczyńców' onChange={this.onChangeContent} rows={2}/>
+          </div>
+
+          {this.state.type === 'funding' && this.randerFunding()}
+          {this.state.type === 'promo' && this.renderPromo()}
+
+        </Form>
+        <Button onClick={this.handleSend}>
+          Zapisz
+        </Button>
+      </div>
+    );
+  }
 }
 
-export default () =>
-  (<AddNewMessage />);
-
+const mapStateToProps = (state)=> ({
+  donors: state.donors.donors
+});
+const mapDispatchToProps = (dispatch)=> ({actions: bindActionCreators( actions,dispatch)});
+export default connect(mapStateToProps,mapDispatchToProps)( AddNewMessage);

@@ -16,7 +16,7 @@ export default function MainNav() {
       <Menu.Item><Link to="/payments">Dotacje</Link></Menu.Item>
       <Menu.Item><Link to="/payu">Payu</Link></Menu.Item>
     </Sidebar>
-  )
+  );
 }
 
 export function createWithNav(Component){
