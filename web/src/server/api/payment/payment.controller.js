@@ -60,17 +60,19 @@ module.exports = [{
   method: 'POST',
   path: '/api/payments/payu',
   async handler(req, reply) {
-    const { amount, email, event = '' } = req.payload
+    const { amount, email, event } = req.payload
+    const ev = event || ''
     const donor = null
     const description = 'Dotacja'
 
     const { host } = req.info
 
+    let payment = null
     try {
-      const payment = await new Payments({
+      payment = await new Payment({
         donor,
         amount: amount * 100,
-        event,
+        event: ev,
         status: 'waiting'
       }).save()
 
@@ -99,13 +101,16 @@ module.exports = [{
         reply(r.data).code(400)
       }
     } catch (err) {
+      console.error(err)
       const r = err.response
-      if (r.status === 200 || r.status === 302) {
+      if (r && r.status === 200 || r.status === 302) {
         reply(r.data)
       } else {
-        payment.status = 'failed'
-        await payment.save()
-        reply(r.data).code(400)
+        if (payment) {
+          payment.status = 'failed'
+          await payment.save()
+        }
+        reply(r ? r.data : err).code(400)
       }
     }
   }

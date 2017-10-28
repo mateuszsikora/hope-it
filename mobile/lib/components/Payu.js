@@ -6,8 +6,8 @@ import {
   Modal,
   WebView,
 } from 'react-native'
-
 import {Button, Icon, Text} from 'native-base' 
+import { apiUrl } from '../util'
 
 export default class Payu extends Component {
   state = {
@@ -43,7 +43,7 @@ export default class Payu extends Component {
             onRequestClose={this.handleClose}
           >
             <WebView
-              source={{uri: 'http://10.99.130.73:3000/payu'}}
+              source={{uri: `${apiUrl}/payu`}}
               style={{marginTop: 22, marginLeft: 6, marginRight: 6}}
               onMessage={this.handleMessage}
             />

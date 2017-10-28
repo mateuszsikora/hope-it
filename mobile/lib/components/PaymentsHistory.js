@@ -20,7 +20,7 @@ import {
   Footer,
   FooterTab
 } from 'native-base';
-import { getCurrentUsersPayment } from './../api/payments';
+import { getCurrentUsersPayment } from '../api/payments';
 
 import { actionTypes } from './PaymentHistoryEntry';
 

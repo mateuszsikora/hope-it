@@ -9,6 +9,7 @@ import Payu from './components/payu';
 import { createWithNav } from './components/nav';
 import {Container} from 'semantic-ui-react';
 import Login from './components/login';
+import Thankyou from './components/Thankyou';
 
 export const routes = (
   <Container fluid={false} text>
@@ -26,6 +27,7 @@ export const routes = (
       <Payments />
     ))}/>
     <Route path="/payu" component={Payu} />
+    <Route path="/thankyou" component={Thankyou} />
     <Route path="/login" component={Login}/>
   </Container>
 );
