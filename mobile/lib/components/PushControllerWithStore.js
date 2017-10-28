@@ -4,11 +4,9 @@ import { observer } from 'mobx-react'
 import { observable, action } from 'mobx'
 import PushController from './PushController';
 
-import { registerDonor } from './../api/donors';
-
 @observer
 export default class PushControllerToStore extends React.Component {
-  store = new AppStore();
+  store = tokenStore;
 
   componentDidMount() {
     this.store.init();
@@ -25,14 +23,12 @@ export default class PushControllerToStore extends React.Component {
   }
 }
 
-
-export class AppStore {
+class TokenStore {
   @observable token = '';
 
   @action
   setToken(token) {
     this.token = token;
-    registerDonor({ token, email: 'macio@macio.sex' }).then(this.registerTokenCompleted, this.registerTokenFailed);
     console.log('token-set', token);
   }
 
@@ -51,3 +47,5 @@ export class AppStore {
     this.isTokenRegistered = false;
   }
 }
+
+export const tokenStore = new TokenStore();

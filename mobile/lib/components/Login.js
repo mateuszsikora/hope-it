@@ -8,10 +8,15 @@ import {
   Button
 } from 'native-base';
 
+import { tokenStore } from './PushControllerWithStore';
+
+import { registerDonor } from './../api/donors';
+
 @observer
 export default class Login extends React.Component {
 
   store = loginStore;
+  tokenStore = tokenStore;
 
   init = () => {
     this.store.init();
@@ -31,6 +36,9 @@ export default class Login extends React.Component {
     );
   }
 }
+
+
+const userEmail = 'macio@gmail.com';
 
 class LoginStore {
   @observable isGoogleSiginConfigured = false;
@@ -53,21 +61,25 @@ class LoginStore {
       })
     })
         .then(() => GoogleSignin.signIn())
-        .then(this.initSuccess, this.initFailure)
+        .catch(() => null) //catchjes failutres in signIn
+        .then(() => {
+          registerDonor({ deviceId: tokenStore.token, email: userEmail })
+        })
+        .then(this.initSuccess, this.initFailure);
   }
 
   @action.bound
   initSuccess(user) {
-    this.user = user;
+    this.user = {
+      email: userEmail
+    };
     this.isGoogleSiginConfigured = true;
   }
 
   @action.bound
   initFailure() {
-    this.user = {
-      email: 'macio@gmail.com'
-    };
-    this.isGoogleSiginConfigured = true;
+    this.user = {};
+    this.isGoogleSiginConfigured = false;
   }
 }
 
