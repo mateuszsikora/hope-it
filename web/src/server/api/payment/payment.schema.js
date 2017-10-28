@@ -11,6 +11,10 @@ const PaymentSchema = new mongoose.Schema({
   status: {
     type: String,
     default: 'done'
+  },
+  txId: {
+    type: String,
+    default: ''
   }
 });
 

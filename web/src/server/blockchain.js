@@ -37,10 +37,15 @@ setInterval(() => {
     return getLogs(prev, block)
   }).then(logs => {
     logs.forEach(log => {
-      new Payment({
+      Payment.findOneAndUpdate({
+        txId: log.transactionHash
+      }, {
         amount: 300 * 3.6 * 100,
-        status: 'done'
-      }).save().then(() => {
+        status: 'done',
+        txId: log.transactionHash
+      }, {
+        upsert: true
+      }).then(() => {
         console.log('Blockchain transaction registered.', log)
       }).catch(err => {
         console.error('Error inserting blockchain transaction', err)
