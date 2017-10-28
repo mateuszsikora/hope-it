@@ -32,7 +32,7 @@ export const payments = () => (dispatch) => {
 
 export const loginResult = (result) => ({
   type: 'LOGIN_RESULT',
-  payload: result.data
+  payload: result
 });
 
 export const login = (credentials) => (dispatch) => {

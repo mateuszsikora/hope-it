@@ -15,6 +15,7 @@ export const routes = (
   <Container fluid={false} text>
     <Route path="/" component={createWithNav(Home)}/>
     <Route path="/add-new-message" component={createWithNav(AddNewMessage)}/>
+
     <Route path="/payments" component={createWithNav(() => (
       <Payments />
     ))}/>

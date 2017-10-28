@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import { routerReducer } from 'react-router-redux';
+import {routerReducer} from 'react-router-redux';
 
 const checkBox = (store, action) => {
   if (action.type === 'TOGGLE_CHECK') {
@@ -27,26 +27,31 @@ const number = (store, action) => {
 
 
 const payments = (store, action) => {
-  switch(action.type) {
-    case 'RECEIVE_PAYMENTS': return {...store, payments: action.payload}
-    default: return {payments: []}
+  switch (action.type) {
+    case 'RECEIVE_PAYMENTS':
+      return {...store, payments: action.payload}
+    default:
+      return store || {payments: []};
   }
 }
 
 const login = (store, action) => {
-  switch(action.type) {
-    case 'LOGIN_RESULT': return {...store, loggedIn: action.payload};
-    default: return {loggedIn: false}
+  switch (action.type) {
+    case 'LOGIN_RESULT':
+      return {...store, loggedIn: action.payload};
+    default:
+      return store || {loggedIn: false};
   }
 }
 
 const donors = (store, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'RECEIVE_DONORS': {
       const donors = action.payload || [];
       return {...store, donors: donors.map(donor => ({key: donor._id, value: donor._id, text: donor.email}))};
     }
-    default: return {donors: []}
+    default:
+      return store || {donors: []};
   }
 }
 
