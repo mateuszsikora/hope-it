@@ -13,30 +13,31 @@ export const actionTypes = {
   sport: 'sport',
 };
 
-export default function PaymentHistoryEntry({ amount, date, event }) {
+export default function PaymentHistoryEntry({ amount, date, message }) {
   return (
       <Card style={{ flex: 0 }}>
         <CardItem>
           <Left>
+            {<Icon name={'md-medkit'}/> }
             <Body>
-            <Text>{event.title}</Text>
-            <Text note>{moment(date).format('HH:MM, D MMMM YYYY')}</Text>
+            <Text>{message.title}</Text>
+            <Text note>{moment(date).format('llll')}</Text>
             </Body>
           </Left>
         </CardItem>
         <CardItem>
           <Body style={{ flex: 1 }}>
-          {Boolean(event.image) &&
+          {Boolean(message.image) &&
           (
               <View style={{ height: 180, alignSelf: 'stretch' }}>
                 <Image
-                  source={{ uri: 'data:image/jpg;base64,' + event.image }}
+                  source={{ uri: 'data:image/jpg;base64,' + message.image }}
                   style={{ flex: 1, width: undefined, height: undefined, resizeMode: 'cover' }}
                 />
               </View>
           )}
           <Text>
-            {event.description}
+            {message.description}
           </Text>
           </Body>
         </CardItem>
@@ -55,10 +56,13 @@ export default function PaymentHistoryEntry({ amount, date, event }) {
 PaymentHistoryEntry.propTypes = {
   amount: PropTypes.number,
   date: PropTypes.string,
-  event: PropTypes.shape({
+  message: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
+<<<<<<< HEAD
+=======
     image: PropTypes.string,
     type: PropTypes.string
+>>>>>>> 9621fe0dbf7c3d9a7897e63121dd1f9550b18fc5
   })
 };

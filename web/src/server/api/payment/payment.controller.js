@@ -20,7 +20,7 @@ module.exports = [{
   path: '/api/payments',
   handler: (request, reply) => {
     console.log(request.params.email);
-    Payment.find({}).populate('donor').populate('event').then((result) => {
+    Payment.find({}).populate('donor').populate('message').then((result) => {
       reply(result);
     }).catch((err) => {
       throw err;
@@ -34,7 +34,7 @@ module.exports = [{
     if (!donor){
       reply([]);
     }
-    const payments = Payment.find({ donor: donor._id }).populate('donor').populate('event');
+    const payments = Payment.find({ donor: donor._id }).populate('donor').populate('message');
     reply(payments);
   }
 },
