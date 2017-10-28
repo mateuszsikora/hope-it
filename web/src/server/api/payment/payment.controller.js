@@ -61,9 +61,10 @@ module.exports = [{
   path: '/api/payments/payu',
   async handler(req, reply) {
     const { amount, email, message, deviceId } = req.payload
+    console.log(req.payload)
     const ev = message
     const donor = await Donor.findOne({
-      email, deviceId
+      deviceId
     })
     const mes = await Message.findById(message)
     const description = mes ? mes.title : 'Dotacja'
