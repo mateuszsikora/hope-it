@@ -25,7 +25,7 @@ Payment.propTypes = {
     donor: PropTypes.shape({email: PropTypes.string.isRequired}),
     amount: PropTypes.number.isRequired,
     date: PropTypes.string.isRequired,
-    message: PropType.shape({title: PropType.string})
+    message: PropTypes.shape({title: PropTypes.string})
 }
 
 export default Payment
