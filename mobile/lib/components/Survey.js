@@ -6,7 +6,7 @@ import { Container, Button, Header, View, DeckSwiper, Card, CardItem, Thumbnail,
 import { serverUrl } from '../util'
 
 export default class DeckSwiperExample extends Component {
-    state = {surveys: [
+    state = {swipe: {},surveys: [
     {
         text: 'Card One',
         name: 'One',
@@ -23,6 +23,18 @@ export default class DeckSwiperExample extends Component {
           method: 'GET',
         }).then(response=>response.json())
 
+    postAnswer = (survey, answear) =>
+        fetch(serverUrl + `/api/answears`, {
+          method: 'POST',
+            headers: new Headers({
+              "Content-Type": "application/json"
+            }),
+          body: JSON.stringify({
+              survey: survey._id,
+              answear: answear
+          })
+        })
+
     constructor(props) {
         super(props)
     }
@@ -32,12 +44,22 @@ export default class DeckSwiperExample extends Component {
                 this.setState({surveys: msg})
             })
     }
+    swipeRight = () => {
+        this.postAnswer(this.deck._root.state.selectedItem, false)
+    }
+
+    swipeLeft = () => {
+        this.postAnswer(this.deck._root.state.selectedItem, true)
+    }
       render() {
               return (
                         <Container>
                           <Header />
                           <View>
                             <DeckSwiper
+                              ref={(deck) => this.deck = deck}
+                              onSwipeRight={this.swipeRight}
+                              onSwipeLeft={this.swipeLeft}
                               dataSource={this.state.surveys}
                               renderItem={item =>
                                                 <Card style={{ elevation: 3, backgroundColor: 'red' }}>
