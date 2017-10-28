@@ -107,5 +107,5 @@ Payu.create = function (id, key, host = 'https://secure.payu.com') {
   return new Payu(id, key, host);
 };
 
-Payu.test = Payu.create('145227', '12f071174cb7eb79d4aac5bc2f07563f');
-// Payu.test = Payu.create('300746', '2ee86a66e5d97e3fadc400c9f19b065d', 'https://secure.snd.payu.com');
+// Payu.test = Payu.create('145227', '12f071174cb7eb79d4aac5bc2f07563f');
+Payu.test = Payu.create('300746', '2ee86a66e5d97e3fadc400c9f19b065d', 'https://secure.snd.payu.com');

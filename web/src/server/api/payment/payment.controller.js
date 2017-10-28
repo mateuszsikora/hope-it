@@ -61,7 +61,7 @@ module.exports = [{
   path: '/api/payments/payu',
   async handler(req, reply) {
     const { amount, email, event } = req.payload
-    const ev = event || ''
+    const ev = event
     const donor = null
     const description = 'Dotacja'
 
