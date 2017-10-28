@@ -40,7 +40,12 @@ export default class PaymentsHistory extends Component {
 
     return (
         <Content>
-          {isLoading && <Text>Loading...</Text>}
+          {isLoading && <Text style={{marginTop: 75, textAlign: 'center'}}>Ładowanie...</Text>}
+          {!isLoading && !payments.length && (
+            <Text style={{marginTop: 75, textAlign: 'center'}}>
+              Nie wykonałeś jeszcze żadnych dotacji! Wesprzyj nas już teraz.
+            </Text>
+          )}
           {!isLoading && payments.map((payment, key) => (
               <PaymentHistoryEntry
                   key={key} {...payment}
