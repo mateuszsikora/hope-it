@@ -48,7 +48,7 @@ class WallEntry extends Component {
 }
 
 class WallContent extends Component {
-    state = {}
+    state = { messages: [] }
 
     getMessages = () =>
         fetch(serverUrl + `/api/messages`, {
@@ -57,7 +57,10 @@ class WallContent extends Component {
 
     constructor(props) {
         super(props)
-        this.setState({messages: this.getMessages()})
+        this.getMessages()
+            .then((msg) => {
+                this.setState({messages: msg})
+            })
     }
 
     render() {
