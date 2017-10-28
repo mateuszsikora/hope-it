@@ -8,6 +8,10 @@ const PaymentSchema = new mongoose.Schema({
     default: Date.now
   },
   amount: Number,
+  status: {
+    type: String,
+    default: 'done'
+  }
 });
 
 module.exports = mongoose.model('Payment', PaymentSchema);

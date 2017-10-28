@@ -1,4 +1,5 @@
-const apiUrl = 'http://localhost:3000/api';
+import { apiUrl } from '../util'
+
 const fixedEmail = 'macio@macio.sex';
 
 export function getCurrentUsersPayment() {

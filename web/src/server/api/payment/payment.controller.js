@@ -3,7 +3,7 @@ import Donor from './../donor/donor.schema';
 
 import Payu from '../../payu'
 
-const payu = Payu.test
+const payu = Payu.test;
 
 module.exports = [{
   method: 'POST',
@@ -37,46 +37,81 @@ module.exports = [{
     const payments = Payment.find({ donor: donor._id }).populate('donor').populate('message');
     reply(payments);
   }
-}, {
+},
+{
+  method: 'POST',
+  path: '/api/payments/notify',
+  async handler(req, reply) {
+    const { order } = req.payload
+    if (order.status === 'COMPLETED') {
+      const payment = await Payment.findById(order.extOrderId)
+      if (!payment) {
+        return reply().code(404)
+      }
+
+      payment.status = 'done'
+      await payment.save()
+    }
+
+    return reply()
+  }
+},
+{
   method: 'POST',
   path: '/api/payments/payu',
-  handler(req, reply) {
+  async handler(req, reply) {
+    const { amount, email, event } = req.payload
+    const ev = event || ''
+    const donor = null
     const description = 'Dotacja'
-    const extOrderId = `${Math.random()}`
 
     const { host } = req.info
-    const { amount, email } = req.payload
 
-    payu.createOrderRequest({
-      notifyUrl: `http://${host}/api/notify`,
-      continueUrl: `http://${host}/thankyou`,
-      customerIp: '127.0.0.1',
-      description,
-      currencyCode: 'PLN',
-      validityTime: 3600,
-      extOrderId,
-    }, [{
-      name: description,
-      unitPrice: `${amount * 100}`,
-      quantity: '1'
-    }], {
-      email: email,
-      firstName: 'Jerry',
-      lastName: 'Hojny'
-    }).then(r => {
+    let payment = null
+    try {
+      payment = await new Payment({
+        donor,
+        amount: amount * 100,
+        event: ev,
+        status: 'waiting'
+      }).save()
+
+      const r = await payu.createOrderRequest({
+        notifyUrl: `http://${host}/api/payments/notify`,
+        continueUrl: `http://${host}/thankyou`,
+        customerIp: '127.0.0.1',
+        description,
+        currencyCode: 'PLN',
+        validityTime: 3600,
+        extOrderId: payment._id,
+      }, [{
+        name: description,
+        unitPrice: `${amount * 100}`,
+        quantity: '1'
+      }], {
+        email: email,
+        firstName: 'Jerry',
+        lastName: 'Hojny'
+      })
       if (r.status === 200 || r.status === 302) {
-        console.log(r)
         reply(r.data)
       } else {
+        payment.status = 'failed'
+        await payment.save()
         reply(r.data).code(400)
       }
-    }).catch(err => {
+    } catch (err) {
+      console.error(err)
       const r = err.response
-      if (r.status === 200 || r.status === 302) {
+      if (r && r.status === 200 || r.status === 302) {
         reply(r.data)
       } else {
-        reply(r.data).code(400)
+        if (payment) {
+          payment.status = 'failed'
+          await payment.save()
+        }
+        reply(r ? r.data : err).code(400)
       }
-    })
+    }
   }
 }];
