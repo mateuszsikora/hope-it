@@ -73,7 +73,7 @@ class Payments extends Component {
   renderPaymentsList(){
     return (
       <List divided>
-        {this.props.payments.map((payment, idx) => (<Payment {...payment} key={idx} />))}
+        {this.props.payments.reverse().map((payment, idx) => (<Payment {...payment} key={idx} />))}
       </List>
     )
   }

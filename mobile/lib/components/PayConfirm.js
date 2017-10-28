@@ -141,7 +141,7 @@ const styles = {
     textAlign: 'center',
     color: '#3f9c3f',
     fontSize: 48,
-    marginTop: 25
+    marginTop: 75
   },
   header: {
     marginTop: 50,
