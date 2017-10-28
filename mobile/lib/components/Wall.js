@@ -43,15 +43,15 @@ class WallFundingEntry extends Component {
               <Text>{this.props.msg.title}</Text>
               <Text note>{moment(this.props.msg.startDate).format('lll')}</Text>
               <Text note>Do zdobycia: {this.props.msg.goal}</Text>
-              <Text note>Zdobyte: {this.props.msg.raised}</Text>
+              <Text note>Zdobyte: {this.props.msg.raised? this.props.msg.raised : 0}</Text>
               </Body>
             </Left>
           </CardItem>
           <CardItem cardBody>
             <Image source={{ uri: this.props.msg.image }} style={{ height: 200, width: null, flex: 1 }}/>
           </CardItem>
-          <CardItem cardBody>
-            <Text>{this.props.msg.content}</Text>
+          <CardItem>
+            <Text style={{fontSize: 14}}>{this.props.msg.content}</Text>
           </CardItem>
           <CardItem>
             <Left>
@@ -85,8 +85,8 @@ class WallMessageEntry extends Component {
           <CardItem style={{paddingTop: 0, width: 300}}>
             <Text style={{fontSize: 20}}>{this.props.msg.title}</Text>
           </CardItem>
-          <CardItem style={{paddingTop: 1}}>
-            <Text>
+          <CardItem style={{paddingTop: 0}}>
+            <Text style={{fontSize: 14}}>
               {this.props.msg.content}
             </Text>
           </CardItem>
@@ -113,7 +113,7 @@ class WallPromoEntry extends Component {
           </CardItem>
           <CardItem>
             <Body>
-              <Text style={{textAlign: 'center'}}>
+              <Text style={{textAlign: 'center', fontSize: 14}}>
                 {this.props.msg.content}
               </Text>
             </Body>
