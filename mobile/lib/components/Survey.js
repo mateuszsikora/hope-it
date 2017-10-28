@@ -71,12 +71,12 @@ export default class DeckSwiperExample extends Component {
                                                   <CardItem>
                                                     <Left>
                                                       <Body>
-                                                        <Text>{item.pool}</Text>
+                                                        <Text style={{fontSize: 20}}>{item.pool}</Text>
                                                         <Text note>Ankiety</Text>
                                                       </Body>
                                                     </Left>
                                                   </CardItem>
-                                                  <CardItem cardBody>
+                                                  <CardItem>
                                                     <Text>
                                                         {item.question}
                                                     </Text>
