@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 const checkBox = (store, action) => {
   if (action.type === 'TOGGLE_CHECK') {
@@ -26,8 +27,15 @@ const number = (store, action) => {
 
 
 const payments = (store, action) => {
-  switch(action.type){
+  switch(action.type) {
     case 'RECEIVE_PAYMENTS': return {...store, payments: action.payload}
+    default: return {payments: []}
+  }
+}
+
+const login = (store, action) => {
+  switch(action.type) {
+    case 'LOGIN_RESULT': return {...store, loggedIn: action.payload};
     default: return {payments: []}
   }
 }
@@ -35,5 +43,7 @@ const payments = (store, action) => {
 export default combineReducers({
   checkBox,
   number,
-  payments
+  payments,
+  login,
+  routing: routerReducer
 });

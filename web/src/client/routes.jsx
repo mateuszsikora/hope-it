@@ -5,7 +5,7 @@ import AddNewStory from './components/new-story';
 import AddNewDonee from './components/new-donee';
 import Payments from './components/payments';
 import { createWithNav } from './components/nav';
-import {Container} from 'semantic-ui-react'
+import {Container} from 'semantic-ui-react';
 import Login from './components/login';
 
 export const routes = (
