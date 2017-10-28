@@ -42,3 +42,12 @@ export const login = (credentials) => (dispatch) => {
       dispatch(push('/'));
     }, () => dispatch(loginResult(false)));
 };
+
+export const donorsReceived = (dt) => ({
+  type: 'RECEIVE_DONORS',
+  payload: dt.data
+});
+
+export const donors = () => (dispatch) => {
+  return axios.get('/api/donors').then((dt)=> dispatch(donorsReceived(dt)), console.error)
+};

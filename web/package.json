@@ -54,6 +54,7 @@
     "lodash.get": "^4.4.2",
     "mongoose": "^4.12.4",
     "react": "^15.0.0",
+    "react-day-picker": "^6.2.1",
     "react-dom": "^15.0.0",
     "react-router-redux": "^4.0.8",
     "redux-logger": "^3.0.6",

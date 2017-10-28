@@ -1,8 +1,4 @@
-require('axios-debug-log')({
-  request(debug, config) {
-    // debug(config)
-  }
-})
+
 
 /* eslint-disable global-require */
 

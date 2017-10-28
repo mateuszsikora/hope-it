@@ -14,15 +14,7 @@ import Thankyou from './components/Thankyou';
 export const routes = (
   <Container fluid={false} text>
     <Route path="/" component={createWithNav(Home)}/>
-    <Route path="/add-new-story" component={createWithNav(AddNewStory)}/>
-    <Route path="/add-new-donee" component={createWithNav(AddNewDonee)}/>
     <Route path="/add-new-message" component={createWithNav(AddNewMessage)}/>
-    <Route path="/hello" component={createWithNav(() => (
-      <span>hello world</span>
-    ))}/>
-    <Route path="/dupa" component={createWithNav(() => (
-      <span>dupa</span>
-    ))}/>
     <Route path="/payments" component={createWithNav(() => (
       <Payments />
     ))}/>

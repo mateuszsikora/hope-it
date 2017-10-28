@@ -5,23 +5,25 @@ import { View, Image } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import routes from './../routes';
 import { Link } from 'react-router-native';
+import { serverUrl } from '../util'
 
-export default function Wall () {
-  return (
-    <Content>
-      <View>
+class WallEntry extends Component {
+    render({ image, content, title } = props) {
+        return (
           <Card>
               <CardItem>
                 <Left>
-                  <Thumbnail source={{uri: 'Image URL'}} />
                   <Body>
-                    <Text>NativeBase</Text>
-                    <Text note>GeekyAnts</Text>
+                    <Text>{msg.title}</Text>
+                    <Text note>ma horom curke</Text>
                   </Body>
                 </Left>
               </CardItem>
               <CardItem cardBody>
-                <Image source={{uri: 'Image URL'}} style={{height: 200, width: null, flex: 1}}/>
+                <Image source={{uri: msg.image}} style={{height: 200, width: null, flex: 1}}/>
+              </CardItem>
+              <CardItem cardBody>
+                <Text>{msg.content}</Text>
               </CardItem>
               <CardItem>
                 <Left>
@@ -41,7 +43,39 @@ export default function Wall () {
                 </Right>
               </CardItem>
             </Card>
-      </View>
-    </Content>
+        )
+    }
+}
+
+class WallContent extends Component {
+    state = { messages: [] }
+
+    getMessages = () =>
+        fetch(serverUrl + `/api/messages`, {
+          method: 'GET',
+        }).then(response=>response.json())
+
+    constructor(props) {
+        super(props)
+        this.getMessages()
+            .then((msg) => {
+                this.setState({messages: msg})
+            })
+    }
+
+    render() {
+        return (
+            <Content>
+                <View>
+                    {this.state.messages.map(m => <WallEntry />)}
+                </View>
+            </Content>
+        );
+    }
+}
+
+export default function Wall () {
+  return (
+      <WallContent />
   )
 }
