@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {List, Avatar, Image, Button, Icon} from 'semantic-ui-react';
 import moment from 'moment';
 
-const images = ['daniel', 'tom', 'rachel','lindsay', 'matt', 'christian', 'jenny', 'veronika', 'stevie','elliot'].map(name => {
+const images = ['daniel', 'tom', 'matt', 'christian', 'jenny', 'veronika', 'stevie','elliot'].map(name => {
   return `https://react.semantic-ui.com/assets/images/avatar/small/${name}.jpg`
 })
 
