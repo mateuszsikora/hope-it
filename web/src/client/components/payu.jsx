@@ -78,7 +78,7 @@ export default class Payu extends PureComponent {
     const { email, amount, emailValid, sending, error } = this.state
 
     return (
-      <Segment>
+      <Segment style={{ margin: '1rem' }}>
         <Form
           loading={sending}
           error={!!error}

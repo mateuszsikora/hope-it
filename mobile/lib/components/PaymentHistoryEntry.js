@@ -1,4 +1,5 @@
 import React from 'react';
+import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { Card, CardItem, Body, Thumbnail, Text, Left, Button, Icon } from 'native-base';
 import moment from 'moment';
@@ -10,32 +11,40 @@ export const actionTypes = {
   health: 'health',
   education: 'education',
   sport: 'sport',
-}
+};
 
-export default function PaymentHistoryEntry({ amount, date, action }) {
+export default function PaymentHistoryEntry({ amount, date, message }) {
   return (
       <Card style={{ flex: 0 }}>
         <CardItem>
           <Left>
-            {action.type === actionTypes.health && <Icon name={'md-medkit'}/> }
-            {action.type === actionTypes.education && <Icon name={'md-school'}/> }
-            {action.type === actionTypes.sport && <Icon name={'md-football'}/> }
+            {<Icon name={'md-medkit'}/> }
             <Body>
-            <Text>{action.title}</Text>
-            <Text note>{moment(date).format('HH:MM, D MMMM YYYY')}</Text>
+            <Text>{message.title}</Text>
+            <Text note>{moment(date).format('llll')}</Text>
             </Body>
           </Left>
         </CardItem>
         <CardItem>
-          <Body>
+          <Body style={{ flex: 1 }}>
+          {Boolean(message.image) &&
+          (
+              <View style={{ height: 180, alignSelf: 'stretch' }}>
+                <Image
+                  source={{ uri: 'data:image/jpg;base64,' + message.image }}
+                  style={{ flex: 1, width: undefined, height: undefined, resizeMode: 'cover' }}
+                />
+              </View>
+          )}
           <Text>
-            {action.description}
+            {message.description}
           </Text>
           </Body>
         </CardItem>
         <CardItem>
           <Left>
-            <Button transparent textStyle={{ color: '#87838B' }}>
+            <Button transparent>
+              <Text style={{ paddingLeft: 0, paddingRight: 5, color: '#87838B' }}>Wpłaciłeś: </Text>
               <Text style={{ paddingLeft: 0 }}>{parseInt(amount / 100)} zł</Text>
             </Button>
           </Left>
@@ -46,10 +55,11 @@ export default function PaymentHistoryEntry({ amount, date, action }) {
 
 PaymentHistoryEntry.propTypes = {
   amount: PropTypes.number,
-  date: PropTypes.instanceOf(Date).props,
-  action: PropTypes.shape({
+  date: PropTypes.string,
+  message: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string,
+    image: PropTypes.string,
     type: PropTypes.string
   })
 };

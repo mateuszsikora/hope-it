@@ -6,7 +6,8 @@ import Payment from './payment';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux'
 import * as actions from '../actions'
-import {List, Header, Statistic} from 'semantic-ui-react'
+import {List, Header, Statistic, Tab} from 'semantic-ui-react'
+import moment from 'moment';
 
 class Payments extends PureComponent {
   static propTypes = {
@@ -19,49 +20,111 @@ class Payments extends PureComponent {
     this.props.actions.payments();
   }
 
-  renderPaymentsList(){
-    return (
-      <Segment>
-        <Header> Lista ostatnich wpłat</Header>
-        <List divided>
-          {this.props.payments.map((payment, idx) => (<Payment {...payment} key={idx} />))}
-        </List>
-      </Segment>
-   )
+  getTotalAmount(){
+    return this.props.payments.map(p=>p.amount).reduce((a,b)=>a+b, 0)
   }
 
-  renderStats(){
+  getDonors(){
+    return this.props.payments.map(p=>p.donor.deviceId).filter((a, idx, arr)=>arr.indexOf(a) === idx ).length
+  }
+
+  getDotations(){
+    return this.props.payments.length
+  }
+
+  getTotalLastAmount(){
+    const m = moment().subtract(1, 'month');
+    return this.props.payments.filter(p=>moment(p.date) > m).map(p=>p.amount).reduce((a,b)=>a+b, 0)
+  }
+
+  getLastDotations(){
+    const m = moment().subtract(1, 'month');
+    return this.props.payments.filter(p=>moment(p.date) > m).length
+  }
+
+  getLastDonors(){
+    const m = moment().subtract(1, 'month');
+    return this.props.payments.filter(p=>moment(p.date) > m).filter((a, idx, arr)=>arr.indexOf(a) === idx ).length
+  }
+
+  renderStats(header, amount, dotations, donors){
     return (
-      <Statistic.Group>
-        <Statistic>
-          <Statistic.Value>15 225zł</Statistic.Value>
-          <Statistic.Label>Suma zbiórki</Statistic.Label>
-        </Statistic>
-        <Statistic>
-          <Statistic.Value>520</Statistic.Value>
-          <Statistic.Label>Darowizny</Statistic.Label>
-        </Statistic>
-        <Statistic>
-            <Statistic.Value>123</Statistic.Value>
-            <Statistic.Label>Darczyńców</Statistic.Label>
-        </Statistic>
-        <Statistic>
-          <Statistic.Value>123</Statistic.Value>
-          <Statistic.Label>Darowizny w tym miesiącu</Statistic.Label>
-        </Statistic>
-        <Statistic>
-          <Statistic.Value>80</Statistic.Value>
-          <Statistic.Label>Darczyńców w tym miesiącu</Statistic.Label>
-        </Statistic>
-      </Statistic.Group>
+      <Segment>
+        <Header>{header}</Header>
+        <Statistic.Group>
+          <Statistic>
+            <Statistic.Value>{(amount / 100).toFixed(2)}zł</Statistic.Value>
+            <Statistic.Label>Suma zbiórki</Statistic.Label>
+          </Statistic>
+          <Statistic>
+            <Statistic.Value>{dotations}</Statistic.Value>
+            <Statistic.Label># darowizn</Statistic.Label>
+          </Statistic>
+          <Statistic>
+            <Statistic.Value>{donors}</Statistic.Value>
+            <Statistic.Label># darczyńców</Statistic.Label>
+          </Statistic>
+        </Statistic.Group>
+      </Segment>
     )
+  }
+
+  renderPaymentsList(){
+    return (
+      <List divided>
+        {this.props.payments.map((payment, idx) => (<Payment {...payment} key={idx} />))}
+      </List>
+    )
+  }
+
+  renderBestDonators(){
+    const payAgg = this.props.payments.reduce((agg, payment)=>{
+      agg[payment.donor.deviceId]=agg[payment.donor.deviceId] || {donor: payment.donor, amount:0}
+      agg[payment.donor.deviceId].amount +=  payment.amount
+      return agg
+    }, {})
+
+    const aggPayments = Object.values(payAgg).sort(function(a, b){return a.amount-a.amount})
+
+    return (
+      <List divided>
+        {aggPayments.map((payment, idx) => (<Payment {...payment} key={idx} />))}
+      </List>
+    )
+  }
+
+  renderFreqDonator(){
+    const payAgg = this.props.payments.reduce((agg, payment) => {
+      agg[payment.donor.deviceId]=agg[payment.donor.deviceId] || {donor: payment.donor, amount:0, num: 1}
+      agg[payment.donor.deviceId].amount +=  payment.amount
+      agg[payment.donor.deviceId].num +=  1
+      return agg
+    }, {})
+
+    const aggPayments = Object.values(payAgg).sort(function(a, b){return a.num-a.num})
+
+    return (
+      <List divided>
+        {aggPayments.map((payment, idx) => (<Payment {...payment} key={idx} />))}
+      </List>
+    )
+  }
+
+  renderTabs(){
+    const panes = [
+      { menuItem: 'Lista płatności', render: () => <Tab.Pane attached={false}>{this.renderPaymentsList()}</Tab.Pane> },
+      { menuItem: 'Najczęściej wpłacający', render: () => <Tab.Pane attached={false}>{this.renderFreqDonator()}</Tab.Pane> },
+      { menuItem: 'Wpłacający najwięcej', render: () => <Tab.Pane attached={false}>{this.renderBestDonators()}</Tab.Pane> },
+    ]
+    return (<Tab panes={panes} />)
   }
 
   render(){
     return (
       <div>
-          {this.renderStats()}
-          {this.renderPaymentsList()}
+          {this.renderStats("Statystyki globalne", this.getTotalAmount(), this.getDotations(), this.getDotations())}
+          {this.renderStats("Statystyki z ostatniego miesiąca",this.getTotalLastAmount(), this.getLastDotations(), this.getLastDotations())}
+          {this.renderTabs()}
       </div>
     )
   }

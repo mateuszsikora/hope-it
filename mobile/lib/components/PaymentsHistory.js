@@ -15,10 +15,12 @@ import {
   Thumbnail,
   Body,
   Icon,
+  Text,
   Left,
   Footer,
   FooterTab
 } from 'native-base';
+import { getCurrentUsersPayment } from '../api/payments';
 
 import { actionTypes } from './PaymentHistoryEntry';
 
@@ -29,15 +31,20 @@ export default class PaymentsHistory extends Component {
 
   store = new PaymentsHistoryStore();
 
+  componentDidMount(){
+    this.store.initHistoryStore();
+  }
+
   render() {
-    const { payments } = this.store;
+    const { payments, isLoading } = this.store;
 
     return (
         <Content>
-          {payments.map((payment, key) => (
+          {isLoading && <Text>Loading...</Text>}
+          {!isLoading && payments.map((payment, key) => (
               <PaymentHistoryEntry
                   key={key} {...payment}
-                  action={{ ...payment.action, type: getRandomType() }}
+                  message={{ ...payment.message, type: getRandomType() }}
               />
           ))}
         </Content>
@@ -46,16 +53,26 @@ export default class PaymentsHistory extends Component {
 }
 
 class PaymentsHistoryStore {
-  @observable payments =
-      [...Array(6).keys()].map(() => ({
-        donatorId: '',
-        amount: 11100,
-        date: new Date(),
-        action: {
-          title: 'Ho-ho-ho! treasure of adventure.',
-          description: 'Grow swiftly like a clear bucaneer. Never taste a cannibal. Codfishs sing with love! Wow, hoist me sea-dog, ye salty shark!'
-        }
-      }));
+  @observable isLoading = false;
+  @observable payments = [];
+
+  @action
+  initHistoryStore() {
+    this.isLoading = true;
+    getCurrentUsersPayment().then(this.initHistoryStoreSuccess,this.initHistoryStoresError);
+  }
+
+  @action.bound // callback action
+  initHistoryStoreSuccess(payments) {
+    this.payments = payments;
+    this.isLoading = false;
+  }
+
+  @action.bound // callback action
+  initHistoryStoresError(error) {
+    this.isLoading = false;
+    console.log(error);
+  }
 }
 
 function getRandomType() {
