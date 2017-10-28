@@ -1,6 +1,7 @@
 import Message from '../api/message/message.schema';
 import Donor from '../api/donor/donor.schema';
 import moment from 'moment';
+import fs from 'fs';
 
 const imageData1 = fs.readFileSync(path.resolve(__dirname, 'images', 'edward-scissorhands-jack-sparrow.jpg'));
 const exampleImage1 = new Buffer(imageData).toString('base64');
