@@ -9,19 +9,23 @@ module.exports = async () => {
   await Payment.create([{
     donor: donors[0]._id,
     event: event[0]._id,
-    amount: 100000
+    amount: 100000,
+    status: 'done'
   }, {
     donor: donors[1]._id,
-    amount: 500,
     event: event[0]._id,
+    amount: 500,
+    status: 'done'
   }, {
     donor: donors[1]._id,
-    amount: 900,
     event: event[1]._id,
+    amount: 900,
+    status: 'done'
   }, {
     donor: donors[0]._id,
     amount: 1500,
     event: null,
+    status: 'done'
   }]);
   console.log('finished populating payments');
 };

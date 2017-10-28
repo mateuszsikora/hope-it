@@ -25,13 +25,16 @@ export default function PaymentHistoryEntry({ amount, date, event }) {
           </Left>
         </CardItem>
         <CardItem>
-          <Body style={{flex: 1, }}>
-          <View style={{ height: 180, alignSelf: 'stretch', backgroundColor: 'yellow'}}>
-            {Boolean(event.image) && <Image
-                source={{ uri: 'data:image/jpg;base64,' + event.image }}
-                style={{ flex: 1, width: undefined, height: undefined, backgroundColor: 'red', resizeMode: 'cover'}}
-            />}
-          </View>
+          <Body style={{ flex: 1 }}>
+          {Boolean(event.image) &&
+          (
+              <View style={{ height: 180, alignSelf: 'stretch' }}>
+                <Image
+                  source={{ uri: 'data:image/jpg;base64,' + event.image }}
+                  style={{ flex: 1, width: undefined, height: undefined, resizeMode: 'cover' }}
+                />
+              </View>
+          )}
           <Text>
             {event.description}
           </Text>
@@ -39,8 +42,8 @@ export default function PaymentHistoryEntry({ amount, date, event }) {
         </CardItem>
         <CardItem>
           <Left>
-            <Button transparent >
-              <Text style={{ paddingLeft: 0, paddingRight: 5, color: '#87838B'}}>Wpłaciłeś: </Text>
+            <Button transparent>
+              <Text style={{ paddingLeft: 0, paddingRight: 5, color: '#87838B' }}>Wpłaciłeś: </Text>
               <Text style={{ paddingLeft: 0 }}>{parseInt(amount / 100)} zł</Text>
             </Button>
           </Left>
