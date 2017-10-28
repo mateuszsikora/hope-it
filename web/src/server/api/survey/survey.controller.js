@@ -8,7 +8,8 @@ module.exports = [{
   method: 'POST',
   path: '/api/surveys',
   handler: (request, reply) => {
-    new Survey(request.payload).save().then((result) => {
+    Promise.all( request.payload.map(p=>new Survey(p).save()))
+    .then((result) => {
       reply(result).code(201);
     }).catch((err) => {
       throw err;
