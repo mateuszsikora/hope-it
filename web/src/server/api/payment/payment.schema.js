@@ -7,7 +7,11 @@ const PaymentSchema = new mongoose.Schema({
     default: Date.now
   },
   amount: Number,
-  event: String
+  event: String,
+  status: {
+    type: String,
+    default: 'done'
+  }
 });
 
 module.exports = mongoose.model('Payment', PaymentSchema);
