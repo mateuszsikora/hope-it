@@ -7,18 +7,41 @@ import { DemoButtons } from './demo-buttons';
 import nav from './nav';
 import { Button } from 'semantic-ui-react'
 
-const addNewStory = () => {
-    console.log('sending new donee');
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "/api/donees");
-    xmlhttp.setRequestHeader("Content-Type", "application/json");
-    xmlhttp.send(JSON.stringify({name:"dupa"}));
+class AddNewDonee extends React.Component {
+    state = {}
+    constructor(props) {
+        super(props)
+        this.state = {doneeName: ''}
+    }
+
+    isDoneeNameValid = (name) => !!name
+
+    addNew = () => {
+        const doneeName = this.state.doneeName;
+        
+        if (!this.isDoneeNameValid(doneeName))
+            return
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "/api/donees");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify({name: doneeName}));
+    }
+
+    changeName = (obj) =>
+        this.setState({ doneeName: obj.target.value })
+
+    render() {
+        return (
+            <div>
+                <h1>Dodaj nowego obdarowywanego</h1>
+                <input onChange={this.changeName} placeholder="Nazwa..." />
+                <button onClick={this.addNew}>Dodaj</button>
+            </div>
+        )
+    }
 }
 
 export default () =>
-  (<div>
-      <h1>Dodaj nowy wpis</h1>
-      <input placeholder="Dodaj nowego obdarowywanego..." />
-      <button onClick={addNewStory}>Dodaj</button>
-  </div>);
+  (<AddNewDonee />);
 

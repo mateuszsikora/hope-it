@@ -3,9 +3,11 @@ import { Route, Link } from 'react-router';
 import Home from './components/home';
 import AddNewStory from './components/new-story';
 import AddNewDonee from './components/new-donee';
+import AddNewMessage from './components/new-message';
 import Payments from './components/payments';
+import Payu from './components/payu';
 import { createWithNav } from './components/nav';
-import {Container} from 'semantic-ui-react'
+import {Container} from 'semantic-ui-react';
 import Login from './components/login';
 
 export const routes = (
@@ -13,6 +15,7 @@ export const routes = (
     <Route path="/" component={createWithNav(Home)}/>
     <Route path="/add-new-story" component={createWithNav(AddNewStory)}/>
     <Route path="/add-new-donee" component={createWithNav(AddNewDonee)}/>
+    <Route path="/add-new-message" component={createWithNav(AddNewMessage)}/>
     <Route path="/hello" component={createWithNav(() => (
       <span>hello world</span>
     ))}/>
@@ -20,8 +23,9 @@ export const routes = (
       <span>dupa</span>
     ))}/>
     <Route path="/payments" component={createWithNav(() => (
-        <Payments />
-      ))}/>
+      <Payments />
+    ))}/>
+    <Route path="/payu" component={Payu} />
     <Route path="/login" component={Login}/>
   </Container>
 );

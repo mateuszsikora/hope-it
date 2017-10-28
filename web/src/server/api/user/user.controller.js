@@ -1,5 +1,6 @@
 import User from './user.schema';
 import Boom from 'boom';
+import jwt from 'jsonwebtoken';
 
 const {config} = require('electrode-confippet');
 

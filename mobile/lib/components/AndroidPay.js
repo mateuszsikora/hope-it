@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import {Button, Icon, Text} from 'native-base' 
 
-export default class Wall extends Component {
+export default class AndroidPay extends Component {
   handlePay = () => {
     const { amount, title, onSuccess } = this.props
     console.log(amount)
@@ -67,14 +67,14 @@ export default class Wall extends Component {
             onPress={this.handlePay}
           >
             <Text>Android Pay</Text>
-            <Icon name='ios-card' />
+            <Icon name='logo-android' />
           </Button>
       </View>
     )
   }
 }
 
-Wall.defaultProps = {
+AndroidPay.defaultProps = {
   amount: 0,
   title: 'Dotacja',
   onSuccess: () => {}
