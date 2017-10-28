@@ -10,9 +10,9 @@ import {
 } from 'native-base';
 
 import moment from 'moment';
-moment.locale('pl')
+moment.locale('pl');
 
-const NavFooterWithRouter = withRouter(NavFooter)
+const NavFooterWithRouter = withRouter(NavFooter);
 
 export default function App() {
   return (
