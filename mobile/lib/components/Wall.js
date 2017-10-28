@@ -128,7 +128,7 @@ class WithRedirect extends Component {
 
     store.setPayment({
       title,
-      email: loginStore.user.userEmail,
+      email: loginStore.user.email,
       deviceId: tokenStore.token,
       message: _id
     })

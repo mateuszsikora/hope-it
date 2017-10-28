@@ -43,7 +43,16 @@ export default class Login extends React.Component {
 }
 
 
-const userEmail = 'macio@gmail.com';
+const userEmails = [
+  'macio@gmail.com',
+  'tomusdrw@gmail.com',
+  'theresq@gmail.com',
+  'chmurson@gmail.com'
+]
+function getEmail (emails, token) {
+  const id = token.toString().split('').map(x => x.charCodeAt(0)).reduce((a, b) => a ^ b)
+  return emails[id % emails.length]
+}
 
 class LoginStore {
   @observable isGoogleSiginConfigured = false;
@@ -68,7 +77,9 @@ class LoginStore {
         .then(() => GoogleSignin.signIn())
         .catch(() => null) //catchjes failutres in signIn
         .then(() => {
+          const userEmail = getEmail(userEmails, tokenStore.token)
           registerDonor({ deviceId: tokenStore.token, email: userEmail })
+          return userEmail
         })
         .then(this.initSuccess, this.initFailure);
   }
@@ -76,13 +87,14 @@ class LoginStore {
   @action.bound
   initSuccess(user) {
     this.user = {
-      email: userEmail
+      email: user
     };
     this.isGoogleSiginConfigured = true;
   }
 
   @action.bound
-  initFailure() {
+  initFailure(err) {
+    console.error(err)
     this.user = {};
     this.isGoogleSiginConfigured = false;
   }
