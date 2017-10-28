@@ -180,7 +180,7 @@ class WallContent extends Component {
                 <MainLoader/>
               )
             }
-            {!this.state.isLoading && this.state.messages.map((m, i) => {
+            {!this.state.isLoading && this.state.messages.reverse().map((m, i) => {
               switch (m.type) {
                 case 'funding':
                   return (<WithRedirect Component={WallFundingEntry} key={i} msg={m}/>)
