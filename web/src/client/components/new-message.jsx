@@ -8,7 +8,6 @@ import * as actions from '../actions';
 import {donors} from '../actions/index';
 import {axios} from '../services/axios';
 
-const stateOptions = [{key: 'AL', value: 'AL', text: 'Alabama'}];
 const messageTypes = [
   {key: 'funding', value: 'funding', text: 'Zbiórka'},
   {key: 'message', value: 'message', text: 'Podziękowania'},
@@ -23,7 +22,7 @@ class AddNewMessage extends React.Component {
   }
 
   componentDidMount() {
-    donors();
+    this.props.actions.donors();
   }
 
   genericOnChange = field => (event, data) => {
@@ -113,7 +112,7 @@ class AddNewMessage extends React.Component {
           <div>
             <h2>Darczyńcy</h2>
             <Dropdown placeholder='Wybierz darczyńców, do których wiadomość ma trafić...' fluid multiple search
-                      selection options={stateOptions} onChange={this.onChangeDonors} />
+                      selection options={this.props.donors} onChange={this.onChangeDonors} />
           </div>
 
           <div>
