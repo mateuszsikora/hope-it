@@ -7,7 +7,7 @@ import {
   WebView,
 } from 'react-native'
 import {Button, Icon, Text} from 'native-base' 
-import { apiUrl } from '../util'
+import { serverUrl } from '../util'
 
 export default class Payu extends Component {
   state = {
@@ -43,7 +43,7 @@ export default class Payu extends Component {
             onRequestClose={this.handleClose}
           >
             <WebView
-              source={{uri: `${apiUrl}/payu`}}
+              source={{uri: `${serverUrl}/payu`}}
               style={{marginTop: 22, marginLeft: 6, marginRight: 6}}
               onMessage={this.handleMessage}
             />

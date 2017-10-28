@@ -1,1 +1,1 @@
-export const apiUrl = 'https://files.todr.me/api';
+export const serverUrl = 'https://files.todr.me';
