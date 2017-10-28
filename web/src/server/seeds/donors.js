@@ -7,7 +7,10 @@ module.exports = async () => {
       deviceId: 'asdf'
     }, {
       email: 'macio@macio.sex',
-      deviceId: 'asdf'
+      deviceId: 'asdf2'
+    }, {
+      email: 'maciooo@macio.sex',
+      deviceId: 'asdf4'
     });
     console.log('finished populating donors');
 

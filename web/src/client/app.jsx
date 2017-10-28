@@ -11,6 +11,10 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers';
+import moment from 'moment';
+import 'moment/locale/pl';
+
+moment.locale('pl');
 
 //
 
