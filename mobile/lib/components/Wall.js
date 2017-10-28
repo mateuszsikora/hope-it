@@ -61,7 +61,7 @@ class WallMessageEntry extends Component {
                 </Left>
               </CardItem>
               <CardItem cardBody>
-                <Text style={{height: 200, width: null, flex: 1}}>
+                <Text>
                     {this.props.msg.content}
                 </Text>
               </CardItem>
