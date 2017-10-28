@@ -4,7 +4,10 @@ const contractAbi = require('../../../contracts/token.json')
 
 import Api from '@parity/api'
 
-const api = new Api(new Api.Provider.Http('https://kovan.infura.io'))
+import Payment from './api/payment/payment.schema'
+
+// const api = new Api(new Api.Provider.Http('https://kovan.infura.io'))
+const api = new Api(new Api.Provider.Http('http://localhost:8545'))
 
 const contract = api.newContract(contractAbi, address)
 
@@ -12,34 +15,38 @@ function getBlock() {
   return api.eth.blockNumber()
 }
 
-function getLogs() {
-  return getBlock()
-    .then(block => {
-      return contract
-        .instance
-        .TokenCreated
-        .getAllLogs({
-          address,
-          fromBlock: block - 10,
-          toBlock: 'latest'
-        })
-    })
+function getLogs(lastBlock, block) {
+  const event = contract
+    .events
+    .find(ev => ev.name === 'TokenCreated');
+  const filter = contract._getFilterOptions(event, {
+      fromBlock: Math.max(lastBlock, block - 10),
+      toBlock: 'latest'
+  });
+
+  return api.eth.getLogs(filter)
 }
 
 // Monitor the blockchain for incoming payments
 
+let lastBlock = 0
 setInterval(() => {
-  getLogs().then(logs => {
+  getBlock().then(block => {
+    const prev = lastBlock;
+    lastBlock = block
+    return getLogs(prev, block)
+  }).then(logs => {
     logs.forEach(log => {
-      console.log(log)
       new Payment({
         amount: 300 * 3.6 * 100,
         status: 'done'
       }).save().then(() => {
-        console.log('Blockchain transaction registered.')
+        console.log('Blockchain transaction registered.', log)
       }).catch(err => {
         console.error('Error inserting blockchain transaction', err)
       })
     })
+  }).catch(err => {
+    console.error(err)
   })
 }, 5000)
