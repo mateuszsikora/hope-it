@@ -70,7 +70,7 @@ class WallContent extends Component {
         return (
             <Content>
                 <View>
-                    {this.state.messages.map(m => <WallEntry msg={m} />)}
+                    {this.state.messages.map((m, i) => <WallEntry key={i} msg={m} />)}
                 </View>
             </Content>
         );
