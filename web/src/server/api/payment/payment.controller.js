@@ -60,19 +60,19 @@ module.exports = [{
   method: 'POST',
   path: '/api/payments/payu',
   async handler(req, reply) {
-    const { amount, email, event } = req.payload
-    const ev = event
+    const { amount, email, message } = req.payload
+    const ev = message
     const donor = null
     const description = 'Dotacja'
 
-    const { host, protocol } = req.info
+    const { host, protocol = 'https' } = req.info
 
     let payment = null
     try {
       payment = await new Payment({
         donor,
         amount: amount * 100,
-        event: ev,
+        message: ev,
         status: 'waiting'
       }).save()
 
