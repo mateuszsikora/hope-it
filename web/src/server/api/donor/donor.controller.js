@@ -4,10 +4,16 @@ module.exports = [{
   method: 'POST',
   path: '/api/donors',
   handler: (request, reply) => {
-    new Donor(request.payload).save().then((donor) => {
-      reply(donor).code(201);
-    }).catch((err) => {
-      throw err;
+    Donor.find({deviceId: request.payload.deviceId}).then((result) => {
+      if (result.length > 0) {
+        return reply(result).code(200);
+      }
+
+      new Donor(request.payload).save().then((donor) => {
+        reply(donor).code(201);
+      }).catch((err) => {
+        throw err;
+      });
     });
   }
 }, {
