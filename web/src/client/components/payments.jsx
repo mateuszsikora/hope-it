@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Segment} from 'semantic-ui-react'
-import Payment from './payment';
+import {Segment, Grid} from 'semantic-ui-react'
+import Payment, {formatNumber} from './payment';
 
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux'
@@ -50,23 +50,23 @@ class Payments extends Component {
 
   renderStats(header, amount, dotations, donors){
     return (
-      <Segment>
-        <Header>{header}</Header>
-        <Statistic.Group>
-          <Statistic>
-            <Statistic.Value>{(amount / 100).toFixed(0)}PLN</Statistic.Value>
-            <Statistic.Label>Suma zbiórki</Statistic.Label>
-          </Statistic>
-          <Statistic>
-            <Statistic.Value>{dotations}</Statistic.Value>
-            <Statistic.Label># darowizn</Statistic.Label>
-          </Statistic>
-          <Statistic>
-            <Statistic.Value>{donors}</Statistic.Value>
-            <Statistic.Label># darczyńców</Statistic.Label>
-          </Statistic>
-        </Statistic.Group>
-      </Segment>
+          <Segment>
+            <Header>{header}</Header>
+            <Statistic.Group>
+              <Statistic>
+                <Statistic.Value>{formatNumber(amount / 100)} <small>PLN</small></Statistic.Value>
+                <Statistic.Label>Suma zbiórki</Statistic.Label>
+              </Statistic>
+              <Statistic>
+                <Statistic.Value>{formatNumber(dotations)}</Statistic.Value>
+                <Statistic.Label># darowizn</Statistic.Label>
+              </Statistic>
+              <Statistic>
+                <Statistic.Value>{formatNumber(donors)}</Statistic.Value>
+                <Statistic.Label># darczyńców</Statistic.Label>
+              </Statistic>
+            </Statistic.Group>
+          </Segment>
     )
   }
 
@@ -124,11 +124,14 @@ class Payments extends Component {
 
   render(){
     return (
-      <div>
+      <Grid doubling centered>
+        <Grid.Column width={10}>
+
           {this.renderStats("Statystyki globalne", this.getTotalAmount(), this.getDotations(), this.getDotations())}
           {this.renderStats("Statystyki z ostatniego miesiąca",this.getTotalLastAmount(), this.getLastDotations(), this.getLastDotations())}
           {this.renderTabs()}
-      </div>
+        </Grid.Column>
+      </Grid>
     )
   }
 }
