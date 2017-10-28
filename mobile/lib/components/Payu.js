@@ -8,17 +8,27 @@ import {
 } from 'react-native'
 import {Button, Icon, Text} from 'native-base' 
 import { serverUrl } from '../util'
+import axios from 'axios'
 
 export default class Payu extends Component {
   state = {
     modalVisible: false,
-    opacity: 0
+    opacity: 0,
+    url: ''
   }
 
-  handlePay = () => {
+  handlePay = async () => {
+    const { amount } = this.state
+    const { title, email, deviceId, message } = this.props
+    const res = await axios.post(`${serverUrl}/api/payments/payu`, {
+      title, email, amount, deviceId, message
+    })
+
     this.setState({
+      url: res.data.redirectUri,
       modalVisible: true
     })
+
     setTimeout(() => {
       this.setState({
         opacity: 1.0
@@ -38,6 +48,7 @@ export default class Payu extends Component {
       this.setState({
         modalVisible: false
       })
+      this.props.onSuccess()
     }
   }
 
@@ -45,7 +56,7 @@ export default class Payu extends Component {
     const { modalVisible, opacity } = this.state
 
     return (
-      <View>
+      <View style={{marginTop: 6}}>
           <Modal
             animationType="slide"
             visible={modalVisible}
@@ -61,6 +72,7 @@ export default class Payu extends Component {
           </Modal>
           <Button
             info
+            block
             iconRight
             onPress={this.handlePay}
           >
@@ -72,4 +84,11 @@ export default class Payu extends Component {
   }
 }
 
+Payu.defaultProps = {
+  title: '<akcja>',
+  email: 't@g.com',
+  deviceId: '1',
+  message: null,
+  onSuccess: () => {}
+}
 

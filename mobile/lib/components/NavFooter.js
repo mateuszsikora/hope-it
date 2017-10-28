@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Footer, FooterTab, Text, Button } from 'native-base';
 import routes from './../routes';
+import { store } from './PayConfirm'
 
 export default function NavFooter({ onChange, location, history }) {
   return (
@@ -25,10 +26,27 @@ export default function NavFooter({ onChange, location, history }) {
           >
             <Text>MobxDemo</Text>
           </Button>
-
+          <Button
+              active={location.pathname === routes.pay}
+              onPress={handlePay(location, history)}
+          >
+            <Text>Pay!</Text>
+          </Button>
         </FooterTab>
       </Footer>
   )
+}
+
+function handlePay(location, history) {
+  return () => {
+    store.setPayment({
+      title: 'Jakaś akcja',
+      email: 'todr@gmail.com',
+      deviceId: '1', 
+      message: '<message>'
+    })
+    return location.pathname !== routes.pay && history.push(routes.pay)
+  }
 }
 
 NavFooter.propTypes = {

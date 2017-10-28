@@ -61,7 +61,7 @@ module.exports = [{
   method: 'POST',
   path: '/api/payments/payu',
   async handler(req, reply) {
-    const { amount, email, message } = req.payload
+    const { amount, email, message, deviceId } = req.payload
     const ev = message
     const donor = null
     const description = 'Dotacja'
