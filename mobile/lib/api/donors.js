@@ -1,13 +1,13 @@
 import { serverUrl } from './../util';
 
-export function registerDonor({ token, email }) {
+export function registerDonor({ deviceId, email }) {
   return fetch(serverUrl + '/api/donors', {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-type': 'application/json'
     },
-    'method': 'POST',
+    method: 'POST',
     body: JSON.stringify({
-      token,
+      deviceId,
       email
     })
   })

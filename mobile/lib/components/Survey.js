@@ -103,10 +103,9 @@ export default class DeckSwiperExample extends Component {
                             <DeckSwiper
                               dataSource={cards}
                               renderItem={item =>
-                                                <Card style={{ elevation: 3 }}>
+                                                <Card style={{ elevation: 3, background: 'red' }}>
                                                   <CardItem>
                                                     <Left>
-                                                      <Thumbnail source={item.image} />
                                                       <Body>
                                                         <Text>{item.text}</Text>
                                                         <Text note>NativeBase</Text>
@@ -114,7 +113,9 @@ export default class DeckSwiperExample extends Component {
                                                     </Left>
                                                   </CardItem>
                                                   <CardItem cardBody>
-                                                    <Image style={{ height: 300, flex: 1 }} source={item.image} />
+                                                    <Text style={{ height: 300, flex: 1 }}>
+                                                        {item.text}
+                                                    </Text>
                                                   </CardItem>
                                                   <CardItem>
                                                     <Icon name="heart" style={{ color: '#ED4A6A' }} />
