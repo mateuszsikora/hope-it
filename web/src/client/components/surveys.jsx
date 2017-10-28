@@ -35,6 +35,7 @@ class Surveys extends PureComponent {
 
   componentDidMount(){
     this.props.actions.surveys();
+    this.props.actions.answers();
   }
 
   handleSave = ()=>{
@@ -100,26 +101,28 @@ class Surveys extends PureComponent {
     this.setState({activeIndex: b.index})
   }
 
-  aggForQuestion(answers){
-    const aa= answers.reduce((agg, a)=>{
-      agg[a.question]=agg[a.question] || {question: a.question, succ:0, fail:0, prc:0}
-      agg[a.question].succ += a.answear
-      agg[a.question].fail += !a.answear
-      agg[a.question].prc = (agg[a.question].succ/(agg[a.question].succ+agg[a.question].fail)*100).toFixed(2)
-      return agg
-    })
-    return Object.values(aa)
+  getPools(){
+    return this.props.surveys.map(s=>s.pool).filter((p, idx, all)=>all.indexOf(p) == idx)
   }
 
+  getQuestions(pool){
+    return this.props.surveys.filter(s=>s.pool == pool).map(s=>s.question)
+  }
+
+  getInfoForRow(pool, question) {
+    const dt = this.props.answers.filter(a=>a.survey.pool == pool && a.survey.question == question)
+    const succ = dt.filter(x=>x.answear).length
+    const fail = dt.filter(x=>!x.answear).length
+    const prc = (succ+fail) === 0? 0 : (succ/(succ+fail)*100).toFixed(2)
+    return {succ, fail, prc}
+  }
+
+
   renderResults = () =>{
-    const pools = this.props.surveys.reduce((agg, s)=>{
-      agg[s.pool] = agg[s.pool] || []
-      agg[s.pool].push(s)
-      return agg
-    }, {})
+    const pools = this.getPools()
 
     const activeIndex = this.state.activeIndex;
-    const accordions= Object.keys(pools).map((poolName, i)=>{
+    const accordions= pools.map((poolName, i)=>{
         return [
           (
             <Accordion.Title active={activeIndex === i} index={i} key={2*i} onClick={this.handleActivate}>
@@ -140,7 +143,8 @@ class Surveys extends PureComponent {
 
             <Table.Body>
               {
-                this.aggForQuestion(pools[poolName]).map(({question, succ, fail, prc}, idx)=>{
+                this.getQuestions(poolName).map((question, idx)=>{
+                  const {succ, fail, prc} = this.getInfoForRow(poolName, question );
                     return (
                       <Table.Row key={idx}>
                         <Table.Cell>{question}</Table.Cell>
@@ -184,7 +188,8 @@ class Surveys extends PureComponent {
 }
 
 const mapStateToProps = (state)=> ({
-  surveys: state.surveys.surveys
+  surveys: state.surveys.surveys,
+  answers: state.answers.answers
 });
 const mapDispatchToProps = (dispatch)=> ({actions: bindActionCreators( actions,dispatch)});
 export default connect(mapStateToProps,mapDispatchToProps)( Surveys);
