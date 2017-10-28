@@ -18,8 +18,10 @@ import {
   Text,
   Left,
   Footer,
-  FooterTab
+  FooterTab,
+  View,
 } from 'native-base';
+import { Image } from 'react-native'
 import { getCurrentUsersPayment } from '../api/payments';
 import MainLoader from './MainLoader';
 
@@ -40,12 +42,17 @@ export default class PaymentsHistory extends Component {
     const { payments, isLoading } = this.store;
 
     return (
-        <Content>
+        <Container>
+          <Header />
+          <Content>
           {isLoading && <MainLoader/>}
           {!isLoading && !payments.length && (
-            <Text style={{marginTop: 75, textAlign: 'center'}}>
-              Nie wykonałeś jeszcze żadnych dotacji! Wesprzyj nas już teraz.
-            </Text>
+            <View>
+              <Text style={{marginTop: 75, marginLeft: 20, marginRight: 20, textAlign: 'center', fontSize: 24}}>
+                Nie wykonałeś jeszcze żadnych dotacji :(
+              </Text>
+              <Image source={require('./img/sad.gif')} style={{width: 250, height: 250, marginLeft: 50, marginTop: 50}}/>
+            </View>
           )}
           {!isLoading && payments.map((payment, key) => (
               <PaymentHistoryEntry
@@ -54,6 +61,7 @@ export default class PaymentsHistory extends Component {
               />
           ))}
         </Content>
+      </Container>
     )
   }
 }

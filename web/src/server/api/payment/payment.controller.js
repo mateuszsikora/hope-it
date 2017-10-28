@@ -1,5 +1,6 @@
 import Payment from './payment.schema';
-import Donor from './../donor/donor.schema';
+import Donor from '../donor/donor.schema';
+import Message from '../message/message.schema';
 
 import Payu from '../../payu'
 
@@ -61,9 +62,11 @@ module.exports = [{
   async handler(req, reply) {
     const { amount, email, message, deviceId } = req.payload
     const ev = message
-    const donor = null
-    // TODO [ToDr] Zaczytać z bazy message
-    const description = 'Dotacja'
+    const donor = await Donor.findOne({
+      email, deviceId
+    })
+    const mes = await Message.findById(message)
+    const description = mes ? mes.title : 'Dotacja'
 
     const { host, protocol = 'https' } = req.info
 
