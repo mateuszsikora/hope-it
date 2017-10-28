@@ -4,7 +4,7 @@ node_js:
 - 6
 - 4
 
-before_script: cd web
+before_install: cd web
 
 deploy:
   provider: heroku
