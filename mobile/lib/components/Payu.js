@@ -47,7 +47,7 @@ export default class Payu extends Component {
     const { modalVisible, uri } = this.state
 
     return (
-      <Content>
+      <Content style={margin}>
           <Modal
             animationType="slide"
             visible={modalVisible}
@@ -62,7 +62,7 @@ export default class Payu extends Component {
             />
           </Modal>
           <Button
-            info
+            primary
             block
             iconRight
             onPress={this.handlePay}
@@ -82,5 +82,10 @@ Payu.defaultProps = {
   message: null,
   amount: 0,
   onSuccess: () => {}
+}
+
+const margin = {
+  marginTop: 15,
+  marginBottom: 15
 }
 
