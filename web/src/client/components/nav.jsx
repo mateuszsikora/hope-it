@@ -28,7 +28,7 @@ export default function MainNav() {
         <Menu.Item><Link to="/add-new-message"><Icon name='mail square' size='large' /> Nowa wiadomość</Link></Menu.Item>
         <Menu.Item><Link to="/payments"> <Icon style={iconStyle2} name='line chart' size='large' /> Dotacje</Link></Menu.Item>
         <Menu.Item><Link to="/surveys"> <Icon style={iconStyle2} name='tasks' size='large' /> Ankiety </Link></Menu.Item>
-        <Menu.Item><Link to="/payu"> <Icon style={iconStyle1} name='credit card alternative' size='large' /> Payu</Link></Menu.Item>
+        <Menu.Item><Link to="/payu"> <Icon style={iconStyle1} name='credit card alternative' size='large' /> PayU</Link></Menu.Item>
       </Sidebar>
     </div>
   );
