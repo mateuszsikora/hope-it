@@ -9,6 +9,8 @@ import { serverUrl } from '../util'
 import moment from 'moment';
 
 import { store } from './PayConfirm'
+import { loginStore } from './Login'
+import { tokenStore } from './PushControllerWithStore'
 
 const margin = {
   marginLeft: 27,
@@ -112,8 +114,8 @@ class WithRedirect extends Component {
 
     store.setPayment({
       title,
-      email: 'macio@macio.x',
-      deviceId: '1',
+      email: loginStore.user.userEmail,
+      deviceId: tokenStore.token,
       message: _id
     })
 
