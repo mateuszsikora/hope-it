@@ -2,9 +2,10 @@ import Message from '../api/message/message.schema';
 import Donor from '../api/donor/donor.schema';
 import moment from 'moment';
 import fs from 'fs';
+import path from 'path';
 
 const imageData1 = fs.readFileSync(path.resolve(__dirname, 'images', 'edward-scissorhands-jack-sparrow.jpg'));
-const exampleImage1 = new Buffer(imageData).toString('base64');
+const exampleImage1 = new Buffer(imageData1).toString('base64');
 
 module.exports = async () => {
   const donors = await Donor.find({});
