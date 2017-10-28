@@ -7,12 +7,8 @@ const stylePusher = {minLeft:250, marginRight: 250};
 export default function MainNav() {
   return (
     <Sidebar as={Menu} animation='push'  visible vertical inverted style={stylePushable}>
-      <Menu.Item><Link to="/">Main</Link></Menu.Item>
-      <Menu.Item><Link to="/dupa">Dupa</Link></Menu.Item>
-      <Menu.Item><Link to="/add-new-story">Add new story</Link></Menu.Item>
-      <Menu.Item><Link to="/add-new-donee">Add new donee</Link></Menu.Item>
-      <Menu.Item><Link to="/add-new-message">Add new message</Link></Menu.Item>
-      <Menu.Item><Link to="/hello">Hello</Link></Menu.Item>
+      <Menu.Item><Link to="/">Home</Link></Menu.Item>
+      <Menu.Item><Link to="/add-new-message">Nowa wiadomość</Link></Menu.Item>
       <Menu.Item><Link to="/payments">Dotacje</Link></Menu.Item>
       <Menu.Item><Link to="/payu">Payu</Link></Menu.Item>
     </Sidebar>
