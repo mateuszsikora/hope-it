@@ -33,9 +33,12 @@ export default class Payu extends Component {
     })
   }
 
-  handleMessage = (data) => {
-    console.log(data)
-    alert('Message')
+  onStateChange = (data) => {
+    if (data.url.endsWith('/thankyou')) {
+      this.setState({
+        modalVisible: false
+      })
+    }
   }
 
   render () {
@@ -49,9 +52,11 @@ export default class Payu extends Component {
             onRequestClose={this.handleClose}
           >
             <WebView
+              ref={webview => this.webview = webview}
               source={{uri: `${serverUrl}/payu`}}
               style={{position: 'absolute', left: 12, right: 12, bottom: 50, top: 50, opacity }}
-              onMessage={this.handleMessage}
+              startingInLoadingState
+              onNavigationStateChange={this.onStateChange}
             />
           </Modal>
           <Button
