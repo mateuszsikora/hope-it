@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'semantic-ui-react'
+import {Button, Image} from 'semantic-ui-react'
 import DayPicker from 'react-day-picker';
 import {Dropdown, Form, Input, TextArea} from 'semantic-ui-react';
 import {bindActionCreators} from 'redux';
