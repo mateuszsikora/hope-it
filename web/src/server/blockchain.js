@@ -6,8 +6,8 @@ import Api from '@parity/api'
 
 import Payment from './api/payment/payment.schema'
 
-// const api = new Api(new Api.Provider.Http('https://kovan.infura.io'))
-const api = new Api(new Api.Provider.Http('http://localhost:8545'))
+const api = new Api(new Api.Provider.Http('https://kovan.infura.io'))
+// const api = new Api(new Api.Provider.Http('http://localhost:8545'))
 
 const contract = api.newContract(contractAbi, address)
 
