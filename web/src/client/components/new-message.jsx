@@ -48,6 +48,22 @@ class AddNewMessage extends React.Component {
     this.setState(() => ({}));
   };
 
+  onFileChange = (event) => {
+    const files = event.target.files;
+    const file = files[0];
+
+    if (files && file) {
+      const reader = new FileReader();
+
+      reader.onload = (readerEvt) => {
+        const binaryString = readerEvt.target.result;
+        this.setState(previousState => ({...previousState, image: btoa(binaryString)}));
+      };
+
+      reader.readAsBinaryString(file);
+    }
+  };
+
   randerFunding() {
     return (
       <div>
@@ -123,6 +139,11 @@ class AddNewMessage extends React.Component {
           <div>
             <h2>Treść wiadomości</h2>
             <TextArea autoHeight placeholder='Podaj treść wiadomości dla darczyńców' onChange={this.onChangeContent} rows={2}/>
+          </div>
+
+          <div>
+            <h2>Obraz</h2>
+            <input type="file" onChange={this.onFileChange} />
           </div>
 
           {this.state.type === 'funding' && this.randerFunding()}

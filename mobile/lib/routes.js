@@ -4,5 +4,6 @@ export default routes = {
   notifications: '/notifications',
   payments_history: '/payments_history',
   mobx: '/mobx',
-  pay: '/pay'
+  pay: '/pay',
+  login: '/'
 }

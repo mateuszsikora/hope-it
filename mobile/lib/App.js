@@ -8,6 +8,7 @@ import commonStyles from './components/commonStyles';
 import NavFooter from './components/NavFooter';
 import MobxDemo from './components/MobxDemo';
 import PayConfirm from './components/PayConfirm';
+import Login from './components/Login';
 import {
   Container
 } from 'native-base';
@@ -26,6 +27,7 @@ export default function App() {
           <PushControllerWithStore/>
           <AndroidBackButton/>
           <Switch>
+            <Route path={routes.login} component={Login}/>
             <Route path={routes.wall} component={Wall}/>
             <Route path={routes.survey} component={Survey}/>
             <Route path={routes.payments_history} component={PaymentsHistory}/>
