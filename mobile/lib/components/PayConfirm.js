@@ -55,18 +55,18 @@ class PayConfirm extends Component {
 
     if (completed) {
       return (
-        <View>
+        <Content>
           <WebView
             source={{ uri: `${serverUrl}/thankyou` }}
             style={{marginTop: 25, marginLeft: 5, marginRight: 5}}
           />
-        </View>
+        </Content>
       )
     }
 
     return (
-      <Content>
-        <Text>Dziękujemy za wsparcie {title}</Text>
+      <Content style={{marginLeft: 15, marginRight: 15}}>
+        <Text style={{marginTop: 50}}>Wspierasz akcję: {title}</Text>
         <View style={{marginTop: 15}}/>
         <Picker
           selectedValue={payment}
