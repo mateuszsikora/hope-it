@@ -6,6 +6,7 @@ import routes from './routes';
 import commonStyles from './components/commonStyles';
 import NavFooter from './components/NavFooter';
 import MobxDemo from './components/MobxDemo';
+import PayConfirm from './components/PayConfirm';
 import {
   Container
 } from 'native-base';
@@ -17,25 +18,21 @@ moment.locale('pl');
 
 const NavFooterWithRouter = withRouter(NavFooter);
 
-
-
-export default class App extends React.Component {
-
-  render() {
-    return (
-        <NativeRouter>
-          <Container style={commonStyles.container}>
-            <PushControllerWithStore/>
-            <AndroidBackButton/>
-            <Switch>
-              <Route path={routes.wall} component={Wall}/>
-              <Route path={routes.payments_history} component={PaymentsHistory}/>
-              <Route path={routes.mobx} component={MobxDemo}/>
-              <Redirect to={routes.wall}/>
-            </Switch>
-            <NavFooterWithRouter onChange={() => null}/>
-          </Container>
-        </NativeRouter>
-    );
-  }
+export default function App() {
+  return (
+      <NativeRouter>
+        <Container style={commonStyles.container}>
+          <PushControllerWithStore/>
+          <AndroidBackButton/>
+          <Switch>
+            <Route path={routes.wall} component={Wall}/>
+            <Route path={routes.payments_history} component={PaymentsHistory}/>
+            <Route path={routes.mobx} component={MobxDemo}/>
+            <Route path={routes.pay} component={PayConfirm}/>
+            <Redirect to={routes.wall}/>
+          </Switch>
+          <NavFooterWithRouter onChange={() => null}/>
+        </Container>
+      </NativeRouter>
+  );
 }
