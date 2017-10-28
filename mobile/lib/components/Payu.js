@@ -8,54 +8,62 @@ import {
 } from 'react-native'
 import {Button, Icon, Text} from 'native-base' 
 import { serverUrl } from '../util'
+import axios from 'axios'
 
 export default class Payu extends Component {
   state = {
     modalVisible: false,
-    opacity: 0
+    uri: '',
   }
 
-  handlePay = () => {
+  handlePay = async () => {
+    const { title, email, deviceId, message, amount } = this.props
+    const res = await axios.post(`${serverUrl}/api/payments/payu`, {
+      title, email, amount, deviceId, message
+    })
+
     this.setState({
+      uri: res.data.redirectUri,
       modalVisible: true
     })
-    setTimeout(() => {
-      this.setState({
-        opacity: 1.0
-      })
-    }, 2000)
   }
 
   handleClose = () => {
     this.setState({
       modalVisible: false,
-      opacity: 0
     })
   }
 
-  handleMessage = (data) => {
-    console.log(data)
-    alert('Message')
+  onStateChange = (data) => {
+    if (data.url.endsWith('/thankyou')) {
+      this.setState({
+        modalVisible: false
+      })
+      this.props.onSuccess()
+    }
   }
 
   render () {
-    const { modalVisible, opacity } = this.state
+    const { modalVisible, uri } = this.state
 
     return (
-      <View>
+      <View style={{marginTop: 6}}>
           <Modal
             animationType="slide"
             visible={modalVisible}
             onRequestClose={this.handleClose}
           >
             <WebView
-              source={{uri: `${serverUrl}/payu`}}
-              style={{position: 'absolute', left: 12, right: 12, bottom: 50, top: 50, opacity }}
-              onMessage={this.handleMessage}
+              ref={webview => this.webview = webview}
+              source={{ uri }}
+              style={{position: 'absolute', left: 12, right: 12, bottom: 50, top: 50 }}
+              startingInLoadingState
+              onNavigationStateChange={this.onStateChange}
             />
           </Modal>
           <Button
             info
+            block
             iconRight
             onPress={this.handlePay}
           >
@@ -67,4 +75,12 @@ export default class Payu extends Component {
   }
 }
 
+Payu.defaultProps = {
+  title: '<akcja>',
+  email: 't@g.com',
+  deviceId: '1',
+  message: null,
+  amount: 0,
+  onSuccess: () => {}
+}
 
