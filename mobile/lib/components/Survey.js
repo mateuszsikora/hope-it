@@ -1,88 +1,12 @@
 // @flow
 
-/*
-import React, { Component } from 'react';
-import { View, Image } from 'react-native'; 
-import { DeckSwiper, Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
-import routes from './../routes';
-import { Link } from 'react-router-native';
-import { serverUrl } from '../util'
-
-const cards = [{
-    text: 'Card One',
-    name: 'One',
-    image: require('./img/hold-on.jpg'),
-}, {
-    text: 'Card Two',
-    name: 'Two',
-    image: require('./img/hold-on.jpg'),
-
-}]
-
-class SurveyContent extends Component {
-    state = { messages: [] }
-
-    getMessages = () =>
-        fetch(serverUrl + `/api/messages`, {
-          method: 'GET',
-        }).then(response=>response.json())
-
-    constructor(props) {
-        super(props)
-    }
-
-    componentDidMount() {
-        this.getMessages()
-            .then((msg) => {
-                this.setState({messages: msg})
-            })
-    }
-
-    render() {
-        return (
-            <Content>
-                <View>
-                    <Text>Ankiety</Text>
-                    <DeckSwiper
-                        dataSource={cards}
-                        renderItem={item =>
-                            <Card style={{ elevation: 3 }}>
-                                <CardItem>
-                                    <Left>
-                                        <Thumbnail source={item.image} />
-                                        <Body>
-                                            <Text>{item.text}</Text>
-                                            <Text note>NativeBase</Text>
-                                        </Body>
-                                    </Left>
-                                </CardItem>
-                                <CardItem cardBody>
-                                    <Image style={{ height: 300, flex: 1 }} source={item.image} />
-                                </CardItem>
-                                <CardItem>
-                                    <Icon name="heart" style={{ color: '#ED4A6A' }} />
-                                    <Text>{item.name}</Text>
-                                </CardItem>
-                            </Card>
-                        } />
-                </View>
-            </Content>
-        );
-    }
-}
-
-export default function Survey () {
-  return (
-      <SurveyContent />
-  )
-}
-*/
-
-
 import React, { Component } from 'react';
 import { Image } from 'react-native';
-import { Container, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon } from 'native-base';
-const cards = [
+import { Container, Button, Header, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Right, Body, Icon } from 'native-base';
+import { serverUrl } from '../util'
+
+export default class DeckSwiperExample extends Component {
+    state = {swipe: {},surveys: [
     {
         text: 'Card One',
         name: 'One',
@@ -93,33 +17,80 @@ const cards = [
         name: 'One',
         image: require('./img/hold-on.jpg'),
     }
-];
-export default class DeckSwiperExample extends Component {
+    ]}
+    getSurveys = () =>
+        fetch(serverUrl + `/api/surveys`, {
+          method: 'GET',
+        }).then(response=>response.json())
+
+    postAnswer = (survey, answear) =>
+        fetch(serverUrl + `/api/answears`, {
+          method: 'POST',
+            headers: new Headers({
+              "Content-Type": "application/json"
+            }),
+          body: JSON.stringify({
+              survey: survey._id,
+              answear: answear
+          })
+        })
+
+    constructor(props) {
+        super(props)
+    }
+    componentDidMount() {
+        this.getSurveys()
+            .then((msg) => {
+                this.setState({surveys: msg})
+            })
+    }
+    swipeRight = () => {
+        this.postAnswer(this.deck._root.state.selectedItem, false)
+    }
+
+    swipeLeft = () => {
+        this.postAnswer(this.deck._root.state.selectedItem, true)
+    }
       render() {
               return (
                         <Container>
                           <Header />
                           <View>
                             <DeckSwiper
-                              dataSource={cards}
+                              ref={(deck) => this.deck = deck}
+                              onSwipeRight={this.swipeRight}
+                              onSwipeLeft={this.swipeLeft}
+                              dataSource={this.state.surveys}
                               renderItem={item =>
-                                                <Card style={{ elevation: 3, background: 'red' }}>
+                                                <Card style={{ elevation: 3, backgroundColor: 'red' }}>
                                                   <CardItem>
                                                     <Left>
                                                       <Body>
-                                                        <Text>{item.text}</Text>
-                                                        <Text note>NativeBase</Text>
+                                                        <Text>{item.pool}</Text>
+                                                        <Text note>Ankiety</Text>
                                                       </Body>
                                                     </Left>
                                                   </CardItem>
                                                   <CardItem cardBody>
-                                                    <Text style={{ height: 300, flex: 1 }}>
-                                                        {item.text}
+                                                    <Text>
+                                                        {item.question}
                                                     </Text>
                                                   </CardItem>
                                                   <CardItem>
-                                                    <Icon name="heart" style={{ color: '#ED4A6A' }} />
-                                                    <Text>{item.name}</Text>
+                                                    <Left>
+                                                      <Button 
+                                                        transparent>
+                                                        <Icon active name="thumbs-up" />
+                                                        <Text>Tak</Text>
+                                                      </Button>
+                                                    </Left>
+                                                    <Right>
+                                                      <Button 
+                                                        transparent>
+                                                        <Icon active name="thumbs-down" />
+                                                        <Text>Nie</Text>
+                                                      </Button>
+                                                    </Right>
                                                   </CardItem>
                                                 </Card>
                                               }

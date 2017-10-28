@@ -12,7 +12,7 @@ export default function NavFooter({ onChange, location, history }) {
               active={location.pathname === routes.wall}
               onPress={() => location.pathname !== routes.wall && history.push(routes.wall)}
           >
-            <Text>Ściana</Text>
+            <Text>Pomagam</Text>
           </Button>
           <Button
               active={location.pathname === routes.survey}
@@ -24,20 +24,20 @@ export default function NavFooter({ onChange, location, history }) {
               active={location.pathname === routes.payments_history}
               onPress={() => location.pathname !== routes.payments_history && history.push(routes.payments_history)}
           >
-            <Text>Historia Płatności</Text>
+            <Text>Twoje Dotacje</Text>
           </Button>
-          <Button
-              active={location.pathname === routes.mobx}
-              onPress={() => location.pathname !== routes.mobx && history.push(routes.mobx)}
-          >
-            <Text>MobxDemo</Text>
-          </Button>
-          <Button
-              active={location.pathname === routes.pay}
-              onPress={handlePay(location, history)}
-          >
-            <Text>Pay!</Text>
-          </Button>
+          {/* <Button */}
+          {/*     active={location.pathname === routes.mobx} */}
+          {/*     onPress={() => location.pathname !== routes.mobx && history.push(routes.mobx)} */}
+          {/* > */}
+          {/*   <Text>MobxDemo</Text> */}
+          {/* </Button> */}
+          {/* <Button */}
+          {/*     active={location.pathname === routes.pay} */}
+          {/*     onPress={handlePay(location, history)} */}
+          {/* > */}
+          {/*   <Text>Pay!</Text> */}
+          {/* </Button> */}
         </FooterTab>
       </Footer>
   )

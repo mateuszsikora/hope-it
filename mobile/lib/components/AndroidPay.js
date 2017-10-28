@@ -61,10 +61,11 @@ export default class AndroidPay extends Component {
 
   render () {
     return (
-      <View style={{marginTop: 6}}>
+      <View style={margin}>
           <Button
             iconRight
             onPress={this.handlePay}
+            success
             block
           >
             <Text>Android Pay</Text>
@@ -81,3 +82,7 @@ AndroidPay.defaultProps = {
   onSuccess: () => {}
 }
 
+const margin = {
+  marginTop: 15,
+  marginBottom: 15
+}

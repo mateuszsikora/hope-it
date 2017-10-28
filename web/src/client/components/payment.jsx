@@ -3,18 +3,38 @@ import PropTypes from 'prop-types';
 import {List, Avatar, Image, Button, Icon} from 'semantic-ui-react';
 import moment from 'moment';
 
+const images = ['daniel', 'tom', 'rachel','lindsay', 'matt', 'christian', 'jenny', 'veronika', 'stevie','elliot'].map(name => {
+  return `https://react.semantic-ui.com/assets/images/avatar/small/${name}.jpg`
+})
+
+
+function image (email) {
+  email = email.toString()
+  const img = email.split('').map(x => x.charCodeAt(0)).reduce((a, b) => a ^ b, 0xffff);
+  return images[img % images.length]
+}
+
 const Payment = ({donor, amount, date, num, message}) => {
+  const email = donor? donor.email: 'anonima';
   const header = num
-  ? `${num} dotacji od ${donor? donor.email: 'anonima'} za ${(amount / 100).toFixed(0)}PLN`
-  : `${(amount / 100).toFixed(0)}PLN od ${donor? donor.email: 'anonima'}`
+    ? (
+      <span>
+        {num} dotacji od {email} za {formatNumber(amount / 100)} <small>PLN</small>
+      </span>
+    )
+    : (
+      <span>
+        {formatNumber(amount / 100)} <small>PLN</small> od {email}`
+      </span>
+    )
   return (
     <List.Item>
-      <Image avatar src='https://react.semantic-ui.com/assets/images/avatar/small/daniel.jpg' />
+      <Image avatar src={image(email)} />
       <List.Content>
         <List.Header>{header}</List.Header>
         <List.Description>
           {date? moment(date).format('llll'):''}
-          {date && message? '|' : ''}
+          {date && message? '  wsparł(a) ' : ''}
           {message? message.title : ''}</List.Description>
       </List.Content>
 
@@ -22,7 +42,7 @@ const Payment = ({donor, amount, date, num, message}) => {
         (donor && donor.email)?
         (
           <List.Content floated='right'>
-            <Button><Icon name='mail' />Wyślij wiadomość</Button>
+            <Button basic><Icon name='mail' /> Wiadomość</Button>
           </List.Content>
         ): null
       }
@@ -37,3 +57,18 @@ Payment.propTypes = {
 }
 
 export default Payment
+
+export function formatNumber(num) {
+  console.log(num)
+  num = num.toFixed(0)
+  return num.split('').reverse().reduce((acc, elem) => {
+    const first = acc[0]
+    if (first.length === 3) {
+      acc.unshift(elem)
+    } else {
+      acc[0] = `${elem}${acc[0]}`
+    }
+    return acc
+  }, ['']).join(',')
+}
+

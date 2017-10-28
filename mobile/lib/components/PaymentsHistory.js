@@ -21,6 +21,7 @@ import {
   FooterTab
 } from 'native-base';
 import { getCurrentUsersPayment } from '../api/payments';
+import MainLoader from './MainLoader';
 
 import { actionTypes } from './PaymentHistoryEntry';
 
@@ -40,7 +41,12 @@ export default class PaymentsHistory extends Component {
 
     return (
         <Content>
-          {isLoading && <Text>Loading...</Text>}
+          {isLoading && <MainLoader/>}
+          {!isLoading && !payments.length && (
+            <Text style={{marginTop: 75, textAlign: 'center'}}>
+              Nie wykonałeś jeszcze żadnych dotacji! Wesprzyj nas już teraz.
+            </Text>
+          )}
           {!isLoading && payments.map((payment, key) => (
               <PaymentHistoryEntry
                   key={key} {...payment}

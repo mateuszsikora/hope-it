@@ -38,7 +38,7 @@ const customMiddleware = store => next => action => {
 window.webappStart = () => {
   const initialState = window.__PRELOADED_STATE__;
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const middlewares = [thunk, axiosMiddleware, /*customMiddleware,*/ middleware, logger];
+  const middlewares = [thunk, axiosMiddleware, customMiddleware, middleware, logger];
   const store = createStore(
     rootReducer,
     initialState,
