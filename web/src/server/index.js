@@ -15,6 +15,8 @@ const startServer = config => require('electrode-server')(config, [staticPathsDe
 //
 
 support.load().then(() => {
+  require('./blockchain')
   const config = electrodeConfippet.config;
   return startServer(config);
 });
+

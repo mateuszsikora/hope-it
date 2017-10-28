@@ -7,13 +7,16 @@ import {
   Button,
   ToastAndroid,
   Picker,
+  WebView,
 } from 'react-native'
-import { Content, Text } from 'native-base'
+import { Content, Body, Card, CardItem, Text } from 'native-base'
 import {observable, action} from 'mobx'
 import {observer} from 'mobx-react'
 
 import AndroidPay from './AndroidPay'
 import Payu from './Payu'
+
+import { serverUrl } from '../util'
 
 @observer
 export default class PayConfirmMain extends Component {
@@ -38,7 +41,7 @@ class PayConfirm extends Component {
   }
 
   handlePaySuccess = () => {
-    ToastAndroid.show('Payment successful.')
+    ToastAndroid.show('Payment Successful', ToastAndroid.SHORT)
     this.setState({
       completed: true
     })
@@ -52,9 +55,12 @@ class PayConfirm extends Component {
 
     if (completed) {
       return (
-        <Content>
-          <Text>Dziękujemy za wsparcie {title}</Text>
-        </Content>
+        <View>
+          <WebView
+            source={{ uri: `${serverUrl}/thankyou` }}
+            style={{marginTop: 25, marginLeft: 5, marginRight: 5}}
+          />
+        </View>
       )
     }
 
@@ -89,6 +95,17 @@ class PayConfirm extends Component {
           message={message}
           onSuccess={this.handlePaySuccess}
         />
+        <Card>
+          <CardItem header>
+            <Text>Ethereum</Text>
+          </CardItem>
+          <CardItem>
+            <Body>
+              <Text>Możesz też przesłać Ether na adres:</Text>
+              <Text style={{fontFamily: 'monospace'}}>0x571Ae5AF70D4720D2Ae62c0B9A4c4E950772Bf13</Text>
+            </Body>
+          </CardItem>
+        </Card>
       </Content>
     )
   }

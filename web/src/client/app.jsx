@@ -14,7 +14,7 @@ import rootReducer from './reducers';
 import moment from 'moment';
 import 'moment/locale/pl';
 import {axiosMiddleware} from './services/axios';
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
+import { syncHistoryWithStore, routerMiddleware, push} from 'react-router-redux';
 
 moment.locale('pl');
 
@@ -26,11 +26,19 @@ moment.locale('pl');
 // DOM is created.
 //
 const middleware = routerMiddleware(browserHistory)
+const customMiddleware = store => next => action => {
+  if (!store.getState().login.loggedIn) {
+    if (action.type === '@@router/LOCATION_CHANGE' && !action.payload.pathname.startsWith('/login')) {
+      return next(push('/login'));
+    }
+  }
+  next(action);
+};
 
 window.webappStart = () => {
   const initialState = window.__PRELOADED_STATE__;
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const middlewares = [thunk, axiosMiddleware, middleware, logger];
+  const middlewares = [thunk, axiosMiddleware, customMiddleware, middleware, logger];
   const store = createStore(
     rootReducer,
     initialState,

@@ -15,8 +15,8 @@ const validateFunc = (decoded, request, callback) => {
       return callback(null, true, user);
     }
     return callback(null, false);
-}).catch((err)=> {
-    throw err
+}).catch((err) => {
+    throw err;
   });
 }
 

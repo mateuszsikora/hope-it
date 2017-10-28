@@ -4,6 +4,7 @@ import moment from 'moment';
 import { observer } from 'mobx-react'
 
 import Wall from './components/Wall'
+import Survey from './components/Survey'
 import PaymentsHistory from './components/PaymentsHistory';
 import routes from './routes';
 import commonStyles from './components/commonStyles';
@@ -35,6 +36,7 @@ export default class App extends React.Component {
             { this.store.user.email && (
                   <Switch>
                     <Route path={routes.wall} component={Wall}/>
+                    <Route path={routes.survey} component={Survey}/>
                     <Route path={routes.payments_history} component={PaymentsHistory}/>
                     <Route path={routes.mobx} component={MobxDemo}/>
                     <Route path={routes.pay} component={PayConfirm}/>

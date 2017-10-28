@@ -19,7 +19,6 @@ module.exports = [{
   method: 'GET',
   path: '/api/payments',
   handler: (request, reply) => {
-    console.log(request.params.email);
     Payment.find({}).populate('donor').populate('message').then((result) => {
       reply(result);
     }).catch((err) => {
@@ -31,7 +30,6 @@ module.exports = [{
   path: '/api/payments/{email}',
   handler: async (request, reply) => {
     const donor = await Donor.findOne({ email: request.params.email });
-    console.log('payments',donor);
     if (!donor){
       reply([]);
     }
