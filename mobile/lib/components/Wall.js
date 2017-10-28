@@ -4,9 +4,16 @@ import React, { Component } from 'react';
 import { View, Image } from 'react-native'; 
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import routes from './../routes';
-import { Link } from 'react-router-native';
+import { Link, Redirect } from 'react-router-native';
 import { serverUrl } from '../util'
 import moment from 'moment';
+
+import { store } from './PayConfirm'
+
+const margin = {
+  marginLeft: 27,
+  marginRight: 27
+}
 
 class WallFundingEntry extends Component {
     render() {
@@ -32,6 +39,7 @@ class WallFundingEntry extends Component {
               <CardItem>
                 <Left>
                   <Button 
+                    onPress={this.props.redirectToPayment}
                     transparent>
                     <Icon active name="thumbs-up" />
                     <Text>Pomogę</Text>
@@ -94,48 +102,79 @@ class WallPromoEntry extends Component {
     }
 }
 
+class WithRedirect extends Component {
+  state = {
+    redirect: false
+  }
+
+  redirectToPayment = () => {
+    const { _id, title } = this.props.msg
+
+    store.setPayment({
+      title,
+      email: 'macio@macio.x',
+      deviceId: '1',
+      message: _id
+    })
+
+    this.setState({
+      redirect: true,
+    })
+  }
+
+  render() {
+    const { redirect } = this.state
+    if (redirect) {
+      return (
+        <Redirect to='/pay' />
+      )
+    }
+
+    const { Component } = this.props
+    return (
+      <Component { ...this.props } redirectToPayment={ this.redirectToPayment } />
+    )
+  }
+}
+
 class WallContent extends Component {
-    state = { messages: [] }
+  state = { messages: [] }
 
-    getMessages = () =>
-        fetch(serverUrl + `/api/messages`, {
-          method: 'GET',
-        }).then(response=>response.json())
+  getMessages = () => {
+    return fetch(`${serverUrl}/api/messages`, {
+      method: 'GET',
+    }).then(res=> res.json())
+  }
 
-    constructor(props) {
-        super(props)
-    }
+  componentDidMount() {
+    this.getMessages()
+      .then((msg) => {
+        this.setState({messages: msg})
+      })
+  }
 
-    componentDidMount() {
-        this.getMessages()
-            .then((msg) => {
-                this.setState({messages: msg})
-            })
-    }
-
-    render() {
-        return (
-            <Content>
-              <Header />
-                <View>
-                    {this.state.messages.map((m, i) => {
-                        switch(m.type) {
-                            case 'funding':
-                                return (<WallFundingEntry key={i} msg={m} />)
-                            case 'message':
-                                return (<WallMessageEntry key={i} msg={m} />)
-                            case 'promo':
-                                return (<WallPromoEntry key={i} msg={m} />)
-                        }
-                    })}
-                </View>
-            </Content>
-        );
-    }
+  render() {
+    return (
+      <Content>
+        <View>
+          {this.state.messages.map((m, i) => {
+            switch(m.type) {
+              case 'funding':
+                return (<WithRedirect Component={WallFundingEntry} key={i} msg={m} />)
+              case 'message':
+                return (<WithRedirect Component={WallMessageEntry} key={i} msg={m} />)
+              case 'promo':
+                return (<WithRedirect Component={WallPromoEntry} key={i} msg={m} />)
+            }
+          })}
+        </View>
+      </Content>
+    );
+  }
 }
 
 export default function Wall () {
   return (
-      <WallContent />
+    <WallContent />
   )
 }

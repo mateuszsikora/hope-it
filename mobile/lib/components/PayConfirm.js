@@ -8,6 +8,7 @@ import {
   ToastAndroid,
   Picker,
   WebView,
+  Image,
 } from 'react-native'
 import { Content, Body, Card, CardItem, Text } from 'native-base'
 import {observable, action} from 'mobx'
@@ -34,7 +35,6 @@ export default class PayConfirmMain extends Component {
 }
 
 class PayConfirm extends Component {
-
   state = {
     payment: '10',
     completed: false
@@ -55,18 +55,16 @@ class PayConfirm extends Component {
 
     if (completed) {
       return (
-        <View>
-          <WebView
-            source={{ uri: `${serverUrl}/thankyou` }}
-            style={{marginTop: 25, marginLeft: 5, marginRight: 5}}
-          />
-        </View>
+        <Content>
+          <Image style={{width: 300, marginTop: 150, marginLeft: 30, marginBottom: 30}} source={require('./img/happy.gif')} />
+          <Text style={{textAlign: 'center'}}>Dziękujemy za Twoją płatność!</Text>
+        </Content>
       )
     }
 
     return (
-      <Content>
-        <Text>Dziękujemy za wsparcie {title}</Text>
+      <Content style={{marginLeft: 15, marginRight: 15}}>
+        <Text style={{marginTop: 50}}>Wspierasz akcję: {title}</Text>
         <View style={{marginTop: 15}}/>
         <Picker
           selectedValue={payment}
@@ -106,6 +104,10 @@ class PayConfirm extends Component {
             </Body>
           </CardItem>
         </Card>
+        {/* <Button */}
+        {/*   onPress={() => this.setState({ completed: true })} */}
+        {/*   title='Test' */}
+        {/* /> */}
       </Content>
     )
   }

@@ -26,18 +26,18 @@ export default function NavFooter({ onChange, location, history }) {
           >
             <Text>Historia Płatności</Text>
           </Button>
-          <Button
-              active={location.pathname === routes.mobx}
-              onPress={() => location.pathname !== routes.mobx && history.push(routes.mobx)}
-          >
-            <Text>MobxDemo</Text>
-          </Button>
-          <Button
-              active={location.pathname === routes.pay}
-              onPress={handlePay(location, history)}
-          >
-            <Text>Pay!</Text>
-          </Button>
+          {/* <Button */}
+          {/*     active={location.pathname === routes.mobx} */}
+          {/*     onPress={() => location.pathname !== routes.mobx && history.push(routes.mobx)} */}
+          {/* > */}
+          {/*   <Text>MobxDemo</Text> */}
+          {/* </Button> */}
+          {/* <Button */}
+          {/*     active={location.pathname === routes.pay} */}
+          {/*     onPress={handlePay(location, history)} */}
+          {/* > */}
+          {/*   <Text>Pay!</Text> */}
+          {/* </Button> */}
         </FooterTab>
       </Footer>
   )

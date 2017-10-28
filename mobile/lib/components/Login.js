@@ -8,6 +8,9 @@ import {
   Button
 } from 'native-base';
 
+import { Image, View } from 'react-native';
+
+
 import { tokenStore } from './PushControllerWithStore';
 
 import { registerDonor } from './../api/donors';
@@ -16,7 +19,6 @@ import { registerDonor } from './../api/donors';
 export default class Login extends React.Component {
 
   store = loginStore;
-  tokenStore = tokenStore;
 
   init = () => {
     this.store.init();
@@ -24,13 +26,16 @@ export default class Login extends React.Component {
 
   render() {
     return (
-        <Content>
-          <GoogleSigninButton
-              style={{ alignSelf: 'stretch', height: 84 }}
-              size={GoogleSigninButton.Size.Wide}
-              color={GoogleSigninButton.Color.Light}
-              onPress={this.init}/>
-          <Button onPress={this.init}/>
+        <Content style={{backgroundColor: 'white'}}>
+          <View style={{ flex: 1, alignItems: 'center', justifyContent:'center', height: 650,}}>
+            <Image style={{ height: 200, width: 200, marginBottom: 50}} source={require('./img/hopeIT_hackaton_fb_avatar_256x256_01.png')} />
+            <GoogleSigninButton
+                style={{ alignSelf: 'stretch', height: 84, marginLeft: 40, mjustifyContent:'space-between',arginRight: 40}}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Light}
+                onPress={this.init}/>
+            <Button onPress={this.init}/>
+          </View>
           {this.store.isGoogleSiginConfigured === true && <Text>Success</Text>}
         </Content>
     );

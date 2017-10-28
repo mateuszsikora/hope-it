@@ -5,8 +5,16 @@ import moment from 'moment';
 
 const Payment = ({donor, amount, date, num, message}) => {
   const header = num
-  ? `${num} dotacji od ${donor? donor.email: 'anonima'} za ${(amount / 100).toFixed(0)}PLN`
-  : `${(amount / 100).toFixed(0)}PLN od ${donor? donor.email: 'anonima'}`
+    ? (
+      <span>
+        {num} dotacji od {donor? donor.email: 'anonima'} za {formatNumber(amount / 100)} <small>PLN</small>
+      </span>
+    )
+    : (
+      <span>
+        {formatNumber(amount / 100)} <small>PLN</small> od {donor? donor.email: 'anonima'}`
+      </span>
+    )
   return (
     <List.Item>
       <Image avatar src='https://react.semantic-ui.com/assets/images/avatar/small/daniel.jpg' />
@@ -37,3 +45,18 @@ Payment.propTypes = {
 }
 
 export default Payment
+
+export function formatNumber(num) {
+  console.log(num)
+  num = num.toFixed(0)
+  return num.split('').reverse().reduce((acc, elem) => {
+    const first = acc[0]
+    if (first.length === 3) {
+      acc.unshift(elem)
+    } else {
+      acc[0] = `${elem}${acc[0]}`
+    }
+    return acc
+  }, ['']).join(',')
+}
+
