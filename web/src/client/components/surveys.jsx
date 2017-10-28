@@ -100,21 +100,34 @@ class Surveys extends PureComponent {
     this.setState({activeIndex: b.index})
   }
 
+  aggForQuestion(answers){
+    const aa= answers.reduce((agg, a)=>{
+      agg[a.question]=agg[a.question] || {question: a.question, succ:0, fail:0, prc:0}
+      agg[a.question].succ += a.answear
+      agg[a.question].fail += !a.answear
+      agg[a.question].prc = (agg[a.question].succ/(agg[a.question].succ+agg[a.question].fail)*100).toFixed(2)
+      return agg
+    })
+    return Object.values(aa)
+  }
+
   renderResults = () =>{
     const pools = this.props.surveys.reduce((agg, s)=>{
       agg[s.pool] = agg[s.pool] || []
       agg[s.pool].push(s)
       return agg
     }, {})
+
     const activeIndex = this.state.activeIndex;
     const accordions= Object.keys(pools).map((poolName, i)=>{
         return [
-
-    (      <Accordion.Title active={activeIndex === i} index={i} onClick={this.handleActivate}>
+          (
+            <Accordion.Title active={activeIndex === i} index={i} key={2*i} onClick={this.handleActivate}>
             <Icon name='dropdown' />
             {poolName}
           </Accordion.Title>),
-          (<Accordion.Content active={activeIndex === i}>
+          (
+            <Accordion.Content active={activeIndex === i} key={2*i+1}>
           <Table celled>
             <Table.Header>
               <Table.Row>
@@ -127,13 +140,13 @@ class Surveys extends PureComponent {
 
             <Table.Body>
               {
-                pools[poolName].map(pp=>{
+                this.aggForQuestion(pools[poolName]).map(({question, succ, fail, prc}, idx)=>{
                     return (
-                      <Table.Row>
-                        <Table.Cell>{pp.question}</Table.Cell>
-                        <Table.Cell>{123}</Table.Cell>
-                        <Table.Cell>{123}</Table.Cell>
-                        <Table.Cell>{123}</Table.Cell>
+                      <Table.Row key={idx}>
+                        <Table.Cell>{question}</Table.Cell>
+                        <Table.Cell>{succ}</Table.Cell>
+                        <Table.Cell>{fail}</Table.Cell>
+                        <Table.Cell>{prc}</Table.Cell>
                       </Table.Row>
                     )
                 })
@@ -142,7 +155,8 @@ class Surveys extends PureComponent {
           </Table>
 
 
-        </Accordion.Content>)
+        </Accordion.Content>
+      )
     ]
       })
 
