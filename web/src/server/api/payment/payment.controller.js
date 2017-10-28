@@ -31,6 +31,7 @@ module.exports = [{
   path: '/api/payments/{email}',
   handler: async (request, reply) => {
     const donor = await Donor.findOne({ email: request.params.email });
+    console.log('payments',donor);
     if (!donor){
       reply([]);
     }

@@ -9,22 +9,22 @@ module.exports = async () => {
   await Payment.find({}).remove();
   await Payment.create([{
     donor: donors[0]._id,
-    mesages: mesages[0]._id,
+    message: mesages[0]._id,
     amount: 100000
   }, {
     donor: donors[1]._id,
     amount: 500,
     date: moment().subtract(2, 'month').toDate(),
-    mesages: mesages[0]._id,
+    message: mesages[0]._id,
   }, {
     donor: donors[1]._id,
     amount: 900,
-    mesages: mesages[1]._id,
+    message: mesages[1]._id,
   }, {
     donor: donors[0]._id,
     amount: 1500,
     date: moment().subtract(2, 'month').toDate(),
-    mesages: null,
+    message: null,
   }]);
   console.log('finished populating payments');
 };
