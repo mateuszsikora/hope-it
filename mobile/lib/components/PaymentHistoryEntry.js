@@ -31,7 +31,7 @@ export default function PaymentHistoryEntry({ amount, date, message }) {
               <View style={{ height: 180, alignSelf: 'stretch' }}>
                 <Image
                   source={{ uri: 'data:image/jpg;base64,' + message.image }}
-                  style={{ flex: 1, width: undefined, height: undefined, resizeMode: 'cover' }}
+                  style={{ flex: 1, width: undefined, height: undefined, resizeMode: 'cover', marginBottom: 5 }}
                 />
               </View>
           )}
