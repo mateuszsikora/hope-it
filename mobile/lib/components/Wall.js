@@ -15,7 +15,8 @@ import {
   Left,
   Body,
   Right,
-  Spinner
+  Spinner,
+  H1
 } from 'native-base';
 import { Link, Redirect } from 'react-router-native';
 import { serverUrl } from '../util'
@@ -100,18 +101,46 @@ class WallPromoEntry extends Component {
         <Card>
           <CardItem>
             <Left>
-              <Body>
-              <Text>{this.props.msg.venue} - {this.props.msg.title}</Text>
-              <Text note>{moment(this.props.msg.date).format('DD-MM-YYYY')}</Text>
+              <Body style={{paddingLeft: 0}}>
+              <Text style={{paddingLeft: 0, fontSize: 20}}>{this.props.msg.venue} - {this.props.msg.title}</Text>
               </Body>
             </Left>
+            <Right>
+              <Body>
+              <Text note>{moment(this.props.msg.date).format('DD-MM-YYYY')}</Text>
+              </Body>
+            </Right>
           </CardItem>
-          <CardItem cardBody>
-            <Text>
-              {this.props.msg.content}
-            </Text>
-            <Text note>Zniżka: {this.props.msg.discount}</Text>
-            <Text note>Kod: {this.props.msg.code}</Text>
+          <CardItem>
+            <Body>
+              <Text style={{textAlign: 'center'}}>
+                {this.props.msg.content}
+              </Text>
+            </Body>
+          </CardItem>
+          <CardItem>
+            <Left>
+              <Body>
+              <H1 style={{color: 'green'}}>{this.props.msg.discount}%</H1>
+              <Text>Zniżka</Text>
+              </Body>
+            </Left>
+            <Right>
+              <Body>
+              <H1 style={{color: 'green', textAlign: 'right'}}>{this.props.msg.donated}%</H1>
+              <Text>Dla Fundacji</Text>
+              </Body>
+            </Right>
+          </CardItem>
+          <CardItem>
+            <Body>
+              <View style={{flex: 1, alignItems: 'center', alignSelf: 'stretch', }}>
+                <Text style={{
+                  borderWidth: 1, padding: 12, paddingLeft: 32, paddingRight: 32,
+                  color: 'grey', borderColor: 'grey'
+                }}>67ASFY78ADSF</Text>
+              </View>
+            </Body>
           </CardItem>
         </Card>
     )
@@ -168,7 +197,7 @@ class WallContent extends Component {
     });
     this.getMessages()
         .then((msg) => {
-          this.setState({ messages: msg, isLoading: false})
+          this.setState({ messages: msg, isLoading: false })
         })
   }
 
@@ -178,7 +207,7 @@ class WallContent extends Component {
           <View>
             {this.state.isLoading && (
                 <MainLoader/>
-              )
+            )
             }
             {!this.state.isLoading && this.state.messages.map((m, i) => {
               switch (m.type) {
