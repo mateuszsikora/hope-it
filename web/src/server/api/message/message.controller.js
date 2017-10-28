@@ -33,7 +33,7 @@ module.exports = [{
     handler: async (request, reply) => {
       try{
         const payments = await Payment.find()
-        const messages = await Message.find({}).populate('donors')
+        const messages = await Message.find({}).sort({'startDate': 1}).populate('donors')
         const updated = await Promise.all(
             messages.map( async message=>{
                   if(message.type == 'funding'){
