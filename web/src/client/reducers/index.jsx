@@ -15,7 +15,13 @@ const payments = (store, action) => {
 const surveys = (store, action) => {
   switch(action.type) {
     case 'RECEIVE_SURVEYS': return {...store, surveys: action.payload}
-    default: return {surveys: []}
+    default: return store || {surveys: []}
+  }
+}
+const answers = (store, action) => {
+  switch(action.type) {
+    case 'RECEIVE_ANSWERS': return {...store, answers: action.payload}
+    default: return store || {answers: []}
   }
 }
 
@@ -45,5 +51,6 @@ export default combineReducers({
   login,
   donors,
   surveys,
+  answers,
   routing: routerReducer
 });
