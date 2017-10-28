@@ -10,7 +10,7 @@ import { registerDonor } from './../api/donors';
 export default class PushControllerToStore extends React.Component {
   store = new AppStore();
 
-  componentDidMount(){
+  componentDidMount() {
     this.store.init();
   }
 
@@ -32,22 +32,22 @@ export class AppStore {
   @action
   setToken(token) {
     this.token = token;
-    registerDonor({token}).then(this.registerTokenCompleted,this.registerTokenFailed);
+    registerDonor({ token, email: 'macio@macio.sex' }).then(this.registerTokenCompleted, this.registerTokenFailed);
     console.log('token-set', token);
   }
 
   @action
-  init(){
+  init() {
     this.isTokenRegistered = false;
   }
 
   @action.bound
-  registerTokenCompleted(){
+  registerTokenCompleted() {
     this.isTokenRegistered = true;
   }
 
   @action.bound
-  registerTokenFailed(){
+  registerTokenFailed() {
     this.isTokenRegistered = false;
   }
 }
