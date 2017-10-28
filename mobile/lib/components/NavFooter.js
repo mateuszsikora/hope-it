@@ -15,6 +15,12 @@ export default function NavFooter({ onChange, location, history }) {
             <Text>Ściana</Text>
           </Button>
           <Button
+              active={location.pathname === routes.survey}
+              onPress={() => location.pathname !== routes.survey && history.push(routes.survey)}
+          >
+            <Text>Ankiety</Text>
+          </Button>
+          <Button
               active={location.pathname === routes.payments_history}
               onPress={() => location.pathname !== routes.payments_history && history.push(routes.payments_history)}
           >
