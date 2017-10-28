@@ -19,6 +19,13 @@ export default function NavFooter({ onChange, location, history }) {
           >
             <Text>Historia Płatności</Text>
           </Button>
+          <Button
+              active={location.pathname === routes.mobx}
+              onPress={() => location.pathname !== routes.mobx && history.push(routes.mobx)}
+          >
+            <Text>MobxDemo</Text>
+          </Button>
+
         </FooterTab>
       </Footer>
   )

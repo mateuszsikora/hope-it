@@ -7,11 +7,11 @@ import { DemoButtons } from './demo-buttons';
 import nav from './nav';
 import { Button } from 'semantic-ui-react'
 
-class AddNewStory extends React.Component {
+class AddNewMessage extends React.Component {
     state = {}
     constructor(props) {
         super(props)
-        this.state = {donees: [], message: '', selectedDonee: ''}
+        this.state = {doners: [], donees: [], message: '', selectedDonee: '', selectedDoner: ''}
     }
 
     componentDidMount() {
@@ -26,20 +26,31 @@ class AddNewStory extends React.Component {
                 that.setState({ donees: res })
             }
         }
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/api/doners");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send();
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                const res = JSON.parse(this.responseText)
+                that.setState({ doners: res })
+            }
+        }
     }
 
-    isStoryNameValid = (name) => !!name
+    isMessageNameValid = (name) => !!name
 
     addNew = () => {
         const obj = this.state
         console.log(this.state)
 
         var xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST", "/api/stories");
+        xmlhttp.open("POST", "/api/messages");
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.send(JSON.stringify({
             message: obj.message,
-            donee: obj.selectedDonee
+            donee: obj.selectedDonee,
+            doner: obj.selectedDoner
         }));
     }
 
@@ -49,11 +60,19 @@ class AddNewStory extends React.Component {
     onDoneeChange = (e) =>
         this.setState({ selectedDonee: e.target.value })
 
+    onDonerChange = (e) =>
+        this.setState({ selectedDoner: e.target.value })
+
     render() {
         return (
             <div>
                 <h1>Dodaj nowy wpis</h1>
                 <textarea onChange={this.changeMessage} placeholder="Dodaj nową wiadomość..."></textarea>
+                <select onChange={this.onDonerChange} value={this.state.selectedDoner}>
+                    <option selected disabled>Select doner</option>
+                    {this.state.doners.map(d => 
+                        (<option value={d._id}>{d.name}</option>))}
+                </select>
                 <select onChange={this.onDoneeChange} value={this.state.selectedDonee}>
                     <option selected disabled>Select donee</option>
                     {this.state.donees.map(d => 
@@ -66,5 +85,5 @@ class AddNewStory extends React.Component {
 }
 
 export default () =>
-  (<AddNewStory />);
+  (<AddNewMessage />);
 
