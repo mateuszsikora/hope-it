@@ -27,6 +27,20 @@ import { store } from './PayConfirm'
 import { loginStore } from './Login'
 import { tokenStore } from './PushControllerWithStore'
 
+export function formatNumber(num) {
+  num = num.toFixed(0)
+  return num.split('').reverse().reduce((acc, elem) => {
+    const first = acc[0]
+    if (first.length === 3) {
+      acc.unshift(elem)
+    } else {
+      acc[0] = `${elem}${acc[0]}`
+    }
+    return acc
+  }, ['']).join(',')
+}
+
+
 const margin = {
   marginLeft: 27,
   marginRight: 27
@@ -41,9 +55,9 @@ class WallFundingEntry extends Component {
               <Thumbnail source={{ uri: this.props.msg.image }}/>
               <Body>
               <Text>{this.props.msg.title}</Text>
-              <Text note>{moment(this.props.msg.startDate).format('lll')}</Text>
-              <Text note>Do zdobycia: {this.props.msg.goal}</Text>
-              <Text note>Zdobyte: {this.props.msg.raised? this.props.msg.raised : 0}</Text>
+              <Text note>{moment(this.props.msg.startDate).calendar()}</Text>
+              <Text note>Do zdobycia: {formatNumber(this.props.msg.goal)} zł</Text>
+              <Text note>Zdobyte: {this.props.msg.raised? formatNumber(this.props.msg.raised) : '0'} zł</Text>
               </Body>
             </Left>
           </CardItem>
@@ -59,7 +73,7 @@ class WallFundingEntry extends Component {
                   onPress={this.props.redirectToPayment}
                   transparent>
                 <Icon active name="thumbs-up"/>
-                <Text>Pomogę</Text>
+                <Text>POMAGAM</Text>
               </Button>
             </Left>
             <Right>
@@ -79,7 +93,7 @@ class WallMessageEntry extends Component {
         <Card>
           <CardItem style={{paddingBottom: 0}}>
               <Body style={{flex:1}}>
-                <Text note style={{textAlign: 'right', alignSelf: 'stretch'}}>{moment(this.props.msg.date).format('lll')}</Text>
+                <Text note style={{textAlign: 'right', alignSelf: 'stretch'}}>{moment(this.props.msg.date).calendar()}</Text>
               </Body>
           </CardItem>
           <CardItem style={{paddingTop: 0, width: 300}}>
@@ -89,6 +103,7 @@ class WallMessageEntry extends Component {
             <Text style={{fontSize: 14}}>
               {this.props.msg.content}
             </Text>
+            <View style={{marginTop: 25}} />
           </CardItem>
         </Card>
     )
@@ -107,7 +122,7 @@ class WallPromoEntry extends Component {
             </Left>
             <Right>
               <Body>
-              <Text note>{moment(this.props.msg.date).format('lll')}</Text>
+              <Text note>{moment(this.props.msg.date).calendar()}</Text>
               </Body>
             </Right>
           </CardItem>
@@ -121,13 +136,13 @@ class WallPromoEntry extends Component {
           <CardItem>
             <Left>
               <Body>
-              <H1 style={{color: 'green'}}>{this.props.msg.discount}%</H1>
+                <H1 style={{color: 'green'}}>{formatNumber(this.props.msg.discount)}%</H1>
               <Text>Zniżka</Text>
               </Body>
             </Left>
             <Right>
               <Body>
-              <H1 style={{color: 'green', textAlign: 'right'}}>{this.props.msg.donated}%</H1>
+              <H1 style={{color: 'green', textAlign: 'right'}}>{formatNumber(this.props.msg.donated)}%</H1>
               <Text>Dla Fundacji</Text>
               </Body>
             </Right>
